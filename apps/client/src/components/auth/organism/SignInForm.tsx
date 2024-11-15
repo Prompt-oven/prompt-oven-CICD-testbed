@@ -134,7 +134,7 @@ function SignInForm() {
 							<label
 								htmlFor="remember"
 								className="cursor-pointer text-sm text-white">
-								s Remember me
+								Remember me
 							</label>
 						</div>
 						<Link
