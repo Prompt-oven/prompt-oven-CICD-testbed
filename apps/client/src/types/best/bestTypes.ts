@@ -4,6 +4,7 @@ export interface BestCreatorDataTypes {
 	rank: number
 	rankChange?: number
 	image: string
+	creatorTag?: string
 }
 
 export interface BestCreatorCursorListTypes {

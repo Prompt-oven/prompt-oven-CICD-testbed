@@ -5,6 +5,8 @@ export {
 	ChevronRight,
 	ChevronDown,
 	ArrowRight,
+	ArrowUp,
+	ArrowDown,
 	Star,
 	MoreVertical,
 	ShoppingCart,
@@ -18,4 +20,5 @@ export {
 	ArrowUpCircleIcon,
 	ArrowDownCircleIcon,
 	Trophy,
+	UserPlus,
 } from "lucide-react"
