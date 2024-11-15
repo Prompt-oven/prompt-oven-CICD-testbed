@@ -1,4 +1,4 @@
-import { RegisterOAuthMemberRequest, RegisterOAuthMemberResponse } from "@/types/auth/memberRegisterType.ts"
+import type { RegisterOAuthMemberRequest, RegisterOAuthMemberResponse } from "@/types/auth/memberRegisterType.ts"
 import { actionHandler } from "@/action/actionHandler.ts"
 
 export const registerOauthMember = async (reqBody: RegisterOAuthMemberRequest) => {

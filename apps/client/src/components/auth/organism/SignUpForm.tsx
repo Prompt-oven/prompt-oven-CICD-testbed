@@ -53,7 +53,7 @@ function SignUpForm() {
 		// todo : email code validation Api 구현하기
 	}
 
-	const emailValidationTime = 5 // 3 minutes in seconds
+	const emailValidationTime = 180 // 3 minutes in seconds
 	const [timeLeft, startTimer] = useAuthTimer({ emailValidationTime })
 
 	// nickname validation

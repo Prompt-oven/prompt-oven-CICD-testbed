@@ -8,27 +8,66 @@ import { Button } from "@repo/ui/button"
 import { CheckBox } from "@repo/ui/checkbox"
 import { loginSchema } from "@/schema/auth.ts"
 import SignInField from "@/components/auth/molecule/SignInField.tsx"
+import { signIn } from "@/action/auth/OAuthSignInAction"
+import { useRouter } from "next/navigation"
+import { SignIn } from "@/types/auth/AuthMemberType"
+import { useEffect, useState } from "react"
 
 // todo : 반복되는 컴포넌트 구조가 있는 부분은 공통화 시킬 수 있도록 리팩토링하기
 function SignInForm() {
+	const router = useRouter()
+
 	const {
 		handleSubmit,
 		register,
+		setValue,
 		formState: { errors },
 	} = useForm({
 		resolver: zodResolver(loginSchema),
 		mode: "onChange",
 	})
+	//rememberMe localstorage 저장
+	const [rememberMe, setRememberMe] = useState(false)
+
+	useEffect(() => {
+		if (typeof window !== "undefined") {
+			const savedEmail = localStorage.getItem("rememberedEmail")
+			if (savedEmail) {
+				setValue("email", savedEmail)
+				setRememberMe(true)
+			}
+		}
+	}, [setValue])
 
 	const loginSchemaKeys = loginSchema.keyof().enum
-	const handleOnSubmitSuccess = (data: FieldValues) => {
-		// eslint-disable-next-line no-console -- This is a client-side only log
-		console.log("login data - success : ", data)
-		return true
-	}
 	const handleOnSubmitFailure = (error: FieldValues) => {
 		// eslint-disable-next-line no-console -- This is a client-side only log
 		console.log("login data - failure : ", error, errors)
+
+		return true
+	}
+	const handleOnSubmitSuccess = async (data: FieldValues) => {
+		// eslint-disable-next-line no-console -- This is a client-side only log
+		// console.log("login data - success : ", data)
+		const requestData: SignIn = {
+			email: data.email,
+			password: data.password,
+		}
+
+		await signIn(requestData)
+
+		// Remember me가 체크된 경우 이메일 저장
+		rememberMe
+			? localStorage.setItem("rememberedEmail", data.email as string)
+			: localStorage.removeItem("rememberedEmail")
+
+		const previousPage = document.referrer
+		router.push(
+			previousPage && !previousPage.includes("/auth/sign-up")
+				? previousPage
+				: "/",
+		)
+
 		return true
 	}
 
@@ -73,7 +112,7 @@ function SignInForm() {
 						}}
 						inputProps={{
 							type: "password",
-							id: loginSchemaKeys.email,
+							id: loginSchemaKeys.password,
 							placeholder: "Password",
 							...register(loginSchemaKeys.password),
 						}}
@@ -88,12 +127,14 @@ function SignInForm() {
 						<div className="flex items-center space-x-2">
 							<CheckBox
 								id="remember"
+								checked={rememberMe}
+								onCheckedChange={(checked) => setRememberMe(Boolean(checked))}
 								className="h-[18px] w-[18px] rounded-none border-none !bg-[#333333] shadow-[0px_0px_30px_rgba(0,0,0,0.2)] data-[state=checked]:bg-[#333333] data-[state=checked]:text-white"
 							/>
 							<label
 								htmlFor="remember"
 								className="cursor-pointer text-sm text-white">
-								Remember me
+								s Remember me
 							</label>
 						</div>
 						<Link
@@ -148,7 +189,7 @@ function SignInForm() {
 				{/* Sign up link */}
 				<div className="h-fit text-center text-[#C1C1C1]">
 					<span> Don&apos;t have an account ?</span>
-					<Link href="/signup" className="ml-4 text-white hover:text-white/90">
+					<Link href="/sign-up" className="ml-4 text-white hover:text-white/90">
 						Create An Account
 					</Link>
 				</div>
@@ -158,3 +199,4 @@ function SignInForm() {
 }
 
 export default SignInForm
+
