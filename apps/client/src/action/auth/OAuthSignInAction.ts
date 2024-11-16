@@ -46,7 +46,7 @@ export const signIn = async (
 	reqBody: SignIn,
 ): Promise<SignInResponse> => {
 	return actionHandler<SignInResponse>({
-		name: "signInByOAuth",
+		name: "signIn",
 		url: "/v1/auth/login",
 		options: {
 			headers: {
