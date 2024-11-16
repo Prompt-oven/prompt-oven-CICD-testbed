@@ -27,7 +27,9 @@ function SignInForm() {
 		mode: "onChange",
 	})
 	//rememberMe localstorage 저장
-	const [rememberMe, setRememberMe] = useState(false)
+	const [rememberMe, setRememberMe] = useState(() => {
+		return localStorage.getItem("rememberMe") === "true"
+	})
 
 	useEffect(() => {
 		if (typeof window !== "undefined") {
@@ -56,17 +58,16 @@ function SignInForm() {
 
 		await signIn(requestData)
 
-		// Remember me가 체크된 경우 이메일 저장
+		// Remember me
 		rememberMe
 			? localStorage.setItem("rememberedEmail", data.email as string)
 			: localStorage.removeItem("rememberedEmail")
 
 		const previousPage = document.referrer
-		router.push(
-			previousPage && !previousPage.includes("/auth/sign-up")
-				? previousPage
-				: "/",
-		)
+		const targetPage =
+			previousPage && !previousPage.includes("/sign-in") ? previousPage : "/"
+
+		router.push(targetPage)
 
 		return true
 	}

@@ -2,6 +2,7 @@ import type {
 	OAuthSignInRequest,
 	OAuthSignInResponse,
 	OAuthUnRegisterRequest,
+	SignInResponse,
 } from "@/types/auth/OAuthType.ts"
 import { actionHandler } from "@/action/actionHandler.ts"
 import type { SignIn } from '@/types/auth/AuthMemberType'
@@ -43,8 +44,8 @@ export const signInByOAuth = async (
 
 export const signIn = async (
 	reqBody: SignIn,
-): Promise<OAuthSignInResponse> => {
-	return actionHandler<OAuthSignInResponse>({
+): Promise<SignInResponse> => {
+	return actionHandler<SignInResponse>({
 		name: "signInByOAuth",
 		url: "/v1/auth/login",
 		options: {
