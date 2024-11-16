@@ -27,16 +27,13 @@ function SignInForm() {
 		mode: "onChange",
 	})
 	//rememberMe localstorage 저장
-	const [rememberMe, setRememberMe] = useState(() => {
-		return localStorage.getItem("rememberMe") === "true"
-	})
+	const [rememberMe, setRememberMe] = useState<boolean | null>(null)
 
 	useEffect(() => {
 		if (typeof window !== "undefined") {
 			const savedEmail = localStorage.getItem("rememberedEmail")
 			if (savedEmail) {
 				setValue("email", savedEmail)
-				setRememberMe(true)
 			}
 		}
 	}, [setValue])
@@ -59,14 +56,16 @@ function SignInForm() {
 		await signIn(requestData)
 
 		// Remember me
-		rememberMe
-			? localStorage.setItem("rememberedEmail", data.email as string)
-			: localStorage.removeItem("rememberedEmail")
-
+		if (rememberMe) {
+			localStorage.setItem("rememberedEmail", data.email as string)
+			localStorage.setItem("rememberMe", "true")
+		} else {
+			localStorage.removeItem("rememberedEmail")
+			localStorage.setItem("rememberMe", "false")
+		}
 		const previousPage = document.referrer
 		const targetPage =
 			previousPage && !previousPage.includes("/sign-in") ? previousPage : "/"
-
 		router.push(targetPage)
 
 		return true
