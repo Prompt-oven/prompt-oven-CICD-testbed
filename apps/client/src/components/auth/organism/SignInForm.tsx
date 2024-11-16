@@ -26,18 +26,24 @@ function SignInForm() {
 		resolver: zodResolver(loginSchema),
 		mode: "onChange",
 	})
-	//rememberMe localstorage 저장
-	const [rememberMe, setRememberMe] = useState<boolean | null>(null)
+	const [isClient, setIsClient] = useState(false)
+	const [rememberMe, setRememberMe] = useState(false)
 
 	useEffect(() => {
-		if (typeof window !== "undefined") {
+		setIsClient(true) // 클라이언트 전용 로직 실행 가능
+	}, [])
+
+	useEffect(() => {
+		if (isClient) {
 			const savedEmail = localStorage.getItem("rememberedEmail")
+			const savedRememberMe = localStorage.getItem("rememberMe") === "true"
+
 			if (savedEmail) {
 				setValue("email", savedEmail)
 			}
+			setRememberMe(savedRememberMe)
 		}
-	}, [setValue])
-
+	}, [isClient, setValue])
 	const loginSchemaKeys = loginSchema.keyof().enum
 	const handleOnSubmitFailure = (error: FieldValues) => {
 		// eslint-disable-next-line no-console -- This is a client-side only log
@@ -127,7 +133,7 @@ function SignInForm() {
 						<div className="flex items-center space-x-2">
 							<CheckBox
 								id="remember"
-								checked={rememberMe}
+								checked={isClient && rememberMe}
 								onCheckedChange={(checked) => setRememberMe(Boolean(checked))}
 								className="h-[18px] w-[18px] rounded-none border-none !bg-[#333333] shadow-[0px_0px_30px_rgba(0,0,0,0.2)] data-[state=checked]:bg-[#333333] data-[state=checked]:text-white"
 							/>
