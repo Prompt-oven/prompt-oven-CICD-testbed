@@ -4,7 +4,7 @@ on:
   push:
     branches: [ "main" ]
   pull_request:
-    types: [closed]
+    types: [closed, reopened]
     branches: [ "main" ]
 
 jobs:
@@ -13,11 +13,11 @@ jobs:
     
     strategy:
       matrix:
-        node-version: [ 20.x, 22.x ]
+        node-version: [ 20.x ]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
     
     steps:
-      - name: checkout code
+      - name: Checkout code
         uses: actions/checkout@v4
       
       - name: Setup Node.js ${{ matrix.node-version }}
@@ -45,36 +45,6 @@ jobs:
       
       - name: Install dependencies
         run: pnpm install
-      
-      - name: Cache Turbo build
-        uses: actions/cache@v4
-        with:
-          path: .turbo
-          key: ${{ matrix.node-version }}-${{ runner.os }}-turbo-${{ github.sha }}
-          restore-keys: |
-            ${{ matrix.node-version }}-${{ runner.os }}-turbo-
-      
-      - name: make .env for proper build
-        run: |
-          touch .env
-          echo '${{ secrets.PROPERTIES_PROD }}' > apps/client/.env
-          echo '${{ secrets.PROPERTIES_PROD }}' > apps/admin/.env
-        shell: bash
-      
-      - name: Build_apps
-        run: pnpm turbo build
-      
-      - name: Save client build artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: client-build
-          path: ./apps/client/.next
-      
-      - name: Save admin build artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: admin-build
-          path: ./apps/admin/.next
   
   deploy:
     runs-on: ubuntu-latest
@@ -84,23 +54,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
       
-      - name: Download client build artifacts
-        uses: actions/download-artifact@v3
-        with:
-          name: client-build
-          path: ./apps/client/.next
-      
-      - name: Download admin build artifacts
-        uses: actions/download-artifact@v3
-        with:
-          name: admin-build
-          path: ./apps/admin/.next
-      
-      - name: Docker build for client
-        run: docker build -f Dockerfile.client -t ${{ secrets.DOCKERHUB_USERNAME }}/client-app .
-      
-      - name: Docker build for admin
-        run: docker build -f Dockerfile.admin -t ${{ secrets.DOCKERHUB_USERNAME }}/admin-app .
+      - name: Docker build for all apps
+        run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/prompt_oven_fe .
       
       - name: Docker login
         uses: docker/login-action@v3
@@ -108,13 +63,10 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
       
-      - name: Docker push (Client)
-        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/client-app
+      - name: Docker push
+        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/prompt_oven_fe
       
-      - name: Docker push (Admin)
-        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/admin-app
-      
-      - name: Deploy client to EC2
+      - name: Deploy to EC2
         uses: appleboy/ssh-action@v0.1.6
         with:
           host: ${{ secrets.EC2_FE_HOST }}
@@ -122,30 +74,15 @@ jobs:
           key: ${{ secrets.EC2_KEY }}
           timeout: 60s
           script: |
-            echo "Stopping existing client container..."
-            sudo docker stop client-app || true
-            sudo docker rm client-app || true
+            echo "Stopping existing container..."
+            sudo docker stop prompt_oven_fe || true
+            sudo docker rm prompt_oven_fe || true
             
-            echo "Pulling latest client image..."
-            sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/client-app:latest
+            echo "Pulling latest image..."
+            sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/prompt_oven_fe:latest
             
-            echo "Running client container..."
-            sudo docker run -d --name client-app -p 3001:3001 ${{ secrets.DOCKERHUB_USERNAME }}/client-app:latest
-      
-      - name: Deploy admin to EC2
-        uses: appleboy/ssh-action@v0.1.6
-        with:
-          host: ${{ secrets.EC2_FE_HOST }}
-          username: ubuntu
-          key: ${{ secrets.EC2_KEY }}
-          timeout: 60s
-          script: |
-            echo "Stopping existing admin container..."
-            sudo docker stop admin-app || true
-            sudo docker rm admin-app || true
+            echo "Running container..."
+            sudo docker run -d --name prompt_oven_fe -p 3000:3000 -p 3001:3001 ${{ secrets.DOCKERHUB_USERNAME }}/prompt_oven_fe:latest
             
-            echo "Pulling latest admin image..."
-            sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/admin-app:latest
-            
-            echo "Running admin container..."
-            sudo docker run -d --name admin-app -p 3000:3000 ${{ secrets.DOCKERHUB_USERNAME }}/admin-app:latest
+            echo "Cleaning up unused Docker images..."
+            sudo docker image prune -f
