@@ -1,14 +1,38 @@
-import React from "react"
-import { UserPlus } from "@repo/ui/lucide"
+"use client"
+
+import React, { useState } from "react"
+import { UserPlus, UserCheck } from "@repo/ui/lucide"
 import { Button } from "@repo/ui/button"
 
-function FollowCreatorButton() {
+interface FollowCreatorButtonProps {
+	initialFollowed?: boolean
+	_memberUUID?: string
+}
+
+function FollowCreatorButton({
+	initialFollowed = false,
+	_memberUUID = "test",
+}: FollowCreatorButtonProps) {
+	const [followed, setFollowed] = useState(initialFollowed)
+	const handleClick = async (event: React.MouseEvent<HTMLButtonElement>) => {
+		event.preventDefault()
+
+		// const result = await followAction(memberUUID);
+		setFollowed((prev) => !prev) // 상태 토글
+	}
 	return (
 		<Button
 			variant="ghost"
-			className="absolute right-2 top-2 text-white hover:bg-white/20">
-			<UserPlus size={500} className="h-100 w-100" />
-			<span className="sr-only">Follow user</span>
+			className="h-auto w-auto p-2 text-white hover:bg-white/20"
+			onClick={handleClick}>
+			{followed ? (
+				<UserCheck className="!h-[1.4rem] !w-[1.4rem]" />
+			) : (
+				<UserPlus className="!h-[1.4rem] !w-[1.4rem]" />
+			)}
+			<span className="sr-only">
+				{followed ? "Unfollow user" : "Follow user"}
+			</span>
 		</Button>
 	)
 }

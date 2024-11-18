@@ -5,6 +5,7 @@ import type { Metadata } from "next"
 import { roboto, sora } from "@/app/fonts.ts"
 import MainHeader from "@/components/main/molecule/MainHeader.tsx"
 import { AuthSessionProvider } from "@/provider/authSessionProvider.tsx"
+import { Toaster } from "@repo/ui/toaster"
 
 export const metadata: Metadata = {
 	title: "Prompt Oven",
@@ -42,6 +43,7 @@ export default function RootLayout({
 				<AuthSessionProvider>
 					<MainHeader />
 					{children}
+					<Toaster />
 				</AuthSessionProvider>
 			</body>
 		</html>

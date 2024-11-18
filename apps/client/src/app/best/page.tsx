@@ -10,10 +10,11 @@ import {
 export default async function Page() {
 	const bestData: BestCreatorCursorListTypes = await getBestCreatorData()
 	const top5Data: BestCreatorDataTypes[] = bestData.content.slice(0, 5)
+	const restData: BestCreatorDataTypes[] = bestData.content.slice(5)
 	return (
 		<section>
 			<BestTop5 data={top5Data} />
-			<BestList />
+			<BestList data={restData} />
 		</section>
 	)
 }

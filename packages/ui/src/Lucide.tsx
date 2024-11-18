@@ -21,4 +21,6 @@ export {
 	ArrowDownCircleIcon,
 	Trophy,
 	UserPlus,
+	UserCheck,
+	Minus,
 } from "lucide-react"
