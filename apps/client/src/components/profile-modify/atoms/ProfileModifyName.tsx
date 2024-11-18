@@ -18,7 +18,7 @@ export default function ProfileModifyName({
 					{hashTag ? `#${hashTag}` : "No HashTag"}
 				</span>
 			</p>
-			<p className="mb-3 flex flex-col gap-1 text-[10px] sm:mb-1 sm:h-4 sm:flex-row md:gap-4">
+			<p className="mb-2 flex flex-col gap-1 text-[10px] sm:mb-1 sm:h-4 sm:flex-row md:gap-4">
 				<span className="line-clamp-1 font-semibold">@{nickname}</span>
 				<span className="line-clamp-1 text-[#e5d9f2]">{joined}</span>
 			</p>
