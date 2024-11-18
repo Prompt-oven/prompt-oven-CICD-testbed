@@ -25,14 +25,30 @@ export default function ProfileModifyInfo({ memberData }: MemberDataProps) {
 		memberData.bio ? memberData.bio : "",
 	)
 
-	// eslint-disable-next-line no-console -- This is a client-side only log
-	console.log(setHashTag)
-	// eslint-disable-next-line no-console -- This is a client-side only log
-	console.log(setNickname)
-	// eslint-disable-next-line no-console -- This is a client-side only log
-	console.log(setEmail)
-	// eslint-disable-next-line no-console -- This is a client-side only log
-	console.log(setBio)
+	const handleInputChange = (field: string, value: string) => {
+		switch (field) {
+			case "hashTag":
+				setHashTag(value)
+				break
+			case "nickname":
+				setNickname(value)
+				break
+			case "email":
+				setEmail(value)
+				break
+			case "bio":
+				setBio(value)
+				break
+			default:
+				break
+		}
+	}
+
+	const handleReset = (option: string) => {
+		if (option === "hashTag") {
+			setHashTag(memberData.hashTag ? memberData.hashTag : "")
+		}
+	}
 
 	return (
 		<div className="mb-20">
@@ -65,11 +81,16 @@ export default function ProfileModifyInfo({ memberData }: MemberDataProps) {
 					<div className="flex items-center gap-2">
 						<Input
 							className="flex h-[40px] items-center rounded-lg border border-white/20 bg-gradient-to-r from-[#3F1C24] to-[#262038] px-4"
-							defaultValue={hashTag}
+							value={hashTag}
+							onChange={(e) => handleInputChange("hashTag", e.target.value)}
 							placeholder="해시태그를 입력해주세요... (기본적으로 앞에 #이 붙습니다)"
 						/>
 						<Button className="bg-[#1a2642] hover:bg-[#10192e]">Apply</Button>
-						<Button className="bg-[#fc5113] hover:bg-[#a55335]">Reset</Button>
+						<Button
+							className="bg-[#fc5113] hover:bg-[#a55335]"
+							onClick={() => handleReset("hashTag")}>
+							Reset
+						</Button>
 					</div>
 				</div>
 

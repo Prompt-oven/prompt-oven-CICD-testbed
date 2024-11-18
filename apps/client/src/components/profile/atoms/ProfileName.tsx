@@ -7,16 +7,22 @@ interface MemberNameProps {
 
 export default function ProfileName({ memberData }: MemberNameProps) {
 	return (
-		<div className="text-sm text-white">
-			<p className="mb-2 flex gap-2 text-sm font-semibold">
-				{memberData.hashTag ? `#${memberData.hashTag}` : "No HashTag"}
+		<div className="w-full text-xs text-white">
+			<p className="mb-2 h-5 font-semibold md:text-sm">
+				<span className="line-clamp-1">
+					{memberData.hashTag ? `#${memberData.hashTag}` : "No HashTag"}
+				</span>
 			</p>
-			<p className="flex flex-col gap-0 text-[10px] sm:flex-row md:gap-4">
-				<span className="font-semibold">@{memberData.nickname}</span>
-				<span className="text-[#e5d9f2]">{memberData.joined}</span>
+			<p className="mb-3 flex flex-col gap-1 text-[10px] sm:mb-1 sm:h-4 sm:flex-row md:gap-4">
+				<span className="line-clamp-1 font-semibold">
+					@{memberData.nickname}
+				</span>
+				<span className="line-clamp-1 text-[#e5d9f2]">{memberData.joined}</span>
 			</p>
-			<p className="text-[10px]">
-				{memberData.email ? memberData.email : "No Email"}
+			<p className="h-4 text-[10px]">
+				<span className="line-clamp-1">
+					{memberData.email ? memberData.email : "No Email"}
+				</span>
 			</p>
 		</div>
 	)
