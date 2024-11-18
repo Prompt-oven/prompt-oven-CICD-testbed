@@ -25,9 +25,7 @@
 		"./radio-group": "./src/RadioGroup.tsx",
 		"./rating-read-only": "./src/StarRatingReadOnly.tsx",
 		"./dialog": "./src/Dialog.tsx",
-		"./skeleton": "./src/Skeleton.tsx",
-		"./toast": "./src/Toast.tsx",
-		"./toaster": "./src/Toaster.tsx"
+		"./skeleton": "./src/Skeleton.tsx"
 	},
 	"license": "MIT",
 	"scripts": {
