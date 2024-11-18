@@ -71,6 +71,8 @@ export default function ProfileModifyInfo({ memberData }: MemberDataProps) {
 					<ProfileModifyAvatar memberAvatar={memberData.avatarImageUrl} />
 
 					<div className="mt-[90px] flex h-[175px] flex-grow justify-between gap-2 rounded-xl bg-gradient-to-r from-[#B514F1] to-[#0BA9FF] p-4 md:mt-0 md:h-[90%] md:items-center md:p-8">
+						{/* 배너 및 아바타 이미지 추가 필요 */}
+
 						<ProfileModifyInfoLeft
 							hashTag={hashTag}
 							nickname={nickname}
