@@ -13,7 +13,7 @@ export default function ProfileName({ memberData }: MemberNameProps) {
 					{memberData.hashTag ? `#${memberData.hashTag}` : "No HashTag"}
 				</span>
 			</p>
-			<p className="mb-2 flex flex-col gap-1 text-[10px] sm:mb-1 sm:h-4 sm:flex-row md:gap-4">
+			<p className="mb-2 flex flex-col gap-1 text-[10px] sm:mb-1">
 				<span className="line-clamp-1 font-semibold">
 					@{memberData.nickname}
 				</span>

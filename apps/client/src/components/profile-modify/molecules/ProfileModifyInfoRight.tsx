@@ -21,9 +21,9 @@ export default function ProfileModifyInfoRight({
 	return (
 		<div className="custom-scrollbar flex flex-grow overflow-auto">
 			<div className="flex w-full flex-col gap-1">
-				<div className="h-12 w-full rounded-lg bg-white/40 text-sm text-white">
+				<div className="h-16 w-full rounded-lg bg-white/40 text-sm text-white">
 					<p className="mx-2 py-1">
-						<span className="line-clamp-2 text-[12px]">
+						<span className="line-clamp-3 text-[12px]">
 							{bio ? bio : "자기소개가 없습니다."}
 						</span>
 					</p>
