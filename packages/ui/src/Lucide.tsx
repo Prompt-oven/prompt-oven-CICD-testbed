@@ -18,4 +18,15 @@ export {
 	ArrowUpCircleIcon,
 	ArrowDownCircleIcon,
 	Trophy,
+	Award,
+	Boxes,
+	Download,
+	FileText,
+	LayoutDashboard,
+	Package,
+	Play,
+	Settings,
+	TagsIcon,
+	Wallet,
+	type LucideProps
 } from "lucide-react"
