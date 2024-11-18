@@ -9,7 +9,7 @@ export default async function Profile() {
 	const listData = await getProfileList()
 
 	return (
-		<main className="flex min-h-screen w-screen justify-center overflow-auto bg-[#111111] py-1">
+		<main className="flex min-h-screen justify-center overflow-auto bg-[#111111] py-1">
 			<ProfileTemplate memberData={memberData} listData={listData} />
 		</main>
 	)
