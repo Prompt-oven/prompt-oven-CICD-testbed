@@ -95,7 +95,7 @@ export default function ProfileModifyInfo({ memberData }: MemberDataProps) {
 					title="#해시태그"
 					inputValue={hashTag}
 					handleValue="hashTag"
-					placeholder="해시태그를 입력해주세요... (기본적으로 앞에 #이 붙습니다)"
+					placeholder="해시태그를 입력해주세요... (기본적으로 앞에 #이 붙습니다.)"
 					handleInputChange={handleInputChange}
 					handleReset={handleReset}
 				/>
@@ -104,7 +104,7 @@ export default function ProfileModifyInfo({ memberData }: MemberDataProps) {
 					title="@닉네임"
 					inputValue={nickname}
 					handleValue="nickname"
-					placeholder="닉네임을 입력해주세요... (기본적으로 앞에 @이 붙습니다)"
+					placeholder="닉네임을 입력해주세요... (기본적으로 앞에 @이 붙습니다.)"
 					handleInputChange={handleInputChange}
 					handleReset={handleReset}
 				/>
@@ -113,7 +113,7 @@ export default function ProfileModifyInfo({ memberData }: MemberDataProps) {
 					title="이메일"
 					inputValue={email}
 					handleValue="email"
-					placeholder="이메일을 입력해주세요..."
+					placeholder="이메일을 입력해주세요...."
 					handleInputChange={handleInputChange}
 					handleReset={handleReset}
 				/>
@@ -122,7 +122,7 @@ export default function ProfileModifyInfo({ memberData }: MemberDataProps) {
 					title="자기소개"
 					inputValue={bio}
 					handleValue="bio"
-					placeholder="자기소개를 입력해주세요..."
+					placeholder="자기소개를 입력해주세요...."
 					handleInputChange={handleInputChange}
 					handleReset={handleReset}
 				/>

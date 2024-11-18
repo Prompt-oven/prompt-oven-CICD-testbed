@@ -30,7 +30,7 @@ export default function ProfileInfoLeft({ memberData }: MemberLeftProps) {
 					<DropdownMenuTrigger asChild>
 						<Button
 							variant="ghost"
-							className="hover:bDropdownMenug-white/60 w-10 bg-white/50 p-0">
+							className="hover:white/60 w-10 bg-white/50 p-0">
 							<MoreVertical className="h-4 w-4 text-white" />
 						</Button>
 					</DropdownMenuTrigger>
