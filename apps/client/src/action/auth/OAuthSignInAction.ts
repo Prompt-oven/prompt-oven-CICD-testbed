@@ -2,8 +2,10 @@ import type {
 	OAuthSignInRequest,
 	OAuthSignInResponse,
 	OAuthUnRegisterRequest,
+	SignInResponse,
 } from "@/types/auth/OAuthType.ts"
 import { actionHandler } from "@/action/actionHandler.ts"
+import type { SignIn } from '@/types/auth/AuthMemberType'
 
 // todo : 구현 마무리하기 -- 2024.11.12
 export const unregisterByOAuth = async (
@@ -29,6 +31,23 @@ export const signInByOAuth = async (
 	return actionHandler<OAuthSignInResponse>({
 		name: "signInByOAuth",
 		url: "/v1/auth/oauth/login",
+		options: {
+			headers: {
+				"Content-Type": "application/json",
+			},
+			method: "POST",
+			body: JSON.stringify(reqBody),
+			cache: "no-cache",
+		},
+	})
+}
+
+export const signIn = async (
+	reqBody: SignIn,
+): Promise<SignInResponse> => {
+	return actionHandler<SignInResponse>({
+		name: "signIn",
+		url: "/v1/auth/login",
 		options: {
 			headers: {
 				"Content-Type": "application/json",

@@ -10,6 +10,8 @@ import { signupSchema, signupSchemaObject } from "@/schema/auth.ts"
 import SignUpField from "@/components/auth/molecule/SignUpField.tsx"
 import SignUpTimerField from "@/components/auth/molecule/SignUpTimerField.tsx"
 import { useAuthTimer } from "@/hooks/auth/useAuthTimer.ts"
+import { registerAuthMember } from "@/action/auth/memberRegisterAction"
+import { RegisterOAuthMemberResponse } from "@/types/auth/memberRegisterType"
 
 // todo : 반복되는 컴포넌트 구조가 있는 부분은 공통화 시킬 수 있도록 리팩토링하기
 function SignUpForm() {
@@ -28,10 +30,13 @@ function SignUpForm() {
 	const emailCode = watch(signUpSchemaKeys.emailCode) as string
 	const nickName = watch(signUpSchemaKeys.nickname) as string
 
-	const handleOnSubmitSuccess = (data: FieldValues) => {
+	const handleOnSubmitSuccess = async (data: FieldValues) => {
 		// eslint-disable-next-line no-console -- This is a client-side only log
-		console.log("login data - success : ", data)
-		return true
+		// console.log("login data - success : ", data)
+		//
+		const responseData = data as RegisterOAuthMemberResponse
+		await registerAuthMember(responseData)
+		window.location.href = "/auth/sign-in"
 	}
 	const handleOnSubmitFailure = (error: FieldValues) => {
 		// eslint-disable-next-line no-console -- This is a client-side only log
@@ -48,7 +53,7 @@ function SignUpForm() {
 		// todo : email code validation Api 구현하기
 	}
 
-	const emailValidationTime = 5 // 3 minutes in seconds
+	const emailValidationTime = 180 // 3 minutes in seconds
 	const [timeLeft, startTimer] = useAuthTimer({ emailValidationTime })
 
 	// nickname validation
@@ -118,7 +123,6 @@ function SignUpForm() {
 							timeLeft={timeLeft}
 						/>
 					) : null}
-
 					{/* Password */}
 					<SignUpField
 						labelText="Password"
@@ -207,3 +211,4 @@ function SignUpForm() {
 }
 
 export default SignUpForm
+

@@ -23,3 +23,5 @@ export interface OAuthSignInResponse {
 	memberUUID: string
 	failed: boolean
 }
+
+export type SignInResponse = Omit<OAuthSignInResponse, 'failed'>
