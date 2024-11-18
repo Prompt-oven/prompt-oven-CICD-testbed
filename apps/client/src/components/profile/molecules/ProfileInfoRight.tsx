@@ -11,7 +11,7 @@ export default function ProfileInfoRight({ memberData }: MemberRightProps) {
 	const formattedFollower = formatFollowers(memberData.follower)
 
 	return (
-		<div className="custom-scrollbar flex max-w-[75%] flex-grow overflow-auto">
+		<div className="custom-scrollbar flex max-w-[80%] flex-grow overflow-auto">
 			<div className="flex w-full flex-col gap-1">
 				<div className="h-16 w-full rounded-lg bg-white/40 text-sm text-white">
 					<p className="mx-2 py-1">
