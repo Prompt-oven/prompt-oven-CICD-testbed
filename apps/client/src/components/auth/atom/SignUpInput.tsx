@@ -1,4 +1,5 @@
-import { forwardRef, HTMLProps, useState } from "react"
+import type { HTMLProps } from "react"
+import { forwardRef, useState } from "react"
 import { Eye, EyeOff } from "@repo/ui/lucide"
 import type { InputProps } from "@repo/ui/input"
 import { Input } from "@repo/ui/input"
@@ -13,7 +14,9 @@ const SignUpInput = forwardRef<HTMLInputElement, SignUpInputProps>(
 		const [showPassword, setShowPassword] = useState(false)
 
 		return (
-			<div {...containerProps} className={`relative ${containerProps.className ?? ""}`}>
+			<div
+				{...containerProps}
+				className={`relative ${containerProps.className ?? ""}`}>
 				<Input
 					ref={ref}
 					variant="signup"
