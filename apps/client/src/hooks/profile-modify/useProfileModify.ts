@@ -20,9 +20,17 @@ export const useProfileModify = (memberData: ProfileMemberInfoType) => {
 		memberData.bio ? memberData.bio : "",
 	)
 
+	const MAX_FILE_SIZE = 5 * 1024 * 1024 // 5MB
 	const handleBannerChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const file = event.target.files?.[0]
 		if (file) {
+			if (file.size > MAX_FILE_SIZE) {
+				// eslint-disable-next-line no-alert -- omments to inform image capacity overrun
+				alert("파일 크기가 5MB를 초과합니다. 다른 파일을 선택해 주세요.")
+				event.target.value = ""
+				return
+			}
+
 			const reader = new FileReader()
 			reader.onloadend = () => {
 				setBanner(reader.result as string) // 파일을 URL로 변환하여 상태 업데이트
@@ -31,13 +39,12 @@ export const useProfileModify = (memberData: ProfileMemberInfoType) => {
 		}
 	}
 
-	const MAX_FILE_SIZE = 5 * 1024 * 1024 // 5MB
 	const handleAvatarChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const file = event.target.files?.[0]
 		if (file) {
 			if (file.size > MAX_FILE_SIZE) {
 				// eslint-disable-next-line no-alert -- omments to inform image capacity overrun
-				alert("파일 크기가 1MB를 초과합니다. 다른 파일을 선택해 주세요.")
+				alert("파일 크기가 5MB를 초과합니다. 다른 파일을 선택해 주세요.")
 				event.target.value = ""
 				return
 			}
