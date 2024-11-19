@@ -23,7 +23,7 @@ function SideMenuItem({
 			{...props}
 			className={cn(
 				"flex h-[60px] items-center justify-between rounded-lg px-5 py-4 transition-colors hover:bg-white/10",
-				view.includes(activeRoute) && "*:color-[#E2ADFF] *:text-[#E2ADFF]",
+				view.includes(activeRoute) && "text-[#E2ADFF]",
 				props.className,
 			)}>
 			<div className="flex items-center gap-3">
