@@ -10,7 +10,7 @@ export interface MenuItemType {
 		Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>
 	>
 	label: string
-	route: string
+	view: string
 }
 export interface SubMenuItemType extends Omit<MenuItemType, "icon"> {
 	icon?: ForwardRefExoticComponent<
