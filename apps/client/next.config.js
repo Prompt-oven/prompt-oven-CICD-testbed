@@ -2,6 +2,11 @@
 module.exports = {
 	reactStrictMode: true,
 	transpilePackages: ["@repo/ui"],
+	experimental: {
+		serverActions: {
+			bodySizeLimit: "6mb",
+		},
+	},
 	images: {
 		remotePatterns: [
 			{
@@ -37,4 +42,3 @@ module.exports = {
 		],
 	},
 }
-

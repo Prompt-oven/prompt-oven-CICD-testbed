@@ -14,12 +14,13 @@ export async function POST(req: Request) {
 	try {
 		const formData = await req.formData()
 		const files = formData.getAll("img") as File[]
+
 		const Body = (await files[0].arrayBuffer()) as Buffer
 
 		s3.send(
 			new PutObjectCommand({
 				Bucket,
-				Key: `dummy/${files[0].name}`,
+				Key: `dummy/profile/${files[0].name}`,
 				Body,
 				ContentType: "image/png",
 			}),

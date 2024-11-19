@@ -27,6 +27,7 @@ export default function ProfileModifyInfoLeft({
 
 			<div className="mt-4 flex items-center gap-2 md:mt-0">
 				<Button
+					type="button"
 					variant="ghost"
 					className="font-mulish bg-white/50 p-1 font-semibold text-white hover:bg-white/60 md:p-4">
 					<Star className="mx-2" />
