@@ -20,7 +20,6 @@ export {
 	ArrowUpCircleIcon,
 	ArrowDownCircleIcon,
 	Trophy,
-  Sidebar_Component
 	Award,
 	Boxes,
 	Download,
@@ -31,8 +30,8 @@ export {
 	Settings,
 	TagsIcon,
 	Wallet,
-	type LucideProps
 	UserPlus,
 	UserCheck,
 	Minus,
+	type LucideProps,
 } from "lucide-react"
