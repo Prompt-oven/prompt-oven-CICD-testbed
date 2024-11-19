@@ -8,11 +8,13 @@ import { Input } from "@repo/ui/input"
 interface SearchInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 	width?: string
 	placeholder?: string
+	query?: string
 }
 
 export default function SearchInput({
 	width,
 	placeholder = "Search items, collection or user",
+	query,
 	...props
 }: SearchInputProps) {
 	const [shortcut, setShortcut] = useState("⌘K")
@@ -42,6 +44,7 @@ export default function SearchInput({
 			style={{ width: width || "100%" }}>
 			<Input
 				ref={inputRef}
+				value={query}
 				type="text"
 				placeholder={placeholder}
 				{...props}
