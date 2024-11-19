@@ -13,11 +13,20 @@ import {
 	Wallet,
 } from "@repo/ui/lucide"
 import type { MenuNavItemType } from "@/types/account/accountSideMenuType.ts"
-import AccountSideMenu from "@/components/account/molecule/AccountSideMenu.tsx"
+import SideMenu from "@/components/account/organism/SideMenu.tsx"
 
 const menuItems: MenuNavItemType[] = [
 	{ icon: LayoutDashboard, label: "Overview", route: "overview" },
-	{ icon: Package, label: "Product", route: "product", subMenu: [] },
+	{
+		icon: Package,
+		label: "Product",
+		route: "product",
+		subMenu: [
+			{ label: "Create Product", route: "create-product" },
+			{ label: "Product List", route: "product-list" },
+			{ label: "Category", route: "product-category" },
+		],
+	},
 	{ icon: User, label: "Profile", route: "profile" },
 	{ icon: FileText, label: "Prompts", route: "prompts" },
 	{ icon: TagsIcon, label: "Sales", route: "sales" },
@@ -31,7 +40,7 @@ interface AccountContentWrapperProps {
 	children?: React.ReactNode
 }
 
-export default function AccountContentWrapper({
+export default function ContentWrapper({
 	children,
 }: AccountContentWrapperProps) {
 	const [activeRoute, setActiveRoute] = React.useState("dashboard")
@@ -39,7 +48,7 @@ export default function AccountContentWrapper({
 
 	return (
 		<div className="relative flex h-[calc(100vh-80px)]">
-			<AccountSideMenu
+			<SideMenu
 				menuItems={menuItems}
 				activeRoute={activeRoute}
 				setActiveRoute={setActiveRoute}

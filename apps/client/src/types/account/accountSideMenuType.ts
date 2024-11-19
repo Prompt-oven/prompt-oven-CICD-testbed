@@ -1,6 +1,10 @@
 import type { ForwardRefExoticComponent, RefAttributes } from "react"
 import type { LucideProps } from "@repo/ui/lucide"
 
+export type MenuItemIconType = ForwardRefExoticComponent<
+	Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>
+>
+
 export interface MenuItemType {
 	icon: ForwardRefExoticComponent<
 		Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>

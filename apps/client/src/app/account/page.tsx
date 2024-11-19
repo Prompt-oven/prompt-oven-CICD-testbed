@@ -1,4 +1,4 @@
-import AccountContentWrapper from "@/components/account/organism/AccountContentWrapper.tsx"
+import ContentWrapper from "@/components/account/template/ContentWrapper.tsx"
 
 interface PageProps {
 	params: {
@@ -9,8 +9,8 @@ interface PageProps {
 export default function page({ params }: PageProps) {
 	const view = params.view
 	return (
-		<AccountContentWrapper>
+		<ContentWrapper>
 			<div className="text-white">test text {view}</div>
-		</AccountContentWrapper>
+		</ContentWrapper>
 	)
 }
