@@ -1,14 +1,22 @@
-import React from "react"
-import type { ProfileMemberInfoType } from "@/types/profile/profileTypes"
 import { formatFollowers } from "@/lib/utils"
 
 interface MemberRightProps {
-	memberData: ProfileMemberInfoType
+	bio: string | undefined
+	following: number
+	follower: number
+	viewer: number
+	sales: number
 }
 
-export default function ProfileInfoRight({ memberData }: MemberRightProps) {
-	const formattedFollowing = formatFollowers(memberData.following)
-	const formattedFollower = formatFollowers(memberData.follower)
+export default function ProfileModifyInfoRight({
+	bio,
+	following,
+	follower,
+	viewer,
+	sales,
+}: MemberRightProps) {
+	const formattedFollowing = formatFollowers(following)
+	const formattedFollower = formatFollowers(follower)
 
 	return (
 		<div className="custom-scrollbar flex max-w-[80%] flex-grow overflow-auto">
@@ -16,7 +24,7 @@ export default function ProfileInfoRight({ memberData }: MemberRightProps) {
 				<div className="h-16 w-full rounded-lg bg-white/40 text-sm text-white">
 					<p className="mx-2 py-1">
 						<span className="line-clamp-3 text-[12px]">
-							{memberData.bio ? memberData.bio : "자기소개가 없습니다."}
+							{bio ? bio : "자기소개가 없습니다."}
 						</span>
 					</p>
 				</div>
@@ -43,7 +51,7 @@ export default function ProfileInfoRight({ memberData }: MemberRightProps) {
 								Viewer
 							</span>
 							<span className="font-mulish text-[10px] font-bold text-white xl:text-xs 2xl:text-sm">
-								{memberData.viewer.toLocaleString()}
+								{viewer.toLocaleString()}
 							</span>
 						</div>
 						<div className="flex min-w-0 items-center justify-center gap-1 md:flex-col">
@@ -51,7 +59,7 @@ export default function ProfileInfoRight({ memberData }: MemberRightProps) {
 								Sales
 							</span>
 							<span className="font-mulish text-[10px] font-bold text-white xl:text-xs 2xl:text-sm">
-								{memberData.sales.toLocaleString()}
+								{sales.toLocaleString()}
 							</span>
 						</div>
 					</div>

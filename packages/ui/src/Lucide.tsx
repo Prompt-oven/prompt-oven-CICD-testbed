@@ -5,6 +5,8 @@ export {
 	ChevronRight,
 	ChevronDown,
 	ArrowRight,
+	ArrowUp,
+	ArrowDown,
 	Star,
 	MoreVertical,
 	ShoppingCart,
@@ -18,6 +20,7 @@ export {
 	ArrowUpCircleIcon,
 	ArrowDownCircleIcon,
 	Trophy,
+  Sidebar_Component
 	Award,
 	Boxes,
 	Download,
@@ -29,4 +32,7 @@ export {
 	TagsIcon,
 	Wallet,
 	type LucideProps
+	UserPlus,
+	UserCheck,
+	Minus,
 } from "lucide-react"

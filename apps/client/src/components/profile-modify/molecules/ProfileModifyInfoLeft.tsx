@@ -1,26 +1,33 @@
-import Link from "next/link"
 import { Button } from "@repo/ui/button"
-import {
-	DropdownMenu,
-	DropdownMenuContent,
-	DropdownMenuItem,
-	DropdownMenuTrigger,
-} from "@repo/ui/dropdown-menu"
+import { DropdownMenu, DropdownMenuTrigger } from "@repo/ui/dropdown-menu"
 import { MoreVertical, Star } from "@repo/ui/lucide"
-import type { ProfileMemberInfoType } from "@/types/profile/profileTypes"
-import ProfileName from "../atoms/ProfileName"
+import ProfileModifyName from "../atoms/ProfileModifyName"
 
 interface MemberLeftProps {
-	memberData: ProfileMemberInfoType
+	hashTag: string | undefined
+	nickname: string
+	email: string | undefined
+	joined: string
 }
 
-export default function ProfileInfoLeft({ memberData }: MemberLeftProps) {
+export default function ProfileModifyInfoLeft({
+	hashTag,
+	nickname,
+	email,
+	joined,
+}: MemberLeftProps) {
 	return (
 		<div className="flex max-w-[25%] flex-col justify-between gap-1 xl:gap-3">
-			<ProfileName memberData={memberData} />
+			<ProfileModifyName
+				hashTag={hashTag}
+				nickname={nickname}
+				email={email}
+				joined={joined}
+			/>
 
 			<div className="mt-4 flex items-center gap-2 md:mt-0">
 				<Button
+					type="button"
 					variant="ghost"
 					className="font-mulish bg-white/50 p-1 font-semibold text-white hover:bg-white/60 md:p-4">
 					<Star className="mx-2" />
@@ -30,11 +37,11 @@ export default function ProfileInfoLeft({ memberData }: MemberLeftProps) {
 					<DropdownMenuTrigger asChild>
 						<Button
 							variant="ghost"
-							className="hover:white/60 w-10 bg-white/50 p-0">
+							className="hover:bDropdownMenug-white/60 w-10 bg-white/50 p-0">
 							<MoreVertical className="h-4 w-4 text-white" />
 						</Button>
 					</DropdownMenuTrigger>
-					<DropdownMenuContent
+					{/* <DropdownMenuContent
 						align="end"
 						className="bg-[#ead4ff] font-semibold text-[#3a3a3a]">
 						<DropdownMenuItem>
@@ -47,7 +54,7 @@ export default function ProfileInfoLeft({ memberData }: MemberLeftProps) {
 								<p>신고</p>
 							</Link>
 						</DropdownMenuItem>
-					</DropdownMenuContent>
+					</DropdownMenuContent> */}
 				</DropdownMenu>
 			</div>
 		</div>
