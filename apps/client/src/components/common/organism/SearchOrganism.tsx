@@ -8,7 +8,7 @@ import SearchDropdown from "../molecule/SearchDropdown"
 import { useRouter } from "next/navigation"
 
 function SearchOrganism() {
-	const [_open, setOpen] = useState(false)
+	const [open, setOpen] = useState(false)
 	const [query, setQuery] = useState("")
 	const [isLoading, setIsLoading] = useState(false)
 	const { creators, prompts, fetchAndSetSearchResults } = useSearchActions()
@@ -48,7 +48,7 @@ function SearchOrganism() {
 				onBlur={handleBlur}
 				onChange={(e) => setQuery(e.target.value)}
 			/>
-			{query.length > 0 && (
+			{open && query.length > 0 && (
 				<div className="absolute left-0 top-full z-10 w-full">
 					<SearchDropdown
 						creators={creators}
