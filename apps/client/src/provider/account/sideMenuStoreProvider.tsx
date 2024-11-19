@@ -36,7 +36,9 @@ export const useSideMenuToggleStore = <T,>(
 	const sideMenuToggleStoreContext = useContext(SideMenuToggleStoreContext)
 
 	if (!sideMenuToggleStoreContext) {
-		throw new Error(`useCounterStore must be used within CounterStoreProvider`)
+		throw new Error(
+			`useSideMenuToggleStore must be used within SideMenuToggleStoreProvider`,
+		)
 	}
 
 	return useStore(sideMenuToggleStoreContext, selector)
