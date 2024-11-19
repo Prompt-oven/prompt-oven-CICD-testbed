@@ -46,7 +46,8 @@ function SideMenuToggleItem({
 				{...props}
 				className={cn(
 					"flex h-[60px] items-center justify-between rounded-lg px-5 py-4 transition-colors hover:bg-white/10",
-					view.includes(activeRoute) && "*:color-[#E2ADFF] *:text-[#E2ADFF]",
+					// note: 상위 메뉴의 색상이 반영되려면 activeRoute 텍스트가 view를 포함하고 있어야 함
+					activeRoute.includes(view) && "text-[#E2ADFF]",
 					props.className,
 				)}>
 				<div className="flex items-center gap-3">
@@ -70,7 +71,7 @@ function SideMenuToggleItem({
 						// eslint-disable-next-line react/no-array-index-key -- This is a static array
 						key={index}
 						href={{
-							pathname: routes.account_product,
+							pathname: routes.account,
 							query: { view: item.view },
 						}}
 						view={item.view}
