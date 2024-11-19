@@ -5,11 +5,13 @@ import debounce from "lodash/debounce"
 import { useSearchActions } from "@/action/search/useSearchResults"
 import SearchInput from "../atom/SearchInput"
 import SearchDropdown from "../molecule/SearchDropdown"
+import { useRouter } from "next/navigation"
 
 function SearchOrganism() {
 	const [open, setOpen] = useState(false)
 	const [query, setQuery] = useState("")
 	const { creators, prompts, fetchAndSetSearchResults } = useSearchActions()
+	const router = useRouter()
 
 	const debouncedFetchAndSetSearchResults = debounce((searchQuery: string) => {
 		fetchAndSetSearchResults(searchQuery)
@@ -26,8 +28,17 @@ function SearchOrganism() {
 
 	const handleFocus = () => setOpen(true)
 	const handleBlur = () => setTimeout(() => setOpen(false), 100)
+
+	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault()
+		if (query === "") {
+			return
+		}
+		router.push(`/prompts?query=${query}`)
+		setQuery("")
+	}
 	return (
-		<div className="relative w-[40rem]">
+		<form className="relative w-[40rem]" onSubmit={handleSubmit}>
 			<SearchInput
 				value={query}
 				onFocus={handleFocus}
@@ -39,7 +50,7 @@ function SearchOrganism() {
 					<SearchDropdown creators={creators} prompts={prompts} />
 				</div>
 			)}
-		</div>
+		</form>
 	)
 }
 
