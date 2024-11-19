@@ -46,14 +46,11 @@ export default function ContentWrapper({
 	children,
 	queryParams,
 }: AccountContentWrapperProps) {
-	const { view } = queryParams
+	const view = queryParams.view as string
 
 	return (
 		<div className="relative flex h-[calc(100vh-80px)]">
-			<SideMenu
-				menuItems={menuItems}
-				activeRoute={view}
-			/>
+			<SideMenu menuItems={menuItems} activeRoute={view} />
 
 			{/* Main content */}
 			<div className="mt-12 flex-1 p-4 lg:mt-0 lg:p-8">{children}</div>

@@ -1,5 +1,5 @@
 export interface QueryParams {
-	view: string
+	view: string | undefined
 }
 
 export interface SearchParams {
