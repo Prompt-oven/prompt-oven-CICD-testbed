@@ -8,13 +8,16 @@ import SearchDropdown from "../molecule/SearchDropdown"
 import { useRouter } from "next/navigation"
 
 function SearchOrganism() {
-	const [open, setOpen] = useState(false)
+	const [_open, setOpen] = useState(false)
 	const [query, setQuery] = useState("")
+	const [isLoading, setIsLoading] = useState(false)
 	const { creators, prompts, fetchAndSetSearchResults } = useSearchActions()
 	const router = useRouter()
 
 	const debouncedFetchAndSetSearchResults = debounce((searchQuery: string) => {
+		setIsLoading(true)
 		fetchAndSetSearchResults(searchQuery)
+		setIsLoading(false)
 	}, 300)
 
 	useEffect(() => {
@@ -45,9 +48,14 @@ function SearchOrganism() {
 				onBlur={handleBlur}
 				onChange={(e) => setQuery(e.target.value)}
 			/>
-			{open && query.length > 0 && (
+			{query.length > 0 && (
 				<div className="absolute left-0 top-full z-10 w-full">
-					<SearchDropdown creators={creators} prompts={prompts} />
+					<SearchDropdown
+						creators={creators}
+						prompts={prompts}
+						query={query}
+						isLoading={isLoading}
+					/>
 				</div>
 			)}
 		</form>

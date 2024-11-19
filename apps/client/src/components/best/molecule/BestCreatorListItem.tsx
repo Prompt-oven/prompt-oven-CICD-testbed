@@ -1,7 +1,7 @@
-import { BestCreatorDataTypes } from "@/types/best/bestTypes"
-import { Trophy, ArrowDown, ArrowUp, Minus } from "@repo/ui/lucide"
-import Image from "next/image"
 import Link from "next/link"
+import Image from "next/image"
+import type { BestCreatorDataTypes } from "@/types/best/bestTypes"
+import { Trophy, ArrowDown, ArrowUp, Minus } from "@repo/ui/lucide"
 import FollowCreatorButton from "@/components/best/atom/FollowCreatorButton"
 
 interface BestCardProps extends BestCreatorDataTypes {

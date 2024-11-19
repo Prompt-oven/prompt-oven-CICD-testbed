@@ -1,11 +1,11 @@
 "use client"
 import React from "react"
-import { BestCreatorDataTypes } from "@/types/best/bestTypes"
+import Link from "next/link"
+import type { BestCreatorDataTypes } from "@/types/best/bestTypes"
 import Image from "next/image"
 import FollowCreatorButton from "@/components/best/atom/FollowCreatorButton"
 import { Card } from "@repo/ui/card"
 import { ArrowDown, ArrowUp, Minus } from "@repo/ui/lucide"
-import Link from "next/link"
 
 interface BestCardProps extends BestCreatorDataTypes {
 	name: string

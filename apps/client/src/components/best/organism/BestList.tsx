@@ -1,5 +1,5 @@
 import React from "react"
-import { BestCreatorDataTypes } from "@/types/best/bestTypes"
+import type { BestCreatorDataTypes } from "@/types/best/bestTypes"
 import { BestCreatorListItem } from "../molecule/BestCreatorListItem"
 
 interface BestListProps<T> {
