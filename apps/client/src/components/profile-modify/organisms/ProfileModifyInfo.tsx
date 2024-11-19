@@ -33,6 +33,7 @@ export default function ProfileModifyInfo({ memberData }: MemberDataProps) {
 	const handleForm = async (formData: FormData) => {
 		const uploadBanner = formData.get("bannerImageUrl") as string | undefined
 		const auplaodAvatar = formData.get("avatarImageUrl") as string | undefined
+		// 반환되는 주소 값을 S3로부터 받아오도록 변경해야합니다.
 
 		if (
 			uploadBanner !== undefined &&
