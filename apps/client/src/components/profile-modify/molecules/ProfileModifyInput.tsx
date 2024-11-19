@@ -3,6 +3,7 @@ import { Input } from "@repo/ui/input"
 
 interface ProfileModifyInputProps {
 	title: string
+	inputName: string
 	inputValue: string | undefined
 	handleValue: string
 	placeholder: string
@@ -12,6 +13,7 @@ interface ProfileModifyInputProps {
 
 export default function ProfileModifyInput({
 	title,
+	inputName,
 	inputValue,
 	handleValue,
 	placeholder,
@@ -24,13 +26,16 @@ export default function ProfileModifyInput({
 			<div className="flex items-center gap-5">
 				<Input
 					className="flex h-[40px] items-center rounded-lg border border-white/20 bg-gradient-to-r from-[#3F1C24] to-[#262038] px-4"
+					name={inputName}
 					value={inputValue}
 					onChange={(e) => handleInputChange(handleValue, e.target.value)}
 					placeholder={placeholder}
 				/>
 				{/* <Button className="bg-[#1a2642] hover:bg-[#10192e]">Apply</Button> */}
 				<Button
-					className="bg-[#fc5113] font-semibold hover:bg-[#a55335]"
+					type="button"
+					className="bg-[#1a2642] font-semibold hover:bg-[#10192e]"
+					// className="bg-[#fc5113] font-semibold hover:bg-[#a55335]"
 					onClick={() => handleReset(handleValue)}>
 					초기화
 				</Button>
