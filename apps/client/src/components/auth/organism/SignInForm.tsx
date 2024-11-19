@@ -13,7 +13,6 @@ import SignInField from "@/components/auth/molecule/SignInField.tsx"
 import { signIn } from "@/action/auth/OAuthSignInAction"
 import type { SignIn } from "@/types/auth/AuthMemberType"
 
-// todo : 반복되는 컴포넌트 구조가 있는 부분은 공통화 시킬 수 있도록 리팩토링하기
 function SignInForm() {
 	const router = useRouter()
 
@@ -35,7 +34,7 @@ function SignInForm() {
 	const password = watch("password")
 
 	useEffect(() => {
-		setIsClient(true) // 클라이언트 전용 로직 실행 가능
+		setIsClient(true)
 	}, [])
 
 	useEffect(() => {

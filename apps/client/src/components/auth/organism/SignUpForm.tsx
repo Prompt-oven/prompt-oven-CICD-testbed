@@ -13,7 +13,6 @@ import { useAuthTimer } from "@/hooks/auth/useAuthTimer.ts"
 import { registerAuthMember } from "@/action/auth/memberRegisterAction"
 import type { RegisterOAuthMemberResponse } from "@/types/auth/memberRegisterType"
 
-// todo : 반복되는 컴포넌트 구조가 있는 부분은 공통화 시킬 수 있도록 리팩토링하기
 function SignUpForm() {
 	const {
 		handleSubmit,
