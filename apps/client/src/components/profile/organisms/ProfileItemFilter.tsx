@@ -14,7 +14,7 @@ interface PromptFilterProps {
 
 export default function ProfileItemFilter({ promptCount }: PromptFilterProps) {
 	return (
-		<div className="flex h-[60px] max-w-[1130px] items-center justify-between rounded-lg border border-white/20 bg-gradient-to-r from-[#3F1C24] to-[#262038] px-4">
+		<div className="gradient-filter flex h-[60px] max-w-[1130px] items-center justify-between rounded-lg border border-white/20 px-4">
 			{/* Left Section */}
 			<div className="flex items-center gap-4">
 				<span className="font-mulish text-sm text-white">
