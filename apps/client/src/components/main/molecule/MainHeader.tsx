@@ -6,6 +6,7 @@ import Avatar from "@/components/common/atom/Avatar.tsx"
 import MainLogo from "@/components/common/atom/icon/MainLogo.tsx"
 import NavAnchor from "@/components/common/atom/NavAnchor"
 import SearchOrganism from "@/components/common/organism/SearchOrganism"
+import { Search } from "@repo/ui/lucide"
 
 export default function MainHeader() {
 	return (
@@ -19,8 +20,12 @@ export default function MainHeader() {
 				</div>
 
 				{/* Search Bar */}
-				<div className="box-border hidden h-full max-w-2xl flex-1 items-center border-x border-[#424242] px-10 md:flex">
+				<div className="box-border hidden h-full flex-1 items-center border-x border-[#424242] px-10 md:flex">
 					<SearchOrganism />
+				</div>
+				{/* Mobile Search Icon */}
+				<div className="md:hidden">
+					<Search className="mr-5 h-5 w-5 text-[#969696]" />
 				</div>
 
 				{/* Navigation */}

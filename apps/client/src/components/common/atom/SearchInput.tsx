@@ -12,7 +12,6 @@ interface SearchInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 }
 
 export default function SearchInput({
-	width,
 	placeholder = "Search items, collection or user",
 	query,
 	...props
@@ -39,9 +38,7 @@ export default function SearchInput({
 	}, [])
 
 	return (
-		<div
-			className="relative flex items-center"
-			style={{ width: width || "100%" }}>
+		<div className="relative flex items-center">
 			<Input
 				ref={inputRef}
 				value={query}

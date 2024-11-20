@@ -41,7 +41,7 @@ function SearchOrganism() {
 		setQuery("")
 	}
 	return (
-		<form className="relative w-[40rem]" onSubmit={handleSubmit}>
+		<form className="relative w-full" onSubmit={handleSubmit}>
 			<SearchInput
 				value={query}
 				onFocus={handleFocus}
