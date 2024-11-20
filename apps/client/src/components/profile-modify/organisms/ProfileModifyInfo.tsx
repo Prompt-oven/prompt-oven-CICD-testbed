@@ -1,5 +1,6 @@
 "use client"
 
+import Link from "next/link"
 import { Button } from "@repo/ui/button"
 import { uploadProfileImage } from "@/action/profile/s3ProfileData"
 import { useProfileModify } from "@/hooks/profile-modify/useProfileModify"
@@ -114,7 +115,7 @@ export default function ProfileModifyInfo({ memberData }: MemberDataProps) {
 					</div>
 				</div>
 
-				<div className="mx-auto flex w-[90%] flex-col gap-8 sm:flex-row">
+				<div className="mx-auto mb-8 flex w-[90%] flex-col gap-8 sm:flex-row">
 					<div className="flex flex-col justify-between gap-8 sm:w-[50%]">
 						<ProfileModifyInput
 							title="#해시태그"
@@ -158,7 +159,19 @@ export default function ProfileModifyInfo({ memberData }: MemberDataProps) {
 					/>
 				</div>
 
-				<Button type="submit">실험</Button>
+				<div className="mx-auto flex w-[90%] gap-12 py-12">
+					<Link
+						href="/profile/1"
+						className="mx-auto inline-flex h-9 items-center justify-center gap-2 whitespace-nowrap rounded-md bg-gradient-to-r from-[#FFCCDF] to-[#FFB6C1] px-4 py-6 text-sm font-medium text-white shadow transition-colors hover:from-[#FFB6C1] hover:to-[#FF69B4] focus-visible:outline-none focus-visible:ring-1 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0">
+						<span className="font-semibold text-gray-500">취소</span>
+					</Link>
+
+					<Button
+						type="submit"
+						className="mx-auto bg-gradient-to-r from-[#B514F1] to-[#0BA9FF] py-6 hover:from-[#A213D6] hover:to-[#0094D8]">
+						<span className="font-semibold">수정</span>
+					</Button>
+				</div>
 			</form>
 		</div>
 	)
