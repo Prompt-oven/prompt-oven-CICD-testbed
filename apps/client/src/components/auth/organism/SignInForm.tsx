@@ -97,7 +97,7 @@ function SignInForm() {
 	}
 
 	return (
-		<div className="select-none gap-0 rounded border-none bg-[#252525] px-6 pb-12 pt-16 md:max-h-[780px] md:min-h-[780px] md:max-w-[650px] md:px-10 md:pb-16 md:pt-24">
+		<div className="mx-auto select-none gap-0 rounded border-none bg-[#252525] px-6 pb-12 pt-16 md:max-h-[780px] md:min-h-[780px] md:max-w-[650px] md:px-10 md:pb-16 md:pt-24">
 			<div className="mb-5 flex h-fit flex-col justify-center gap-[5px] md:mb-14">
 				<h1 className="text-center text-4xl font-bold text-white">
 					Sign In To Your Account

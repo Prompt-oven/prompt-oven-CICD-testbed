@@ -23,7 +23,7 @@ function PromptImageCarousel({ images }: PromptImageCarouselProps) {
 	}
 
 	return (
-		<div className="flex w-full items-center justify-center gap-[100px] py-40">
+		<div className="container flex w-full items-center justify-center gap-[100px] py-40">
 			<ImageCarousel
 				images={images}
 				changeCallbackFn={changeCallbackFnHandler}

@@ -34,6 +34,7 @@ export default function RootLayout({
 }) {
 	return (
 		<html lang="en">
+			{/* todo: 여기서는 head의 meta 태그가 적용되지 않으므로 metadata에서 추가해주어야 함. */}
 			<head>
 				<meta name="mobile-web-app-capable" content="yes" />
 			</head>
