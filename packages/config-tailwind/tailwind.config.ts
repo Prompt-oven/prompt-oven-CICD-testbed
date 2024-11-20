@@ -7,6 +7,18 @@ const config: Omit<Config, "content"> = {
       backgroundImage: {
         "glow-conic":
           "conic-gradient(from 180deg at 50% 50%, #2a8af6 0deg, #a853ba 180deg, #e92a67 360deg)",
+        "gradient-button-primary":
+          "linear-gradient(98.49deg, #A913F9 -11.31%, #9D3D81 76.26%)",
+        "gradient-button-secondary":
+          "linear-gradient(98.49deg, #A913F9 -11.31%, #3F5EFB 76.26%)",
+        "gradient-carousel":
+          "linear-gradient(98.49deg, #A913F9 -11.31%, #F913C4 76.26%)",
+        "gradient-desc-title":
+          "linear-gradient(98.49deg, #A913F9 -11.31%, #FC466B 76.26%)",
+        "gradient-profile-banner":
+          "linear-gradient(116.85deg, #B514F1 0%, #0BA9FF 100%)",
+        "gradient-filter":
+          "linear-gradient(116.85deg, #3F1C24 0%, #262038 100%)",
       },
       colors: {
         "po-purple-50": "#E2ADFF",
@@ -27,6 +39,19 @@ const config: Omit<Config, "content"> = {
         "po-yellow-100": "#FCB808",
         "po-yellow-150": "#E6A700",
         "po-yellow-200": "#CC8E00",
+        // gradient
+        'grf-button-1': '#A913F9',
+        'grt-button-1': '#9D3D81',
+        'grf-gradient-button-2': '#A913F9',
+        'grt-gradient-button-2': '#3F5EFB',
+        'grf-gradient-carousel': '#A913F9',
+        'grt-gradient-carousel': '#F913C4',
+        'grf-gradient-title': '#A913F9',
+        'grt-gradient-title': '#FC466B',
+        'grf-gradient-profile-banner': '#B514F1',
+        'grt-gradient-profile-banner': '#0BA9FF',
+        'grf-gradient-filter': '#3F1C24',
+        'grt-gradient-filter': '#262038',
       },
     },
   },
