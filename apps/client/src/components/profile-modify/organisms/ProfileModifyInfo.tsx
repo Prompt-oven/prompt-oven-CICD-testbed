@@ -34,7 +34,6 @@ export default function ProfileModifyInfo({ memberData }: MemberDataProps) {
 	const handleForm = async (formData: FormData) => {
 		const uploadBanner = formData.get("bannerImageUrl") as string | undefined
 		const auplaodAvatar = formData.get("avatarImageUrl") as string | undefined
-		// 반환되는 주소 값을 S3로부터 받아오도록 변경해야합니다.
 
 		if (
 			uploadBanner !== undefined &&
@@ -159,16 +158,16 @@ export default function ProfileModifyInfo({ memberData }: MemberDataProps) {
 					/>
 				</div>
 
-				<div className="mx-auto flex w-[90%] gap-12 py-12">
+				<div className="mx-auto flex w-[90%] justify-end py-12">
 					<Link
 						href="/profile/1"
-						className="mx-auto inline-flex h-9 items-center justify-center gap-2 whitespace-nowrap rounded-md bg-gradient-to-r from-[#FFCCDF] to-[#FFB6C1] px-4 py-6 text-sm font-medium text-white shadow transition-colors hover:from-[#FFB6C1] hover:to-[#FF69B4] focus-visible:outline-none focus-visible:ring-1 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0">
+						className="px-10py-6 inline-flex h-9 items-center justify-center gap-2 whitespace-nowrap rounded-md bg-gradient-to-r from-[#FFCCDF] to-[#FFB6C1] px-10 py-6 text-sm font-medium text-white shadow transition-colors hover:from-[#FFB6C1] hover:to-[#FF69B4] focus-visible:outline-none focus-visible:ring-1 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0">
 						<span className="font-semibold text-gray-500">취소</span>
 					</Link>
 
 					<Button
 						type="submit"
-						className="mx-auto bg-gradient-to-r from-[#B514F1] to-[#0BA9FF] py-6 hover:from-[#A213D6] hover:to-[#0094D8]">
+						className="ml-4 bg-gradient-to-r from-[#B514F1] to-[#0BA9FF] px-10 py-6 hover:from-[#A213D6] hover:to-[#0094D8]">
 						<span className="font-semibold">수정</span>
 					</Button>
 				</div>
