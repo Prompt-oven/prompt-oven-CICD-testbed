@@ -1,19 +1,18 @@
 "use client"
 
-import Link from "next/link"
+import { useEffect, useState } from "react"
 import type { FieldValues } from "react-hook-form"
 import { useForm } from "react-hook-form"
+import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Button } from "@repo/ui/button"
 import { CheckBox } from "@repo/ui/checkbox"
 import { loginSchema } from "@/schema/auth.ts"
 import SignInField from "@/components/auth/molecule/SignInField.tsx"
 import { signIn } from "@/action/auth/OAuthSignInAction"
-import { useRouter } from "next/navigation"
-import { SignIn } from "@/types/auth/AuthMemberType"
-import { useEffect, useState } from "react"
+import type { SignIn } from "@/types/auth/AuthMemberType"
 
-// todo : 반복되는 컴포넌트 구조가 있는 부분은 공통화 시킬 수 있도록 리팩토링하기
 function SignInForm() {
 	const router = useRouter()
 
@@ -21,6 +20,7 @@ function SignInForm() {
 		handleSubmit,
 		register,
 		setValue,
+		watch,
 		formState: { errors },
 	} = useForm({
 		resolver: zodResolver(loginSchema),
@@ -28,9 +28,13 @@ function SignInForm() {
 	})
 	const [isClient, setIsClient] = useState(false)
 	const [rememberMe, setRememberMe] = useState(false)
+	const [errorMessage, setErrorMessage] = useState("")
+
+	const email = watch("email")
+	const password = watch("password")
 
 	useEffect(() => {
-		setIsClient(true) // 클라이언트 전용 로직 실행 가능
+		setIsClient(true)
 	}, [])
 
 	useEffect(() => {
@@ -44,35 +48,50 @@ function SignInForm() {
 			setRememberMe(savedRememberMe)
 		}
 	}, [isClient, setValue])
+
+	useEffect(() => {
+		if (errorMessage) {
+			setErrorMessage("")
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps -- Debugging form validation errors
+	}, [email, password])
+
 	const loginSchemaKeys = loginSchema.keyof().enum
-	const handleOnSubmitFailure = (error: FieldValues) => {
-		// eslint-disable-next-line no-console -- This is a client-side only log
-		console.log("login data - failure : ", error, errors)
 
-		return true
-	}
 	const handleOnSubmitSuccess = async (data: FieldValues) => {
-		// eslint-disable-next-line no-console -- This is a client-side only log
-		// console.log("login data - success : ", data)
-		const requestData: SignIn = {
-			email: data.email,
-			password: data.password,
-		}
+		try {
+			const requestData: SignIn = {
+				email: data.email,
+				password: data.password,
+			}
 
-		await signIn(requestData)
+			const response = await signIn(requestData)
 
-		// Remember me
-		if (rememberMe) {
-			localStorage.setItem("rememberedEmail", data.email as string)
-			localStorage.setItem("rememberMe", "true")
-		} else {
-			localStorage.removeItem("rememberedEmail")
-			localStorage.setItem("rememberMe", "false")
+			if (response.accesstoken) {
+				if (rememberMe) {
+					localStorage.setItem("rememberedEmail", data.email as string)
+					localStorage.setItem("rememberMe", "true")
+				} else {
+					localStorage.removeItem("rememberedEmail")
+					localStorage.setItem("rememberMe", "false")
+				}
+				const previousPage = document.referrer
+				const targetPage =
+					previousPage && !previousPage.includes("/sign-in")
+						? previousPage
+						: "/"
+				router.push(targetPage)
+			} else {
+				throw new Error("Invalid credentials")
+			}
+		} catch (error) {
+			handleOnSubmitFailure({ error })
 		}
-		const previousPage = document.referrer
-		const targetPage =
-			previousPage && !previousPage.includes("/sign-in") ? previousPage : "/"
-		router.push(targetPage)
+	}
+	const handleOnSubmitFailure = (submissionErrors: FieldValues) => {
+		// eslint-disable-next-line no-console -- Debugging form validation errors
+		console.log("Form validation failed. Errors:", submissionErrors)
+		setErrorMessage("Invalid email or password. Please try again.")
 
 		return true
 	}
@@ -87,7 +106,11 @@ function SignInForm() {
 					Enter your details to access your account
 				</p>
 			</div>
-
+			{errorMessage && (
+				<div className="mb-4 text-center text-sm text-red-500">
+					{errorMessage}
+				</div>
+			)}
 			<form
 				onSubmit={handleSubmit(handleOnSubmitSuccess, handleOnSubmitFailure)}>
 				<div className="mb-11 flex h-fit w-full flex-col gap-5">
