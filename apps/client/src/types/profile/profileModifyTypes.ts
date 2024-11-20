@@ -1,6 +1,6 @@
 export interface S3ResponseType {
 	isSuccess: boolean
-	imageUrl: string | undefined
+	responseImageUrl: string | undefined
 }
 
 export interface ProfileModifyType {

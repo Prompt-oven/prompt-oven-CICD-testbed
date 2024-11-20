@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { Button } from "@repo/ui/button"
-import { uploadProfileImage } from "@/action/profile/s3ProfileData"
+import { uploadImage } from "@/action/s3/s3UploadAction"
 import { useProfileModify } from "@/hooks/profile-modify/useProfileModify"
 import type { ProfileModifyType } from "@/types/profile/profileModifyTypes"
 import type { ProfileMemberInfoType } from "@/types/profile/profileTypes"
@@ -40,9 +40,9 @@ export default function ProfileModifyInfo({ memberData }: MemberDataProps) {
 			uploadBanner !== memberData.bannerImageUrl
 		) {
 			if (uploadBanner !== memberData.bannerImageUrl) {
-				const result = await uploadProfileImage(uploadBanner)
+				const result = await uploadImage(uploadBanner, "profile")
 				if (result.isSuccess) {
-					formData.set("bannerImageUrl", result.imageUrl as string)
+					formData.set("bannerImageUrl", result.responseImageUrl as string)
 				} else {
 					// eslint-disable-next-line no-alert -- Comments to notify you of failed image upload
 					alert("이미지 업로드에 실패하였습니다.")
@@ -56,9 +56,9 @@ export default function ProfileModifyInfo({ memberData }: MemberDataProps) {
 			auplaodAvatar !== memberData.avatarImageUrl
 		) {
 			if (auplaodAvatar !== memberData.avatarImageUrl) {
-				const result = await uploadProfileImage(auplaodAvatar)
+				const result = await uploadImage(auplaodAvatar, "profile")
 				if (result.isSuccess) {
-					formData.set("avatarImageUrl", result.imageUrl as string)
+					formData.set("avatarImageUrl", result.responseImageUrl as string)
 				} else {
 					// eslint-disable-next-line no-alert -- Comments to notify you of failed image upload
 					alert("이미지 업로드에 실패하였습니다.")

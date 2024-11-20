@@ -19,13 +19,14 @@ export async function POST(req: Request) {
 	try {
 		const formData = await req.formData()
 		const files = formData.getAll("img") as File[]
+		const keyword = formData.get("keyword") as string
 
 		const Body = (await files[0].arrayBuffer()) as Buffer
 
 		await s3.send(
 			new PutObjectCommand({
 				Bucket,
-				Key: `dummy/profile/${files[0].name}`,
+				Key: `dummy/${keyword}/${files[0].name}`,
 				Body,
 				ContentType: "image/png",
 			}),
@@ -36,7 +37,7 @@ export async function POST(req: Request) {
 			s3,
 			new GetObjectCommand({
 				Bucket,
-				Key: `dummy/profile/${files[0].name}`,
+				Key: `dummy/${keyword}/${files[0].name}`,
 			}),
 			{ expiresIn: 3600 },
 		)
