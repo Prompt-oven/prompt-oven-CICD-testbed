@@ -8,15 +8,16 @@ interface UploadResponse {
 	url?: string
 }
 
-export const uploadProfileImage = async (
-	avatarUrl: string,
+export const uploadImage = async (
+	requestImageData: string,
+	keyword: string,
 ): Promise<S3ResponseType> => {
 	"use server"
 	try {
 		// URL에서 이미지를 가져와 Blob으로 변환
-		const response = await fetch(avatarUrl)
+		const response = await fetch(requestImageData)
 		if (!response.ok) {
-			return { isSuccess: false, imageUrl: undefined }
+			return { isSuccess: false, responseImageUrl: undefined }
 		}
 		const blob = await response.blob()
 
@@ -26,9 +27,10 @@ export const uploadProfileImage = async (
 
 		const uploadFormData = new FormData()
 		uploadFormData.append("img", file)
+		uploadFormData.append("keyword", keyword)
 
 		const result: UploadResponse = await fetch(
-			`${process.env.NEXTAUTH_URL}/api/upload/profile`,
+			`${process.env.NEXTAUTH_URL}/api/upload`,
 			{
 				method: "POST",
 				body: uploadFormData,
@@ -36,10 +38,10 @@ export const uploadProfileImage = async (
 		).then((res) => res.json())
 
 		if (result.message === "OK") {
-			return { isSuccess: true, imageUrl: result.url }
+			return { isSuccess: true, responseImageUrl: result.url }
 		}
-		return { isSuccess: false, imageUrl: undefined }
+		return { isSuccess: false, responseImageUrl: undefined }
 	} catch (error) {
-		return { isSuccess: false, imageUrl: undefined }
+		return { isSuccess: false, responseImageUrl: undefined }
 	}
 }
