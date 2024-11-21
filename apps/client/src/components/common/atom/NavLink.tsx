@@ -5,20 +5,20 @@ import { useCallback, useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 
-interface NavAnchorProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
+interface NavLinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
 	href: string
 	color?: string
 	activeColor?: string
 	children?: ReactNode
 }
 
-export default function NavAnchor({
+export default function NavLink({
 	href,
 	children,
 	color = "#D9D9D9",
 	activeColor,
 	...props
-}: NavAnchorProps) {
+}: NavLinkProps) {
 	const pathname = usePathname()
 	const isActive = pathname === href
 	const [isHovered, setIsHovered] = useState(false)

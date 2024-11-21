@@ -3,7 +3,8 @@ import "./globals.css"
 import "@repo/ui/styles.css"
 import type { Metadata } from "next"
 import { roboto, sora } from "@/app/fonts.ts"
-import MainHeader from "@/components/main/molecule/MainHeader.tsx"
+// import MainHeader from "@/components/main/molecule/MainHeader.tsx"
+import MainHeader from "@/components/common/molecule/MainHeader.tsx"
 import { AuthSessionProvider } from "@/provider/authSessionProvider.tsx"
 
 export const metadata: Metadata = {
@@ -38,7 +39,7 @@ export default function RootLayout({
 				<meta name="mobile-web-app-capable" content="yes" />
 			</head>
 			<body
-				className={`${sora.variable} ${roboto.variable} ${sora.className} bg-[#111111]`}>
+				className={`${sora.variable} ${roboto.variable} ${sora.className} bg-po-black-200`}>
 				<AuthSessionProvider>
 					<MainHeader />
 					{children}
