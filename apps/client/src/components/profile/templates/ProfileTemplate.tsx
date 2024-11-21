@@ -2,10 +2,8 @@ import type {
 	ProfileListCardType,
 	ProfileMemberInfoType,
 } from "@/types/profile/profileTypes"
-import ProfileFilterSidebar from "../organisms/ProfileFilterSidebar"
-import ProfileItemFilter from "../organisms/ProfileItemFilter"
 import ProfileMemberInfo from "../organisms/ProfileMemberInfo"
-import ProfilePromptList from "../organisms/ProfilePromptList"
+import ProfilePrompt from "../organisms/ProfilePrompt"
 
 interface ProfileDataProps {
 	memberData: ProfileMemberInfoType // 회원 정보
@@ -16,21 +14,36 @@ interface ProfileDataProps {
 	// }
 }
 
-export default function ProfileTemplate({
+export default async function ProfileTemplate({
 	memberData,
 	listData,
 }: ProfileDataProps) {
-	return (
-		<section className="mx-2 mt-12 w-full max-w-screen-2xl sm:m-20 md:m-24 xl:m-32">
-			<ProfileMemberInfo memberData={memberData} />
+	const handleFilter = async (filterFormData: FormData) => {
+		"use server"
 
-			<div className="mx-10 mb-16 flex flex-col gap-8 sm:flex-row">
-				<ProfileFilterSidebar />
-				<div className="flex w-full flex-col gap-8">
-					<ProfileItemFilter promptCount={listData.length} />
-					<ProfilePromptList listData={listData} />
-				</div>
-			</div>
+		const payload = {
+			searchBar: filterFormData.get("searchBar") as string | undefined,
+			topCategoryUuid: filterFormData.get("topCategoryUuid") as
+				| string
+				| undefined,
+			subCategoryUuid: filterFormData.get("subCategoryUuid") as
+				| string
+				| undefined,
+			enable: filterFormData.get("enable") === "on",
+			minPrice: filterFormData.get("minPrice") as string | undefined,
+			maxPrice: filterFormData.get("maxPrice") as string | undefined,
+			sortDate: filterFormData.get("sortDate") as string | undefined,
+			sortOption: filterFormData.get("sortOption") as string | undefined,
+		}
+
+		// eslint-disable-next-line no-console -- Sidebar Filter test Console
+		console.log(payload)
+	}
+
+	return (
+		<section className="container mx-auto mt-24 max-w-screen-xl">
+			<ProfileMemberInfo memberData={memberData} />
+			<ProfilePrompt listData={listData} handleFilter={handleFilter} />
 		</section>
 	)
 }

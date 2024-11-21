@@ -3,15 +3,18 @@ import { Search } from "@repo/ui/lucide"
 
 export function ProfileFilterSearchInput({
 	value = "",
+	name = "",
 	onChange,
 }: {
 	value?: string
+	name: string
 	onChange?: (value: string) => void
 }) {
 	return (
 		<div className="relative">
 			<FilterInput
 				value={value}
+				name={name}
 				onChange={(e) => onChange?.(e.target.value)}
 				placeholder="Search"
 				className="border-none bg-white/10 pl-10 text-white placeholder:text-white/70"

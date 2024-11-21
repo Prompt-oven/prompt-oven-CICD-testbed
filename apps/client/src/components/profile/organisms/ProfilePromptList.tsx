@@ -2,7 +2,7 @@
 
 import type { ProfileListCardType } from "@/types/profile/profileTypes"
 import ProfilePromptItem from "../molecules/ProfilePromptItem"
-import ProfileLoadMore from "../molecules/ProfileLoadMore"
+import ProfileLoadMore from "../atoms/ProfileLoadMore"
 
 interface ProfileListProps {
 	listData: ProfileListCardType[]
@@ -15,13 +15,13 @@ interface ProfileListProps {
 export default function ProfilePromptList({ listData }: ProfileListProps) {
 	return (
 		<div>
-			<div className="grid grid-cols-2 gap-8 lg:grid-cols-3 2xl:grid-cols-4">
+			<ul className="grid grid-cols-2 gap-8 lg:grid-cols-3 2xl:grid-cols-4">
 				{listData.length > 0
 					? listData.map((item) => (
 							<ProfilePromptItem key={item.productUUID} productInfo={item} />
 						))
 					: null}
-			</div>
+			</ul>
 
 			<ProfileLoadMore />
 		</div>

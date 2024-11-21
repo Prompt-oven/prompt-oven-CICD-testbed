@@ -1,59 +1,66 @@
 "use client"
 
-import { Button } from "@repo/ui/button"
 import { useState } from "react"
-import { ProfileFilterCategory } from "../molecules/ProfileFilterCategory"
-import { ProfileFilterPrice } from "../molecules/ProfileFilterPrice"
-import { ProfileFilterSearchInput } from "../molecules/ProfileFilterSearchInput"
-import { ProfileFilterSection } from "../molecules/ProfileFilterSection"
-import { ProfileFilterStatus } from "../molecules/ProfileFilterStatus"
+import { ProfileFilterSearchInput } from "../atoms/filter/ProfileFilterSearchInput"
+import { ProfileFilterSection } from "../atoms/filter/ProfileFilterSection"
+import { ProfileFilterCategory } from "../atoms/filter/ProfileFilterCategory"
+import { ProfileFilterEnable } from "../atoms/filter/ProfileFilterEnable"
+import { ProfileFilterPrice } from "../atoms/filter/ProfileFilterPrice"
+import ProfileSidebarButtonGroup from "../molecules/ProfileSidebarButtonGroup"
 
 export default function ProfileFilterSidebar() {
 	const [filters, setFilters] = useState({
 		search: "",
-		category: "",
-		status: [] as string[],
+		topCategoryUuid: "",
+		subCategoryUuid: "",
+		enable: [] as string[],
 		minPrice: "",
 		maxPrice: "",
-		// colors: [] as string[],
 	})
 
 	const handleClear = () => {
 		setFilters({
 			search: "",
-			category: "",
-			status: [],
+			topCategoryUuid: "",
+			subCategoryUuid: "",
+			enable: [],
 			minPrice: "",
 			maxPrice: "",
-			// colors: [],
 		})
 	}
 
 	return (
-		<div className="h-full w-full rounded-lg bg-opacity-20 bg-gradient-to-r from-[#3F1C24] to-[#262038] p-4 sm:max-w-[200px]">
+		<div className="rounded-lg bg-opacity-20 bg-gradient-to-r from-[#3F1C24] to-[#262038] p-4 sm:max-w-[200px]">
 			<h2 className="mb-4 font-medium text-white">FILTER BY</h2>
 
 			<ProfileFilterSearchInput
 				value={filters.search}
+				name="searchBar"
 				onChange={(value) => setFilters({ ...filters, search: value })}
 			/>
 
 			<ProfileFilterSection title="Category">
 				<ProfileFilterCategory
-					value={filters.category}
-					onChange={(value) => setFilters({ ...filters, category: value })}
+					value={filters.topCategoryUuid}
+					name="topCategoryUuid"
+					onChange={(value) =>
+						setFilters({ ...filters, topCategoryUuid: value })
+					}
 				/>
 			</ProfileFilterSection>
 
 			<ProfileFilterSection title="Status">
-				<ProfileFilterStatus
-					values={filters.status}
-					onChange={(values) => setFilters({ ...filters, status: values })}
+				<ProfileFilterEnable
+					values={filters.enable}
+					name="enable"
+					onChange={(values) => setFilters({ ...filters, enable: values })}
 				/>
 			</ProfileFilterSection>
 
 			<ProfileFilterSection title="Price">
 				<ProfileFilterPrice
+					minName="minPrice"
+					maxName="maxPrice"
 					minValue={filters.minPrice}
 					maxValue={filters.maxPrice}
 					onMinChange={(value) => setFilters({ ...filters, minPrice: value })}
@@ -61,24 +68,14 @@ export default function ProfileFilterSidebar() {
 				/>
 			</ProfileFilterSection>
 
-			{/* <ProfileFilterSection title="Filter By Color">
+			<ProfileSidebarButtonGroup onClear={handleClear} />
+		</div>
+	)
+}
+
+/* <ProfileFilterSection title="Filter By Color">
 				<ProfileFilterColor
 					selected={filters.colors}
 					onChange={(values) => setFilters({ ...filters, colors: values })}
 				/>
-			</ProfileFilterSection> */}
-
-			<div className="mt-4 flex gap-2">
-				<Button
-					variant="secondary"
-					className="flex-1 bg-[#35314D] text-white hover:bg-[#35314D]/90"
-					onClick={handleClear}>
-					Clear
-				</Button>
-				<Button className="flex-1 bg-[#F24E1E] text-white hover:bg-[#F24E1E]/90">
-					Apply
-				</Button>
-			</div>
-		</div>
-	)
-}
+			</ProfileFilterSection> */
