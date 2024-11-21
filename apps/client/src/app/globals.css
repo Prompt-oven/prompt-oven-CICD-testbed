@@ -45,3 +45,34 @@
 	background: rgba(0, 0, 0, 0.1); /* 스크롤바 트랙 색상 */
 }
 /* Profile Scroll-bar END*/
+
+
+@layer components {
+	.gradient-button-1 {
+		background: linear-gradient(98.49deg, #A913F9 -11.31%, #9D3D81 76.26%);
+	}
+
+	.gradient-button-2 {
+		background: linear-gradient(98.49deg, #A913F9 -11.31%, #3F5EFB 76.26%);
+	}
+
+	.gradient-carousel {
+		background: linear-gradient(98.49deg, #A913F9 -11.31%, #F913C4 76.26%);
+	}
+
+	.gradient-desc-title {
+		background: linear-gradient(98.49deg, #A913F9 -11.31%, #FC466B 76.26%);
+	}
+
+	.gradient-profile-banner {
+		background: linear-gradient(116.85deg, #B514F1 0%, #0BA9FF 100%);
+	}
+
+	.gradient-filter {
+		background: linear-gradient(116.85deg, #3F1C24 0%, #262038 100%);
+	}
+
+	/*.gradient-filter-1 {*/
+	/*	background: linear-gradient(116.85deg, #FC466B 0%, #3F5EFB 100%);*/
+	/*}*/
+}
