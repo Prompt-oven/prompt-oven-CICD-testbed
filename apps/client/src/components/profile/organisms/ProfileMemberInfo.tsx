@@ -1,6 +1,6 @@
 import type { ProfileMemberInfoType } from "@/types/profile/profileTypes"
-import ProfileAvatar from "../molecules/ProfileAvatar"
-import ProfileBanner from "../molecules/ProfileBanner"
+import ProfileAvatar from "../atoms/info/ProfileAvatar"
+import ProfileBanner from "../atoms/info/ProfileBanner"
 import ProfileInfoLeft from "../molecules/ProfileInfoLeft"
 import ProfileInfoRight from "../molecules/ProfileInfoRight"
 

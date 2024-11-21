@@ -3,11 +3,15 @@ import { Input } from "@repo/ui/input"
 export function ProfileFilterPrice({
 	minValue = "",
 	maxValue = "",
+	minName = "",
+	maxName = "",
 	onMinChange,
 	onMaxChange,
 }: {
 	minValue?: string
 	maxValue?: string
+	minName: string
+	maxName: string
 	onMinChange?: (value: string) => void
 	onMaxChange?: (value: string) => void
 }) {
@@ -16,6 +20,7 @@ export function ProfileFilterPrice({
 			<div className="flex flex-col gap-2">
 				<Input
 					type="number"
+					name={minName}
 					placeholder="Min"
 					value={minValue}
 					onChange={(e) => onMinChange?.(e.target.value)}
@@ -23,6 +28,7 @@ export function ProfileFilterPrice({
 				/>
 				<Input
 					type="number"
+					name={maxName}
 					placeholder="Max"
 					value={maxValue}
 					onChange={(e) => onMaxChange?.(e.target.value)}

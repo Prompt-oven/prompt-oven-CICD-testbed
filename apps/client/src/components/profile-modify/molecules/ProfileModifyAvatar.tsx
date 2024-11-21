@@ -1,7 +1,7 @@
 import Image from "next/image"
 import React from "react"
 
-interface ProfileAvatarProps {
+interface ProfileModifyAvatarProps {
 	memberAvatar?: string | undefined
 	handleFileChange: (event: React.ChangeEvent<HTMLInputElement>) => void
 	handleReset: (field: string) => void
@@ -11,7 +11,7 @@ export default function ProfileModifyAvatar({
 	memberAvatar,
 	handleFileChange,
 	handleReset,
-}: ProfileAvatarProps) {
+}: ProfileModifyAvatarProps) {
 	return (
 		<div className="group relative aspect-square h-full rounded-xl border-[3px] border-white bg-white">
 			<input type="hidden" value={memberAvatar} name="avatarImageUrl" />
