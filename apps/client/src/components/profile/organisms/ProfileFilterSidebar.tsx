@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { ProfileFilterSearchInput } from "../atoms/filter/ProfileFilterSearchInput"
 import { ProfileFilterSection } from "../atoms/filter/ProfileFilterSection"
 import { ProfileFilterCategory } from "../atoms/filter/ProfileFilterCategory"
@@ -9,6 +9,7 @@ import { ProfileFilterPrice } from "../atoms/filter/ProfileFilterPrice"
 import ProfileSidebarButtonGroup from "../molecules/ProfileSidebarButtonGroup"
 
 export default function ProfileFilterSidebar() {
+	const [sidebarPosition, setSidebarPosition] = useState(0)
 	const [filters, setFilters] = useState({
 		search: "",
 		topCategoryUuid: "",
@@ -29,8 +30,24 @@ export default function ProfileFilterSidebar() {
 		})
 	}
 
+	useEffect(() => {
+		const handleScroll = () => {
+			const scrollY = window.scrollY
+			setSidebarPosition(scrollY * 0.001)
+		}
+
+		window.addEventListener("scroll", handleScroll)
+		return () => {
+			window.removeEventListener("scroll", handleScroll)
+		}
+	}, [])
+
 	return (
-		<div className="hidden h-full rounded-lg bg-opacity-20 bg-gradient-to-r from-[#3F1C24] to-[#262038] p-4 sm:max-w-[200px] lg:block">
+		<div
+			className="sticky hidden h-full rounded-lg bg-opacity-20 bg-gradient-to-r from-[#3F1C24] to-[#262038] p-4 sm:max-w-[200px] lg:block"
+			style={{
+				top: Math.max(sidebarPosition, 100),
+			}}>
 			<h2 className="mb-4 font-medium text-white">FILTER BY</h2>
 
 			<ProfileFilterSearchInput
