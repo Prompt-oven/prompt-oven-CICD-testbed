@@ -9,7 +9,6 @@
 	],
 	"exports": {
 		"./styles.css": "./dist/index.css",
-		"./utils": "./lib/uitls.ts",
 		"./card": "./src/Card.tsx",
 		"./button": "./src/Button.tsx",
 		"./avatar": "./src/Avatar.tsx",
