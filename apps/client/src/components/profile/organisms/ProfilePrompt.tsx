@@ -1,6 +1,7 @@
 import type { ProfileListCardType } from "@/types/profile/profileTypes"
 import ProfileFilterSidebar from "./ProfileFilterSidebar"
 import ProfileItemFilter from "./ProfileItemFilter"
+import ProfilePromptList from "./ProfilePromptList"
 
 interface ProfilePromptProps {
 	listData: ProfileListCardType[]
@@ -20,7 +21,7 @@ export default function ProfilePrompt({
 						promptCount={listData.length}
 						handleFilter={handleFilter}
 					/>
-					{/* <ProfilePromptList listData={listData} /> */}
+					<ProfilePromptList listData={listData} />
 				</div>
 			</div>
 		</form>

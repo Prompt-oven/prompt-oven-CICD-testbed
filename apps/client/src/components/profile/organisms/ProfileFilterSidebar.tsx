@@ -30,7 +30,7 @@ export default function ProfileFilterSidebar() {
 	}
 
 	return (
-		<div className="rounded-lg bg-opacity-20 bg-gradient-to-r from-[#3F1C24] to-[#262038] p-4 sm:max-w-[200px]">
+		<div className="hidden h-full rounded-lg bg-opacity-20 bg-gradient-to-r from-[#3F1C24] to-[#262038] p-4 sm:max-w-[200px] lg:block">
 			<h2 className="mb-4 font-medium text-white">FILTER BY</h2>
 
 			<ProfileFilterSearchInput

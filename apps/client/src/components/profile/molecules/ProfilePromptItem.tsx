@@ -17,13 +17,13 @@ export default function ProfilePromptItem({ productInfo }: ProfileCardProps) {
 	const isNew = PromptIsNew(productInfo.productRegistDate)
 
 	return (
-		<li>
+		<li className="flex justify-center">
 			<Link href="/prompt-detail/1">
-				<Card className="relative flex h-full w-full max-w-[400px] flex-col overflow-hidden rounded-md border-0 bg-[#111111] shadow-md">
-					<div className="relative h-[220px] lg:h-[190px] xl:h-[220px]">
+				<Card className="xs:w-[220px] relative flex w-[150px] flex-col overflow-hidden rounded-md border-0 bg-[#111111] shadow-md">
+					<div className="xs:h-[300px] relative h-[200px]">
 						<Image
 							src={productInfo.thumbnailUrl}
-							sizes="(max-width: 768px) 100vw, 1400px"
+							sizes="100vw"
 							fill
 							priority
 							alt="Cyberpunk character"
@@ -38,7 +38,7 @@ export default function ProfilePromptItem({ productInfo }: ProfileCardProps) {
 						</Button>
 					</div>
 
-					<div className="relative flex h-[107px] flex-col gap-3 bg-[#3d2d50] p-4 pt-3">
+					<div className="relative flex h-[110px] flex-col gap-3 bg-[#3d2d50] p-4 pt-3">
 						<StarRate value={productInfo.productStar} />
 
 						<div className="ml-1 space-y-1">

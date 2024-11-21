@@ -24,7 +24,7 @@ export default function ProfileItemFilter({
 	}
 
 	return (
-		<div className="gradient-filter flex h-[60px] max-w-[1130px] items-center justify-between rounded-lg border border-white/20 px-4">
+		<div className="gradient-filter flex h-[3.75rem] max-w-[70.625rem] items-center justify-between rounded-lg border border-white/20 px-4">
 			{/* Left Section */}
 			<div className="flex items-center gap-4">
 				<span className="font-mulish text-sm text-white">
@@ -38,7 +38,7 @@ export default function ProfileItemFilter({
 					onValueChange={(value) => {
 						handleSelectChange("sortDate", value)
 					}}>
-					<SelectTrigger className="font-mulish h-[35px] w-[129px] rounded-full border border-white/20 bg-transparent text-white">
+					<SelectTrigger className="font-mulish h-[2.2rem] w-[7rem] rounded-full border border-white/20 bg-transparent text-white">
 						<SelectValue placeholder="날짜 순서" />
 					</SelectTrigger>
 					<SelectContent>
@@ -51,7 +51,7 @@ export default function ProfileItemFilter({
 					onValueChange={(value) => {
 						handleSelectChange("sortOption", value)
 					}}>
-					<SelectTrigger className="font-mulish h-[35px] w-[129px] rounded-full border border-white/20 bg-transparent text-white">
+					<SelectTrigger className="font-mulish h-[2.2rem] w-[7rem] rounded-full border border-white/20 bg-transparent text-white">
 						<SelectValue placeholder="옵션" />
 					</SelectTrigger>
 					<SelectContent>
