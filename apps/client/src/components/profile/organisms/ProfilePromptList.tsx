@@ -15,7 +15,7 @@ interface ProfileListProps {
 export default function ProfilePromptList({ listData }: ProfileListProps) {
 	return (
 		<div>
-			<ul className="grid grid-cols-2 gap-8 md:grid-cols-3 xl:grid-cols-4">
+			<ul className="grid grid-cols-2 gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
 				{listData.length > 0
 					? listData.map((item) => (
 							<ProfilePromptItem key={item.productUUID} productInfo={item} />

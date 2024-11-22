@@ -21,23 +21,21 @@ export function ProfileFilterCategory({
 	onChange?: (value: string) => void
 }) {
 	return (
-		<RadioGroup
-			value={value}
-			onValueChange={onChange}
-			className="space-y-2"
-			name={name}>
-			{categories.map((category) => (
-				<div key={category} className="flex items-center space-x-2">
-					<RadioGroupItem
-						value={category}
-						id={category}
-						className="border-white/70 text-white"
-					/>
-					<Label htmlFor={category} className="text-sm text-white">
-						{category}
-					</Label>
-				</div>
-			))}
+		<RadioGroup value={value} onValueChange={onChange} name={name}>
+			<ul className="grid grid-cols-3 space-y-2 md:grid-cols-1">
+				{categories.map((category) => (
+					<li key={category} className="flex items-center space-x-2">
+						<RadioGroupItem
+							value={category}
+							id={category}
+							className="border-white/70 text-white"
+						/>
+						<Label htmlFor={category} className="text-sm text-white">
+							{category}
+						</Label>
+					</li>
+				))}
+			</ul>
 		</RadioGroup>
 	)
 }

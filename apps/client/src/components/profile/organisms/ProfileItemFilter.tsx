@@ -38,7 +38,7 @@ export default function ProfileItemFilter({
 					onValueChange={(value) => {
 						handleSelectChange("sortDate", value)
 					}}>
-					<SelectTrigger className="font-mulish h-[2.2rem] w-[7rem] rounded-full border border-white/20 bg-transparent text-white">
+					<SelectTrigger className="font-mulish hidden h-[2.2rem] w-[7rem] rounded-full border border-white/20 bg-transparent text-white xs:!flex">
 						<SelectValue placeholder="날짜 순서" />
 					</SelectTrigger>
 					<SelectContent>

@@ -20,7 +20,7 @@ export default function ProfilePromptItem({ productInfo }: ProfileCardProps) {
 		<li className="flex justify-center">
 			<Link href="/prompt-detail/1">
 				<Card className="relative flex w-[150px] flex-col overflow-hidden rounded-md border-0 bg-[#111111] shadow-md xs:w-[220px]">
-					<div className="relative h-[200px] xs:h-[300px]">
+					<div className="relative h-[190px] xs:h-[260px]">
 						<Image
 							src={productInfo.thumbnailUrl}
 							sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw"
