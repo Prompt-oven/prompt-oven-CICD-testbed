@@ -44,9 +44,9 @@ export default function ProfileFilterSidebar() {
 
 	return (
 		<div
-			className="sticky hidden h-full rounded-lg bg-opacity-20 bg-gradient-to-r from-[#3F1C24] to-[#262038] p-4 sm:max-w-[200px] lg:block"
+			className="sticky hidden h-full rounded-lg bg-opacity-20 bg-gradient-to-r from-[#3F1C24] to-[#262038] p-4 sm:max-w-[200px] lg:!block"
 			style={{
-				top: Math.max(sidebarPosition, 100),
+				top: Math.max(sidebarPosition, 20),
 			}}>
 			<h2 className="mb-4 font-medium text-white">FILTER BY</h2>
 

@@ -1,6 +1,6 @@
 import Image from "next/image"
 import { Card } from "@repo/ui/card"
-import StarRate from "@repo/ui/rating-read-only"
+import StarAnimation from "@repo/ui/star-animation"
 import type { PromptsType } from "@/types/prompts/promptsType"
 import PromptName from "../atom/PromptName"
 import PromptCategory from "../atom/PromptCategory"
@@ -28,7 +28,7 @@ export default function PromptTopItemStash({
 				{rank}
 			</div>
 			<div className="flex h-[107px] flex-col gap-2 bg-[#3d2d50] pl-2 pt-1">
-				<StarRate value={promptTop.productStar} />
+				<StarAnimation rateData={promptTop.productStar} noAnimation={false} />
 				<PromptName promptName={promptTop.productName} />
 				<div className="flex items-center justify-between">
 					<PromptCategory categoryName={promptTop.categoryName} />

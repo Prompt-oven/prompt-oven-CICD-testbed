@@ -1,5 +1,5 @@
 import React from "react"
-import StarRatingReadOnly from "@repo/ui/rating-read-only"
+import StarAnimation from "@repo/ui/star-animation"
 
 interface PromptDetailStandardInfoProps {
 	productRegistDate: string
@@ -25,7 +25,7 @@ export default function PromptDetailStandardInfo({
 			<p className="text-[40px] font-semibold text-white">{productName}</p>
 			<div className="flex items-center justify-between text-sm text-white">
 				<div className="flex items-center gap-4">
-					<StarRatingReadOnly value={productStar} />
+					<StarAnimation rateData={productStar} noAnimation={false} />
 					<span className="font-semibold">( {productReviewCount} )</span>
 				</div>
 				<p className="mr-4 flex gap-2">
