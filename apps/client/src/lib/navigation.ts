@@ -1,72 +1,112 @@
-import type { ReactNode } from "react"
+import type { ForwardRefExoticComponent, RefAttributes } from "react"
+import type { LucideProps } from "@repo/ui/lucide"
+import {
+	FileText,
+	Heart,
+	LayoutDashboard,
+	Package,
+	Settings,
+	ShoppingBag,
+	Store,
+	TagsIcon,
+	User,
+	Wallet,
+} from "@repo/ui/lucide"
 
-export interface NavType {
-	title: string
+export type MenuIconType = ForwardRefExoticComponent<
+	Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>
+>
+
+export interface BaseMenuItemType {
+	icon: MenuIconType
+	label: string
 	href: string
-	icon?: ReactNode
+	query: string
 }
+export interface SubMenuItemType extends Omit<BaseMenuItemType, "icon"> {
+	icon?: ForwardRefExoticComponent<
+		Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>
+	>
+}
+
+export interface MenuNavItemType extends BaseMenuItemType {
+	subMenu?: SubMenuItemType[]
+}
+
+export interface HeaderNavType
+	extends Omit<BaseMenuItemType, "query" | "icon"> {
+	icon?: MenuIconType
+}
+
 // todo : href를 고정 문자열이 아니라 route 파일에서 값을 받아오게 수정하기
-export const mainNavs = [
+export const mainNavs: HeaderNavType[] = [
 	{
-		title: "HOME",
+		label: "HOME",
 		href: "/home",
 	},
 	{
-		title: "PROMPTS",
+		label: "PROMPTS",
 		href: "/prompts",
 	},
 	{
-		title: "SPECIAL EXHIBITION",
+		label: "SPECIAL EXHIBITION",
 		href: "/special-exhibition",
 	},
 	{
-		title: "BEST",
+		label: "BEST",
 		href: "/best",
 	},
 ]
 
-export const sellerAvatarNavs: NavType[] = [
+// ----------------- Avatar Navs -----------------
+
+export const sellerNavs: MenuNavItemType[] = [
 	{
-		title: "To Be Seller",
-		href: "/seller-registration",
+		icon: LayoutDashboard,
+		label: "Overview",
+		href: "/account",
+		query: "overview",
 	},
 	{
-		title: "Profile",
-		href: "/profile",
+		icon: Package,
+		label: "Product",
+		href: "account",
+		query: "product",
+		subMenu: [
+			{ label: "Create Product", href: "/account", query: "create-product" },
+			{ label: "Product List", href: "/account", query: "product-list" },
+			{ label: "Category", href: "/account", query: "product-category" },
+		],
 	},
+	{ icon: User, label: "Profile", href: "/account", query: "profile" },
+	{ icon: FileText, label: "Prompts", href: "/account", query: "prompts" },
+	{ icon: TagsIcon, label: "Sales", href: "/account", query: "sales" },
+	{ icon: Wallet, label: "Payouts", href: "/account", query: "payouts" },
 	{
-		title: "Dashboard",
-		href: "/dashboard",
+		icon: ShoppingBag,
+		label: "Purchases",
+		href: "/account",
+		query: "purchases",
 	},
-	{
-		title: "Product",
-		href: "/product-list",
-	},
-	{
-		title: "Payouts",
-		href: "/payouts",
-	},
-	{
-		title: "Purchases",
-		href: "/purchases",
-	},
-	{
-		title: "Settings",
-		href: "/settings",
-	},
+	{ icon: Heart, label: "Favorites", href: "/account", query: "favorites" },
+	{ icon: Settings, label: "Settings", href: "/account", query: "settings" },
 ]
 
-export const userAvatarNavs: NavType[] = [
+export const userNavs: MenuNavItemType[] = [
 	{
-		title: "Profile",
-		href: "/profile",
+		label: "To Be Seller",
+		href: "/seller-registration",
+		query: "",
+		icon: Store,
 	},
+	{ icon: User, label: "Profile", href: "/account", query: "profile" },
 	{
-		title: "Purchases",
-		href: "/purchases",
+		icon: ShoppingBag,
+		label: "Purchases",
+		href: "/account",
+		query: "purchases",
 	},
-	{
-		title: "Settings",
-		href: "/settings",
-	},
+	{ icon: Settings, label: "Settings", href: "/account", query: "settings" },
 ]
+
+// ----------------- SideBar Menu Navs -----------------

@@ -30,7 +30,7 @@ export default function MainHeader() {
 						// eslint-disable-next-line react/no-array-index-key -- index is unique
 						<li key={index}>
 							<NavLink href={nav.href} color="#969696" activeColor="#A913F9">
-								{nav.title}
+								{nav.label}
 							</NavLink>
 						</li>
 					))}
