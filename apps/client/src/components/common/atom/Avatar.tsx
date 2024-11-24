@@ -22,13 +22,13 @@ export default function Avatar({
 }: AvatarProps) {
 	return (
 		<ShadcnAvatar
+			{...props}
 			className={cn(
-				"inline-flex items-center justify-center rounded-full",
+				"box-border inline-flex items-center justify-center rounded-full",
 				"border border-[#424242] bg-transparent",
 				className,
 			)}
-			style={{ width: `${size}px`, height: `${size}px` }}
-			{...props}>
+			style={{ width: `${size / 16}rem`, height: `${size / 16}rem` }}>
 			{src ? (
 				<AvatarImage
 					src={src}

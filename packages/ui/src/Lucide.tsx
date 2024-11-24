@@ -33,5 +33,8 @@ export {
 	UserPlus,
 	UserCheck,
 	Minus,
+	Menu,
+	Receipt,
+	Store,
 	type LucideProps,
 } from "lucide-react"
