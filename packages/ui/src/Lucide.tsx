@@ -36,5 +36,7 @@ export {
 	Menu,
 	Receipt,
 	Store,
+	MessageSquareText,
+	Bell,
 	type LucideProps,
 } from "lucide-react"

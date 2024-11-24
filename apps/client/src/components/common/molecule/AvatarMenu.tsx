@@ -22,7 +22,7 @@ export function AvatarMenu() {
 			<DropdownMenuTrigger asChild>
 				<Button
 					variant="ghost"
-					className="relative !h-12 !w-12 rounded-full border-none hover:!bg-transparent focus-visible:!ring-0">
+					className="relative !hidden !h-12 !w-12 rounded-full border-none hover:!bg-transparent focus-visible:!ring-0 lg:!flex">
 					<Avatar size={48} />
 				</Button>
 			</DropdownMenuTrigger>

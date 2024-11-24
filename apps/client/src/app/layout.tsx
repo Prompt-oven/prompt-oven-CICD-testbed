@@ -6,6 +6,7 @@ import { roboto, sora } from "@/app/fonts.ts"
 // import MainHeader from "@/components/main/molecule/MainHeader.tsx"
 import MainHeader from "@/components/common/molecule/MainHeader.tsx"
 import { AuthSessionProvider } from "@/provider/authSessionProvider.tsx"
+import { SideMenuToggleStoreProvider } from "@/provider/account/sideMenuStoreProvider.tsx"
 
 export const metadata: Metadata = {
 	title: "Prompt Oven",
@@ -41,8 +42,10 @@ export default function RootLayout({
 			<body
 				className={`${sora.variable} ${roboto.variable} ${sora.className} bg-po-black-200`}>
 				<AuthSessionProvider>
-					<MainHeader />
-					{children}
+					<SideMenuToggleStoreProvider>
+						<MainHeader />
+						{children}
+					</SideMenuToggleStoreProvider>
 				</AuthSessionProvider>
 			</body>
 		</html>

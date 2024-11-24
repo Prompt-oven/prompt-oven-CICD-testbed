@@ -1,10 +1,12 @@
-import React from "react"
+import React, { Suspense } from "react"
 import Link from "next/link"
+import { Bell, MessageSquareText, ShoppingCart } from "@repo/ui/lucide"
 import CommonHeader from "@/components/common/atom/Header"
 import MainLogo from "@/components/common/atom/icon/MainLogo.tsx"
-import { mainNavs } from "@/lib/navigation.ts"
-import NavLink from "@/components/common/atom/NavLink.tsx"
 import { AvatarMenu } from "@/components/common/molecule/AvatarMenu.tsx"
+import BadgeContainer from "@/components/common/atom/BadgeContainer.tsx"
+import { SideBarMenu } from "@/components/common/organism/SideBarMenu.tsx"
+import MainHeaderLinkList from "@/components/common/atom/MainHeaderLinkList.tsx"
 
 export default function MainHeader() {
 	return (
@@ -14,29 +16,38 @@ export default function MainHeader() {
 				<MainLogo />
 			</Link>
 
+			{/* todo: 검색 다이얼로그 컴포넌트 추가 필요 - 모바일 또는 태블릿인 경우 검색 아이콘으로 바뀌는 반응형 작업도 필요함 */}
 			<div className="box-border hidden h-full max-w-2xl flex-1 items-center border-x border-[#424242] px-10 md:flex">
 				<div className="h-8 w-full bg-po-gray-100" />
 			</div>
 
 			{/* Navigation */}
-			<ul className="mx-4 hidden items-center gap-6 xl:flex">
-				{mainNavs.map((nav, index) => (
-					// eslint-disable-next-line react/no-array-index-key -- index is unique
-					<li key={index}>
-						<NavLink href={nav.href} color="#969696" activeColor="#A913F9">
-							{nav.label}
-						</NavLink>
-					</li>
-				))}
-			</ul>
+			<MainHeaderLinkList />
 
 			{/* Right side buttons */}
-			<div className="hidden items-center gap-8 lg:flex">
+			<div className="ml-5 flex items-center gap-5">
+				{/* todo: 현재는 BadgeContainer로만 표현했지만 알림은 알림과 관련된 모달을 띄우고 메시지와 카트는 해당 페이지로 이동해야한다. 그 이후에 컴포넌트로 정의하기*/}
+				<BadgeContainer count={2}>
+					<Bell className="!h-7 !w-7 text-po-gray-150" strokeWidth={2} />
+				</BadgeContainer>
+				<BadgeContainer count={10}>
+					<MessageSquareText
+						className="!h-7 !w-7 text-po-gray-150"
+						strokeWidth={2}
+					/>
+				</BadgeContainer>
+				<BadgeContainer count={10}>
+					<ShoppingCart
+						className="!h-7 !w-7 text-po-gray-150"
+						strokeWidth={2}
+					/>
+				</BadgeContainer>
 				<AvatarMenu />
+				{/* Mobile menu button */}
+				<Suspense fallback={null}>
+					<SideBarMenu />
+				</Suspense>
 			</div>
-
-			{/* Mobile menu button */}
-			<div className="pl-4 lg:hidden" />
 		</CommonHeader>
 	)
 }

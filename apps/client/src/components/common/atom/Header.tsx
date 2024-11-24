@@ -8,9 +8,10 @@ export interface HeaderProps
 }
 
 // note: 필요에 따라 기본 반응형 코드를 작성할 필요가 있음
-const defaultHeaderClassName = "flex w-full justify-center items-center"
+const defaultHeaderClassName =
+	"flex w-full justify-center items-center border-b-[1px] border-[#424242]"
 const defaultInnerContainerClassName =
-	"mx-auto flex h-20 w-full max-w-[1720px] items-center justify-between px-4"
+	"mx-auto flex h-20 w-full max-w-[1720px] items-center justify-between px-5"
 
 export default function Header({
 	children,
