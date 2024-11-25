@@ -1,27 +1,42 @@
+# Build stage
+FROM node:20-alpine AS builder
+WORKDIR /app
+
+# Install pnpm globally
+RUN npm install -g pnpm@9.12.2
+
+# Copy package files first for better caching
+COPY pnpm-workspace.yaml pnpm-lock.yaml package.json turbo.json ./
+COPY apps/client/package.json ./apps/client/
+COPY apps/admin/package.json ./apps/admin/
+
+# Install dependencies
+RUN pnpm install --frozen-lockfile
+
+# Copy source files
+COPY . .
+
+# Build applications
+RUN pnpm turbo build
+
+# Runner stage
 FROM node:20-alpine AS runner
 WORKDIR /app
 
-# Install pnpm and sharp globally as root
-RUN npm install -g pnpm@9.12.2 sharp
+# Install pnpm globally in runner
+RUN npm install -g pnpm@9.12.2
 
-# Copy package files
-COPY artifact/pnpm-workspace.yaml artifact/pnpm-lock.yaml artifact/package.json artifact/turbo.json ./
-COPY artifact/client-package.json ./apps/client/package.json
-COPY artifact/admin-package.json ./apps/admin/package.json
+# Copy package files and built artifacts
+COPY --from=builder /app/pnpm-workspace.yaml /app/pnpm-lock.yaml /app/package.json /app/turbo.json ./
+COPY --from=builder /app/apps/client/package.json ./apps/client/
+COPY --from=builder /app/apps/admin/package.json ./apps/admin/
+COPY --from=builder /app/apps/client/.next ./apps/client/.next
+COPY --from=builder /app/apps/admin/.next ./apps/admin/.next
+COPY --from=builder /app/apps/client/public ./apps/client/public
+COPY --from=builder /app/apps/admin/public ./apps/admin/public
 
-# Install dependencies
-RUN pnpm install
-
-# Create necessary directories
-RUN mkdir -p ./apps/client/.next ./apps/admin/.next ./apps/client/public ./apps/admin/public
-
-# Copy built applications
-COPY artifact/client-next/. ./apps/client/.next/
-COPY artifact/admin-next/. ./apps/admin/.next/
-
-# Copy public directories
-COPY artifact/client-public/. ./apps/client/public/
-COPY artifact/admin-public/. ./apps/admin/public/
+# Install production dependencies only
+RUN pnpm install --frozen-lockfile --prod
 
 # Set environment variables
 ENV NODE_ENV=production
