@@ -16,6 +16,7 @@ interface SideMenuToggleItemProps extends HTMLAttributes<HTMLDivElement> {
 	subMenu: SubMenuItemType[]
 	Icon: MenuIconType
 	subMenuProps?: HTMLAttributes<HTMLDivElement>
+	containerProps?: HTMLAttributes<HTMLDivElement>
 }
 
 function SideMenuToggleItem({
@@ -24,7 +25,8 @@ function SideMenuToggleItem({
 	label,
 	view,
 	Icon,
-	                            subMenuProps,
+	containerProps,
+	subMenuProps,
 	...props
 }: SideMenuToggleItemProps) {
 	const { sideMenuItems, toggleSideMenuItem } = useSideMenuToggleStore(
@@ -32,7 +34,9 @@ function SideMenuToggleItem({
 	)
 	const isOpen = Boolean(sideMenuItems.get(view))
 	return (
-		<div className="flex flex-col">
+		<div
+			{...containerProps}
+			className={cn("flex flex-col", containerProps?.className)}>
 			<div
 				role="button"
 				tabIndex={0}
@@ -65,7 +69,7 @@ function SideMenuToggleItem({
 				className={cn(
 					"transition-max-height flex flex-col gap-2 pl-4 duration-500 ease-in",
 					isOpen ? "max-h-screen" : "max-h-0 overflow-hidden",
-					subMenuProps?.className
+					subMenuProps?.className,
 				)}>
 				{subMenu.map((item, index) => (
 					<SideMenuToggleSubItem

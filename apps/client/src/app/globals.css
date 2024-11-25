@@ -46,6 +46,24 @@
 }
 /* Profile Scroll-bar END*/
 
+/* common scroll-bar START*/
+.common-scrollbar-y::-webkit-scrollbar {
+	width: 5px;
+}
+.common-scrollbar-y::-webkit-scrollbar-track {
+	background: transparent;
+}
+.common-scrollbar-y::-webkit-scrollbar-thumb {
+	background: #424242;
+	border-radius: 5px;
+}
+.common-scrollbar-y {
+	overflow-y: auto;
+	scrollbar-width: thin;
+	scrollbar-color: #424242 transparent;
+}
+/* common scroll-bar END */
+
 /* 스타 START */
 .star-rating__foreground {
 	position: absolute;
@@ -57,7 +75,6 @@
 	transition: width 1.5s ease-in-out;
 }
 /* 스타 END */
-
 @layer components {
 	.gradient-button-1 {
 		background: linear-gradient(98.49deg, #a913f9 -11.31%, #9d3d81 76.26%);
