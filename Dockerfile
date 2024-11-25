@@ -16,8 +16,8 @@ COPY --chown=nextjs:nodejs artifact/admin-package.json ./apps/admin/package.json
 
 USER nextjs
 
-# Install production dependencies
-RUN pnpm install --prod --frozen-lockfile
+# Install dependencies
+RUN pnpm install
 
 # Create necessary directories
 RUN mkdir -p ./apps/client/.next ./apps/admin/.next ./apps/client/public ./apps/admin/public
@@ -30,7 +30,7 @@ COPY --chown=nextjs:nodejs artifact/admin-next/. ./apps/admin/.next/
 COPY --chown=nextjs:nodejs artifact/client-public/. ./apps/client/public/
 COPY --chown=nextjs:nodejs artifact/admin-public/. ./apps/admin/public/
 
-# Install sharp for image optimization
+# Install sharp for better image optimization
 RUN npm install sharp
 
 # Set environment variables
