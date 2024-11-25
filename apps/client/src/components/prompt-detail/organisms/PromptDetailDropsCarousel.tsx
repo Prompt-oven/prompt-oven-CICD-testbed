@@ -4,7 +4,7 @@ import { useState } from "react"
 import { Button } from "@repo/ui/button"
 import { ChevronLeft, ChevronRight } from "@repo/ui/lucide"
 import { AnimatePresence, motion } from "framer-motion"
-import PropmtDetailDrop from "../molecules/PromptDetailDrop"
+import PropmtDetailDrop from "../atoms/PromptDetailDrop"
 
 interface PromptDetailDropsCarouselProps {
 	items: {
