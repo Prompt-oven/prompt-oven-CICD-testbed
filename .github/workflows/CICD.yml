@@ -41,30 +41,6 @@ jobs:
       
       - name: Build applications
         run: pnpm turbo build
-      
-      # Prepare artifact
-      - name: Prepare artifact
-        run: |
-          mkdir -p artifact
-          # Copy Next.js builds
-          cp -r apps/client/.next artifact/client-next
-          cp -r apps/admin/.next artifact/admin-next
-          
-          # Copy public directories
-          mkdir -p artifact/client-public artifact/admin-public
-          [ -d "apps/client/public" ] && cp -r apps/client/public/. artifact/client-public/
-          [ -d "apps/admin/public" ] && cp -r apps/admin/public/. artifact/admin-public/
-          
-          # Copy package files
-          cp pnpm-lock.yaml pnpm-workspace.yaml package.json turbo.json artifact/
-          cp apps/client/package.json artifact/client-package.json
-          cp apps/admin/package.json artifact/admin-package.json
-      
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: next-app
-          path: artifact
   
   deploy:
     needs: build
@@ -72,12 +48,6 @@ jobs:
     
     steps:
       - uses: actions/checkout@v4
-      
-      - name: Download artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: next-app
-          path: artifact
       
       - name: Login to DockerHub
         uses: docker/login-action@v3
