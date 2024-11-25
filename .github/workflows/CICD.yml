@@ -98,7 +98,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          file: Dockerfile.prod
+          file: Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/prompt_oven_fe_testbed:latest
           cache-from: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/prompt_oven_fe_testbed:cache
