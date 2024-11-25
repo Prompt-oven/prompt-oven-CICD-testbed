@@ -14,12 +14,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       
-      # Setup Node
       - uses: actions/setup-node@v4
         with:
           node-version: 20
       
-      # Setup PNPM
       - uses: pnpm/action-setup@v4
         with:
           version: 9.12.2
@@ -44,19 +42,31 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-nextjs-
       
-      # Build apps and cache output
-      - name: Build apps
-        run: pnpm install && pnpm turbo build
+      # Install and build
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
       
-      # Save build output as artifact
-      - name: Save build output
+      - name: Build applications
+        run: pnpm turbo build
+      
+      # Create artifact directory
+      - name: Prepare artifact
+        run: |
+          mkdir -p artifact
+          cp -r apps/client/.next artifact/client-next
+          cp -r apps/admin/.next artifact/admin-next
+          cp -r apps/client/public artifact/client-public || true
+          cp -r apps/admin/public artifact/admin-public || true
+          cp pnpm-lock.yaml pnpm-workspace.yaml package.json turbo.json artifact/
+          cp apps/client/package.json artifact/client-package.json
+          cp apps/admin/package.json artifact/admin-package.json
+      
+      # Upload artifact
+      - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: build-output
-          path: |
-            apps/client/.next
-            apps/admin/.next
-            apps/*/public
+          name: next-app
+          path: artifact
   
   deploy:
     needs: build
@@ -65,12 +75,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       
-      # Download build output
-      - name: Download build output
+      # Download artifact
+      - name: Download artifact
         uses: actions/download-artifact@v4
         with:
-          name: build-output
-          path: build-output
+          name: next-app
+          path: artifact
       
       # Setup Docker Buildx
       - name: Set up Docker Buildx
@@ -88,9 +98,8 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
+          file: Dockerfile.prod
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/prompt_oven_fe_testbed:latest
           cache-from: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/prompt_oven_fe_testbed:cache
           cache-to: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/prompt_oven_fe_testbed:cache,mode=max
-          build-args: |
-            NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}
