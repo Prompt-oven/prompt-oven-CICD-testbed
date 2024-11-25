@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-
+import debounce from "lodash/debounce"
 import { Button } from "@repo/ui/button"
 import {
 	Dialog,
@@ -13,16 +13,18 @@ import {
 	Drawer,
 	// DrawerClose,
 	DrawerContent,
-	DrawerDescription,
-	DrawerFooter,
-	DrawerHeader,
-	DrawerTitle,
+	// DrawerDescription,
+	// DrawerFooter,
+	// DrawerHeader,
+	// DrawerTitle,
 	// DrawerTrigger,
 } from "@repo/ui/drawer"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@repo/ui/tabs"
 // import SearchForm from "./SearchForm"
 import { X } from "@repo/ui/lucide"
 import { Input } from "@repo/ui/input"
+import { useRouter } from "next/navigation"
+import { useSearchActions } from "@/action/search/useSearchResults"
 
 interface SearchDialogDrawerWrapperProps {
 	setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
@@ -34,12 +36,13 @@ export function SearchDialogDrawer({
 	isOpen,
 }: SearchDialogDrawerWrapperProps) {
 	const [isMobile, setIsMobile] = useState(false)
-	const suggestions = ["@yukanne", "@jason_ahn", "@cookie_friends"]
-	const suggestions2 = [
-		"Christmas Card Prompt",
-		"New Year Prompt",
-		"Cookie_friends Prompt",
-	]
+	const { creators, prompts, fetchAndSetSearchResults } = useSearchActions()
+	const router = useRouter()
+	const [query, setQuery] = useState("")
+
+	const debouncedFetchAndSetSearchResults = debounce((searchQuery: string) => {
+		fetchAndSetSearchResults(searchQuery)
+	}, 300)
 
 	useEffect(() => {
 		const handleResize = () => {
@@ -50,19 +53,79 @@ export function SearchDialogDrawer({
 		return () => window.removeEventListener("resize", handleResize)
 	}, [])
 
+	useEffect(() => {
+		if (query) {
+			debouncedFetchAndSetSearchResults(query)
+		} else {
+			setQuery("")
+		}
+	}, [query])
+
+	const handleEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
+		if (e.key === "Enter" && query.trim() !== "") {
+			e.preventDefault()
+			router.push(`/prompts?query=${query}`)
+			setQuery("")
+			setIsOpen(false)
+		}
+	}
+
 	return (
 		<>
 			{isMobile ? (
 				<Drawer open={isOpen} onOpenChange={() => setIsOpen(false)}>
-					<DrawerContent>
-						<DrawerHeader className="text-left">
-							<DrawerTitle>검색</DrawerTitle>
-							<DrawerDescription>Search prompts or creators</DrawerDescription>
-						</DrawerHeader>
-
-						<DrawerFooter>
-							<Button onClick={() => setIsOpen(false)}>닫기</Button>
-						</DrawerFooter>
+					<DrawerContent className="border-zinc-80 h-[45rem] bg-zinc-900/95 p-5">
+						<div className="flex justify-between">
+							{/* 수빈 - 탭 클릭 시 해당 api 액션 연결 작업 진행하기 */}
+							<Tabs defaultValue="creator" className="w-full">
+								<TabsList className="mt-[1rem] w-[200px] bg-zinc-800">
+									<TabsTrigger value="creator" className="w-full">
+										Creator
+									</TabsTrigger>
+									<TabsTrigger value="prompt" className="w-full">
+										Prompt
+									</TabsTrigger>
+								</TabsList>
+								<TabsContent value="creator">
+									<div className="mt-4 space-y-3">
+										<Input
+											onKeyDown={handleEnter}
+											value={query}
+											onChange={(e) => setQuery(e.target.value)}
+											placeholder="What are you searching for?"
+											className="placeholder:text-muted-foreground text-muted-foreground border-none bg-transparent text-lg"
+										/>
+										{creators.map((creator) => (
+											<Button
+												key={creator.id}
+												variant="ghost"
+												className="text-muted-foreground w-full justify-start hover:text-white">
+												{creator.nickname}
+											</Button>
+										))}
+									</div>
+								</TabsContent>
+								<TabsContent value="prompt">
+									<div className="mt-4 space-y-3">
+										<Input
+											onKeyDown={handleEnter}
+											value={query}
+											onChange={(e) => setQuery(e.target.value)}
+											placeholder="What are you searching for?"
+											className="placeholder:text-muted-foreground text-muted-foreground border-none bg-transparent text-lg"
+										/>
+										{prompts.map((prompt) => (
+											<Button
+												key={prompt.id}
+												variant="ghost"
+												className="text-muted-foreground w-full justify-start hover:text-white">
+												{prompt.title}
+											</Button>
+										))}
+									</div>
+								</TabsContent>
+							</Tabs>
+						</div>
 					</DrawerContent>
 				</Drawer>
 			) : (
@@ -83,15 +146,18 @@ export function SearchDialogDrawer({
 									<TabsContent value="creator">
 										<div className="mt-4 space-y-3">
 											<Input
+												onKeyDown={handleEnter}
+												value={query}
+												onChange={(e) => setQuery(e.target.value)}
 												placeholder="What are you searching for?"
 												className="placeholder:text-muted-foreground text-muted-foreground border-none bg-transparent text-lg"
 											/>
-											{suggestions.map((suggestion) => (
+											{creators.map((creator) => (
 												<Button
-													key={suggestion}
+													key={creator.id}
 													variant="ghost"
 													className="text-muted-foreground w-full justify-start hover:text-white">
-													{suggestion}
+													{creator.nickname}
 												</Button>
 											))}
 										</div>
@@ -99,15 +165,18 @@ export function SearchDialogDrawer({
 									<TabsContent value="prompt">
 										<div className="mt-4 space-y-3">
 											<Input
+												onKeyDown={handleEnter}
+												value={query}
+												onChange={(e) => setQuery(e.target.value)}
 												placeholder="What are you searching for?"
 												className="placeholder:text-muted-foreground text-muted-foreground border-none bg-transparent text-lg"
 											/>
-											{suggestions2.map((suggestion) => (
+											{prompts.map((prompt) => (
 												<Button
-													key={suggestion}
+													key={prompt.id}
 													variant="ghost"
 													className="text-muted-foreground w-full justify-start hover:text-white">
-													{suggestion}
+													{prompt.title}
 												</Button>
 											))}
 										</div>

@@ -1,12 +1,12 @@
 "use client"
 
-import React, { useEffect, useRef, useState } from "react"
+import React, { useEffect, useRef, useState, InputHTMLAttributes } from "react"
 import { Search } from "@repo/ui/lucide"
 import { Button } from "@repo/ui/button"
 import { Input } from "@repo/ui/input"
 import { SearchDialogDrawer } from "../molecule/SearchDialogDrawer"
 
-interface SearchInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+interface SearchInputProps extends InputHTMLAttributes<HTMLInputElement> {
 	width?: string
 	placeholder?: string
 	query?: string

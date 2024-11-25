@@ -15,11 +15,11 @@ import {
 	DrawerHeader,
 	DrawerTitle,
 } from "@repo/ui/drawer"
+import { Search } from "@repo/ui/lucide"
 import GradientButton from "@/components/common/atom/GradientButton.tsx"
 import Avatar from "@/components/common/atom/Avatar.tsx"
 import MainLogo from "@/components/common/atom/icon/MainLogo.tsx"
 import NavLink from "@/components/common/atom/NavLink"
-import { Search } from "@repo/ui/lucide"
 import SearchInput from "@/components/common/atom/SearchInputWrapper"
 import { mainNavs } from "@/lib/navigation.ts"
 
