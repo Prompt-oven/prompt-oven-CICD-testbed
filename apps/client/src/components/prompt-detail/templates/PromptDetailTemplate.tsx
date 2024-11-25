@@ -1,15 +1,13 @@
-import type { PromptDetailInfoType } from "@/types/prompt-detail/promptDetailType"
-import type { PromptReviewType } from "@/types/review/reviewType"
 import type {
 	DetailCategoryListType,
 	DetailDropsCarouselType,
 } from "@/types/prompt-detail/associationPromptType"
-import PromptDetailInfo from "../organisms/PromptDetailInfo"
-import PromptDetailReviewCount from "../organisms/PromptDetailReviewCount"
-import PromptDetailThumbnail from "../organisms/PromptDetailThumbnail"
-import PromptReviewContents from "../organisms/PromptReviewContents"
+import type { PromptDetailInfoType } from "@/types/prompt-detail/promptDetailType"
+import type { PromptReviewType } from "@/types/review/reviewType"
+import PromptDetailMain from "../organisms/PromptDetailMain"
 import PromptDetailDropsCarousel from "../organisms/PromptDetailDropsCarousel"
-import PropmtDetailCategoryList from "../organisms/PropmtDetailCategoryList"
+import PromptDetailReview from "../organisms/PromptDetailReview"
+import PropmtDetailCategoryList from "../molecules/PropmtDetailCategoryList"
 
 interface PromptDetailProps {
 	notableDrops: DetailDropsCarouselType[]
@@ -25,27 +23,18 @@ export default function PromptDetailTemplate({
 	productReview,
 }: PromptDetailProps) {
 	return (
-		<section className="flex flex-col gap-16">
-			<div className="container mx-auto rounded-lg">
-				<div className="flex gap-20 sm:flex-col lg:flex-row">
-					<PromptDetailThumbnail
-						thumbnailUrl={productDetail.thumbnailUrl}
-						productUUID={productDetail.productUUID}
-					/>
+		<section className="mx-auto mt-12 flex max-w-screen-xl flex-col lg:gap-16">
+			<PromptDetailMain
+				thumbnailUrl={productDetail.thumbnailUrl}
+				productUUID={productDetail.productUUID}
+				productDetail={productDetail}
+			/>
 
-					<div className="flex min-h-[800px] flex-grow flex-col gap-12">
-						<PromptDetailInfo productDetail={productDetail} />
-					</div>
-				</div>
-			</div>
-
-			<div className="mx-auto flex flex-col gap-8 text-white">
-				<PromptDetailReviewCount reviewCount={productReview.content.length} />
-				<PromptReviewContents
-					productDetail={productDetail}
-					productReview={productReview}
-				/>
-			</div>
+			<PromptDetailReview
+				reviewCount={productReview.content.length}
+				productDetail={productDetail}
+				productReview={productReview}
+			/>
 
 			<PromptDetailDropsCarousel items={notableDrops} />
 			<PropmtDetailCategoryList categories={categories} />

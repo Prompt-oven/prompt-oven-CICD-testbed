@@ -37,14 +37,14 @@ export function SideBarMenu() {
 			<SheetContent
 				side="left"
 				isClose={false}
-				className="w-[300px] border-r-0 bg-po-black-200 sm:w-[400px]">
+				className="common-scrollbar-y flex w-[18.75rem] border-r-0 bg-po-black-200 !pr-2 sm:w-[22.5rem]">
 				<SheetHeader className="hidden">
 					<SheetTitle>SideBarMenu</SheetTitle>
 					<SheetDescription>
 						This is a sidebar menu for the users.
 					</SheetDescription>
 				</SheetHeader>
-				<nav className="flex flex-col space-y-4">
+				<nav className="w-full space-y-4 overflow-y-auto">
 					{sellerNavs.map((item, index) =>
 						item.subMenu ? (
 							<SideMenuToggleItem
@@ -56,6 +56,10 @@ export function SideBarMenu() {
 								Icon={item.icon}
 								subMenu={item.subMenu}
 								subMenuProps={{ onClick: () => setOpen(false) }}
+								containerProps={{
+									className:
+										"w-[calc(18.75rem-3.25rem)] sm:w-[calc(22.5rem-3.25rem)]",
+								}}
 							/>
 						) : (
 							<SideMenuItem
@@ -65,6 +69,7 @@ export function SideBarMenu() {
 									pathname: routes.account,
 									query: { view: item.query },
 								}}
+								className="w-[calc(18.75rem-3.25rem)] sm:w-[calc(22.5rem-3.25rem)]"
 								view={item.query}
 								label={item.label}
 								activeRoute={viewQuery}

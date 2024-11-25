@@ -1,9 +1,9 @@
 import Image from "next/image"
-import { Card } from "@repo/ui/card"
 import StarAnimation from "@repo/ui/star-animation"
+import { Card } from "@repo/ui/card"
 import type { PromptsType } from "@/types/prompts/promptsType"
+import PromptLLMId from "../atom/PromptLLMId"
 import PromptName from "../atom/PromptName"
-import PromptCategory from "../atom/PromptCategory"
 import PromptPrice from "../atom/PromptPrice"
 
 interface PrompToptItemProps {
@@ -31,7 +31,7 @@ export default function PromptTopItemStash({
 				<StarAnimation rateData={promptTop.productStar} noAnimation={false} />
 				<PromptName promptName={promptTop.productName} />
 				<div className="flex items-center justify-between">
-					<PromptCategory categoryName={promptTop.categoryName} />
+					<PromptLLMId llmId={promptTop.llmId} />
 					<PromptPrice productPrice={promptTop.productPrice} />
 				</div>
 			</div>

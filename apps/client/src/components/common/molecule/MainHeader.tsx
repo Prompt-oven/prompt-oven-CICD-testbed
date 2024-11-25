@@ -29,22 +29,26 @@ export default function MainHeader() {
 			{/* Right side buttons */}
 			<div className="ml-5 flex items-center gap-5">
 				{/* todo: 현재는 BadgeContainer로만 표현했지만 알림은 알림과 관련된 모달을 띄우고 메시지와 카트는 해당 페이지로 이동해야한다. 그 이후에 컴포넌트로 정의하기*/}
-				<BadgeContainer count={2}>
-					<Bell className="!h-7 !w-7 text-po-gray-150" strokeWidth={2} />
-				</BadgeContainer>
-				<BadgeContainer count={10}>
-					<MessageSquareText
-						className="!h-7 !w-7 text-po-gray-150"
-						strokeWidth={2}
-					/>
-				</BadgeContainer>
-				<BadgeContainer count={10}>
-					<ShoppingCart
-						className="!h-7 !w-7 text-po-gray-150"
-						strokeWidth={2}
-					/>
-				</BadgeContainer>
+				<div className="hidden gap-5 sm:!flex">
+					<BadgeContainer count={2}>
+						<Bell className="!h-7 !w-7 text-po-gray-150" strokeWidth={2} />
+					</BadgeContainer>
+					<BadgeContainer count={10}>
+						<MessageSquareText
+							className="!h-7 !w-7 text-po-gray-150"
+							strokeWidth={2}
+						/>
+					</BadgeContainer>
+					<BadgeContainer count={10}>
+						<ShoppingCart
+							className="!h-7 !w-7 text-po-gray-150"
+							strokeWidth={2}
+						/>
+					</BadgeContainer>
+				</div>
+
 				<AvatarMenu />
+
 				{/* Mobile menu button */}
 				<Suspense fallback={null}>
 					<SideBarMenu />

@@ -6,7 +6,7 @@ export const PromptsTopDatas: PromptsType[] = [
 		thumbnailUrl:
 			"https://promptoven.s3.ap-northeast-2.amazonaws.com/dummy/profile/ProfileCard1.png",
 		productName: "Product1",
-		categoryName: "Rank1",
+		llmId: 1,
 		productStar: 4.7,
 		productPrice: 14000,
 		productRegistDate: "2024-11-08",
@@ -16,7 +16,7 @@ export const PromptsTopDatas: PromptsType[] = [
 		thumbnailUrl:
 			"https://promptoven.s3.ap-northeast-2.amazonaws.com/dummy/profile/ProfileCard2.png",
 		productName: "Product2",
-		categoryName: "Rank2",
+		llmId: 2,
 		productStar: 2.7,
 		productPrice: 5000,
 		productRegistDate: "2024-11-04",
@@ -26,7 +26,7 @@ export const PromptsTopDatas: PromptsType[] = [
 		thumbnailUrl:
 			"https://promptoven.s3.ap-northeast-2.amazonaws.com/dummy/profile/ProfileCard3.png",
 		productName: "Product3",
-		categoryName: "Rank3",
+		llmId: 3,
 		productStar: 5,
 		productPrice: 300,
 		productRegistDate: "2024-11-02",
@@ -36,7 +36,7 @@ export const PromptsTopDatas: PromptsType[] = [
 		thumbnailUrl:
 			"https://promptoven.s3.ap-northeast-2.amazonaws.com/dummy/profile/ProfileCard3.png",
 		productName: "Product3",
-		categoryName: "Rank4",
+		llmId: 4,
 		productStar: 5,
 		productPrice: 300,
 		productRegistDate: "2024-11-02",
@@ -46,7 +46,7 @@ export const PromptsTopDatas: PromptsType[] = [
 		thumbnailUrl:
 			"https://promptoven.s3.ap-northeast-2.amazonaws.com/dummy/profile/ProfileCard3.png",
 		productName: "Product3",
-		categoryName: "Rank5",
+		llmId: 5,
 		productStar: 5,
 		productPrice: 300,
 		productRegistDate: "2024-11-02",
@@ -59,7 +59,7 @@ export const PromptsListDatas: PromptsType[] = [
 		thumbnailUrl:
 			"https://promptoven.s3.ap-northeast-2.amazonaws.com/dummy/profile/ProfileCard1.png",
 		productName: "Product1",
-		categoryName: "Category1",
+		llmId: 1,
 		productStar: 4.7,
 		productPrice: 14000,
 		productRegistDate: "2024-11-08",
@@ -69,7 +69,7 @@ export const PromptsListDatas: PromptsType[] = [
 		thumbnailUrl:
 			"https://promptoven.s3.ap-northeast-2.amazonaws.com/dummy/profile/ProfileCard2.png",
 		productName: "Product2",
-		categoryName: "Category1",
+		llmId: 2,
 		productStar: 2.7,
 		productPrice: 5000,
 		productRegistDate: "2024-11-04",
@@ -79,7 +79,7 @@ export const PromptsListDatas: PromptsType[] = [
 		thumbnailUrl:
 			"https://promptoven.s3.ap-northeast-2.amazonaws.com/dummy/profile/ProfileCard3.png",
 		productName: "Product3",
-		categoryName: "Category1",
+		llmId: 3,
 		productStar: 5,
 		productPrice: 300,
 		productRegistDate: "2024-11-02",
@@ -89,7 +89,7 @@ export const PromptsListDatas: PromptsType[] = [
 		thumbnailUrl:
 			"https://promptoven.s3.ap-northeast-2.amazonaws.com/dummy/profile/ProfileCard4.png",
 		productName: "Product4",
-		categoryName: "Category1",
+		llmId: 4,
 		productStar: 3.2,
 		productPrice: 200,
 		productRegistDate: "2024-11-01",
@@ -99,7 +99,7 @@ export const PromptsListDatas: PromptsType[] = [
 		thumbnailUrl:
 			"https://promptoven.s3.ap-northeast-2.amazonaws.com/dummy/profile/ProfileCard5.png",
 		productName: "Product5",
-		categoryName: "Category1",
+		llmId: 5,
 		productStar: 5,
 		productPrice: 2500,
 		productRegistDate: "2024-11-01",
@@ -109,7 +109,7 @@ export const PromptsListDatas: PromptsType[] = [
 		thumbnailUrl:
 			"https://promptoven.s3.ap-northeast-2.amazonaws.com/dummy/profile/ProfileCard6.png",
 		productName: "Product6",
-		categoryName: "Category1",
+		llmId: 6,
 		productStar: 2.2,
 		productPrice: 1100,
 		productRegistDate: "2024-10-31",
@@ -119,7 +119,7 @@ export const PromptsListDatas: PromptsType[] = [
 		thumbnailUrl:
 			"https://promptoven.s3.ap-northeast-2.amazonaws.com/dummy/profile/ProfileCard7.png",
 		productName: "Product7",
-		categoryName: "Category1",
+		llmId: 7,
 		productStar: 4.5,
 		productPrice: 3000,
 		productRegistDate: "2024-10-31",
@@ -129,7 +129,7 @@ export const PromptsListDatas: PromptsType[] = [
 		thumbnailUrl:
 			"https://promptoven.s3.ap-northeast-2.amazonaws.com/dummy/profile/ProfileCard8.png",
 		productName: "Product8",
-		categoryName: "Category1",
+		llmId: 8,
 		productStar: 4.2,
 		productPrice: 700,
 		productRegistDate: "2024-10-28",
@@ -139,7 +139,7 @@ export const PromptsListDatas: PromptsType[] = [
 		thumbnailUrl:
 			"https://promptoven.s3.ap-northeast-2.amazonaws.com/dummy/profile/ProfileCard9.png",
 		productName: "Product9",
-		categoryName: "Category1",
+		llmId: 9,
 		productStar: 4.2,
 		productPrice: 300,
 		productRegistDate: "2024-10-27",
@@ -149,7 +149,7 @@ export const PromptsListDatas: PromptsType[] = [
 		thumbnailUrl:
 			"https://promptoven.s3.ap-northeast-2.amazonaws.com/dummy/profile/ProfileCard10.png",
 		productName: "Product10",
-		categoryName: "Category1",
+		llmId: 10,
 		productStar: 4.2,
 		productPrice: 400,
 		productRegistDate: "2024-10-23",
@@ -159,7 +159,7 @@ export const PromptsListDatas: PromptsType[] = [
 		thumbnailUrl:
 			"https://promptoven.s3.ap-northeast-2.amazonaws.com/dummy/profile/ProfileCard11.png",
 		productName: "Product11",
-		categoryName: "Category1",
+		llmId: 11,
 		productStar: 4.2,
 		productPrice: 1200,
 		productRegistDate: "2024-10-16",

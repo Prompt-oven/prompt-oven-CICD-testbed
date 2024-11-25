@@ -41,7 +41,7 @@ export default async function ProfileTemplate({
 	}
 
 	return (
-		<section className="container mx-auto mt-24 max-w-screen-xl">
+		<section className="mx-auto mt-24 max-w-screen-xl">
 			<ProfileMemberInfo memberData={memberData} />
 			<ProfilePrompt listData={listData} handleFilter={handleFilter} />
 		</section>

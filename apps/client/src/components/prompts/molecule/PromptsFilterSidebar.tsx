@@ -1,51 +1,76 @@
 "use client"
 
-import { Button } from "@repo/ui/button"
-import { useState } from "react"
-import { PromptsFilterSearchInput } from "./PromptsFilterSearchInput"
+import { useEffect, useState } from "react"
+import { PromptsFilterCategory } from "../atom/PromptsFilterCategory"
+import { PromptsFilterPrice } from "../atom/PromptsFilterPrice"
+import { PromptsFilterSearchInput } from "../atom/PromptsFilterSearchInput"
+import PromptSidebarButtonGroup from "../atom/PromptSidebarButtonGroup"
 import { PromptsFilterSection } from "./PromptsFilterSection"
-import { PromptsFilterCategory } from "./PromptsFilterCategory"
-import { PromptsFilterPrice } from "./PromptsFilterPrice"
 
 export default function PromptsFilterSidebar() {
+	const [sidebarPosition, setSidebarPosition] = useState(0)
 	const [filters, setFilters] = useState({
 		search: "",
-		category: "",
-		status: [] as string[],
+		topCategoryUuid: "",
+		subCategoryUuid: "",
+		enable: [] as string[],
 		minPrice: "",
 		maxPrice: "",
-		// colors: [] as string[],
 	})
 
 	const handleClear = () => {
 		setFilters({
 			search: "",
-			category: "",
-			status: [],
+			topCategoryUuid: "",
+			subCategoryUuid: "",
+			enable: [],
 			minPrice: "",
 			maxPrice: "",
-			// colors: [],
 		})
 	}
 
-	return (
-		<div className="h-full w-full rounded-lg bg-opacity-20 bg-gradient-to-r from-[#3F1C24] to-[#262038] p-4 sm:max-w-[200px]">
-			<h2 className="mb-4 font-medium text-white">FILTER BY</h2>
+	useEffect(() => {
+		const handleScroll = () => {
+			const scrollY = window.scrollY
+			setSidebarPosition(scrollY * 0.001)
+		}
 
-			<PromptsFilterSearchInput
-				value={filters.search}
-				onChange={(value) => setFilters({ ...filters, search: value })}
-			/>
+		window.addEventListener("scroll", handleScroll)
+		return () => {
+			window.removeEventListener("scroll", handleScroll)
+		}
+	}, [])
+
+	return (
+		<div
+			className="hidden h-full rounded-lg bg-opacity-20 bg-gradient-to-r from-[#3F1C24] to-[#262038] p-4 xs:!flex xs:flex-col lg:sticky lg:!block lg:max-w-[200px]"
+			style={{
+				top: Math.max(sidebarPosition, 20),
+			}}>
+			<div className="flex justify-between md:!block">
+				<h2 className="mb-4 font-medium text-white">FILTER BY</h2>
+
+				<PromptsFilterSearchInput
+					value={filters.search}
+					name="searchBar"
+					onChange={(value) => setFilters({ ...filters, search: value })}
+				/>
+			</div>
 
 			<PromptsFilterSection title="Category">
 				<PromptsFilterCategory
-					value={filters.category}
-					onChange={(value) => setFilters({ ...filters, category: value })}
+					value={filters.topCategoryUuid}
+					name="topCategoryUuid"
+					onChange={(value) =>
+						setFilters({ ...filters, topCategoryUuid: value })
+					}
 				/>
 			</PromptsFilterSection>
 
 			<PromptsFilterSection title="Price">
 				<PromptsFilterPrice
+					minName="minPrice"
+					maxName="maxPrice"
 					minValue={filters.minPrice}
 					maxValue={filters.maxPrice}
 					onMinChange={(value) => setFilters({ ...filters, minPrice: value })}
@@ -53,17 +78,7 @@ export default function PromptsFilterSidebar() {
 				/>
 			</PromptsFilterSection>
 
-			<div className="mt-4 flex gap-2">
-				<Button
-					variant="secondary"
-					className="flex-1 bg-[#35314D] text-white hover:bg-[#35314D]/90"
-					onClick={handleClear}>
-					Clear
-				</Button>
-				<Button className="flex-1 bg-[#F24E1E] text-white hover:bg-[#F24E1E]/90">
-					Apply
-				</Button>
-			</div>
+			<PromptSidebarButtonGroup onClear={handleClear} />
 		</div>
 	)
 }

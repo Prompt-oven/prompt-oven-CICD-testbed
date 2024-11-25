@@ -1,7 +1,7 @@
 import Link from "next/link"
 import { Avatar, AvatarFallback, AvatarImage } from "@repo/ui/avatar"
 import { ReviewDateFormatted } from "@/lib/utils"
-import PromptDetailReviewLine from "../atoms/PromptDetailReviewLine"
+import PromptDetailReviewLine from "../../atoms/review/PromptDetailReviewLine"
 
 interface PromptDetailReviewContentProps {
 	memberNickname: string
