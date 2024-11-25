@@ -1,51 +1,41 @@
-# Stage 1: Build environment
-FROM node:20-alpine AS builder
-WORKDIR /app
-
-# Install pnpm
-RUN npm install -g pnpm@9.12.2
-
-# Copy workspace configuration files first
-COPY pnpm-workspace.yaml pnpm-lock.yaml package.json turbo.json ./
-
-# Copy package.json files from workspace packages
-COPY apps/client/package.json ./apps/client/package.json
-COPY apps/admin/package.json ./apps/admin/package.json
-
-# Install dependencies
-RUN pnpm install --frozen-lockfile
-
-# Copy source code
-COPY . .
-
-# Build applications
-RUN pnpm turbo build
-
-# Stage 2: Production environment
+# Production image, copy all the files and run next
 FROM node:20-alpine AS runner
 WORKDIR /app
 
 # Install pnpm
 RUN npm install -g pnpm@9.12.2
 
-# Copy workspace configuration files
-COPY pnpm-workspace.yaml pnpm-lock.yaml package.json turbo.json ./
-COPY apps/client/package.json ./apps/client/package.json
-COPY apps/admin/package.json ./apps/admin/package.json
+# Don't run production as root
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nextjs
+USER nextjs
 
-# Install production dependencies only
+# Copy project files
+COPY --chown=nextjs:nodejs pnpm-workspace.yaml pnpm-lock.yaml package.json turbo.json ./
+COPY --chown=nextjs:nodejs apps/client/package.json ./apps/client/package.json
+COPY --chown=nextjs:nodejs apps/admin/package.json ./apps/admin/package.json
+
+# Install production dependencies
 RUN pnpm install --prod --frozen-lockfile
 
-# Copy built assets from builder
-COPY --from=builder /app/apps/client/.next ./apps/client/.next
-COPY --from=builder /app/apps/admin/.next ./apps/admin/.next
+# Copy built application
+COPY --chown=nextjs:nodejs build-output/apps/client/.next ./apps/client/.next
+COPY --chown=nextjs:nodejs build-output/apps/admin/.next ./apps/admin/.next
 
-# Copy public directories if they exist
-COPY --from=builder /app/apps/client/public ./apps/client/public
-COPY --from=builder /app/apps/admin/public ./apps/admin/public
+# Copy public files
+COPY --chown=nextjs:nodejs build-output/apps/client/public ./apps/client/public
+COPY --chown=nextjs:nodejs build-output/apps/admin/public ./apps/admin/public
 
-# Add sharp for better image optimization
+# Install sharp for image optimization
 RUN npm install sharp
 
-# Start both applications
+# Set environment variables
+ENV NODE_ENV production
+ENV NEXT_TELEMETRY_DISABLED 1
+
+# Expose ports
+EXPOSE 3000
+EXPOSE 3001
+
+# Start the applications
 CMD ["sh", "-c", "pnpm --filter client start & pnpm --filter admin start"]
