@@ -1,7 +1,7 @@
 import type { PromptsType } from "@/types/prompts/promptsType"
 import PromptsFilterSidebar from "../molecule/PromptsFilterSidebar"
 import PromptsItemFilter from "../molecule/PromptsItemFilter"
-import PromptstList from "../molecule/PromptstList"
+import PromptList from "../molecule/PromptList"
 
 interface PromptsTemplateProps {
 	promptList: PromptsType[]
@@ -21,7 +21,7 @@ export default function PromptsContainer({
 						promptCount={promptList.length}
 						handleFilter={handleFilter}
 					/>
-					<PromptstList promptList={promptList} />
+					<PromptList promptList={promptList} />
 				</div>
 			</div>
 		</form>
