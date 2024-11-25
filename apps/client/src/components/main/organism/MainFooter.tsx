@@ -1,6 +1,6 @@
 import React from "react"
 import Link from "next/link"
-import NavAnchor from "@/components/common/atom/NavAnchor.tsx"
+import NavLink from "@/components/common/atom/NavLink.tsx"
 import FooterLogo from "@/components/common/atom/icon/FooterLogo.tsx"
 import IconLinkContainer from "@/components/main/molecule/IconLinkContainer.tsx"
 import EmailInput from "@/components/common/atom/EmailInput.tsx"
@@ -62,13 +62,13 @@ function MainFooter() {
 										.map((item, i) => (
 											// eslint-disable-next-line react/no-array-index-key -- index is unique
 											<li key={i}>
-												<NavAnchor
+												<NavLink
 													href="#"
 													className="text-sm"
 													activeColor="#FCB808"
 													color="#FFFFFF">
 													{item}
-												</NavAnchor>
+												</NavLink>
 											</li>
 										))}
 								</ul>

@@ -1,0 +1,53 @@
+import React, { Suspense } from "react"
+import Link from "next/link"
+import { Bell, MessageSquareText, ShoppingCart } from "@repo/ui/lucide"
+import CommonHeader from "@/components/common/atom/Header"
+import MainLogo from "@/components/common/atom/icon/MainLogo.tsx"
+import { AvatarMenu } from "@/components/common/molecule/AvatarMenu.tsx"
+import BadgeContainer from "@/components/common/atom/BadgeContainer.tsx"
+import { SideBarMenu } from "@/components/common/organism/SideBarMenu.tsx"
+import MainHeaderLinkList from "@/components/common/atom/MainHeaderLinkList.tsx"
+
+export default function MainHeader() {
+	return (
+		<CommonHeader className="h-20 bg-po-black-200">
+			{/* Logo */}
+			<Link href="/" className="pr-4">
+				<MainLogo />
+			</Link>
+
+			{/* todo: 검색 다이얼로그 컴포넌트 추가 필요 - 모바일 또는 태블릿인 경우 검색 아이콘으로 바뀌는 반응형 작업도 필요함 */}
+			<div className="box-border hidden h-full max-w-2xl flex-1 items-center border-x border-[#424242] px-10 md:flex">
+				<div className="h-8 w-full bg-po-gray-100" />
+			</div>
+
+			{/* Navigation */}
+			<MainHeaderLinkList />
+
+			{/* Right side buttons */}
+			<div className="ml-5 flex items-center gap-5">
+				{/* todo: 현재는 BadgeContainer로만 표현했지만 알림은 알림과 관련된 모달을 띄우고 메시지와 카트는 해당 페이지로 이동해야한다. 그 이후에 컴포넌트로 정의하기*/}
+				<BadgeContainer count={2}>
+					<Bell className="!h-7 !w-7 text-po-gray-150" strokeWidth={2} />
+				</BadgeContainer>
+				<BadgeContainer count={10}>
+					<MessageSquareText
+						className="!h-7 !w-7 text-po-gray-150"
+						strokeWidth={2}
+					/>
+				</BadgeContainer>
+				<BadgeContainer count={10}>
+					<ShoppingCart
+						className="!h-7 !w-7 text-po-gray-150"
+						strokeWidth={2}
+					/>
+				</BadgeContainer>
+				<AvatarMenu />
+				{/* Mobile menu button */}
+				<Suspense fallback={null}>
+					<SideBarMenu />
+				</Suspense>
+			</div>
+		</CommonHeader>
+	)
+}

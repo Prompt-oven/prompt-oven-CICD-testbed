@@ -13,13 +13,19 @@ const categories = [
 
 export function ProfileFilterCategory({
 	value = "",
+	name = "",
 	onChange,
 }: {
 	value?: string
+	name: string
 	onChange?: (value: string) => void
 }) {
 	return (
-		<RadioGroup value={value} onValueChange={onChange} className="space-y-2">
+		<RadioGroup
+			value={value}
+			onValueChange={onChange}
+			className="space-y-2"
+			name={name}>
 			{categories.map((category) => (
 				<div key={category} className="flex items-center space-x-2">
 					<RadioGroupItem

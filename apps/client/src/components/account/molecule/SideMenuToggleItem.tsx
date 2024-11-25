@@ -4,20 +4,18 @@ import type { HTMLAttributes } from "react"
 import React from "react"
 import { ChevronUp } from "@repo/ui/lucide"
 import { cn } from "@/lib/utils.ts"
-import type {
-	MenuItemIconType,
-	SubMenuItemType,
-} from "@/types/account/accountSideMenuType.ts"
 import SideMenuToggleSubItem from "@/components/account/atom/SideMenuToggleSubItem.tsx"
 import { routes } from "@/config/account/route.ts"
 import { useSideMenuToggleStore } from "@/provider/account/sideMenuStoreProvider.tsx"
+import type { MenuIconType, SubMenuItemType } from "@/lib/navigation.ts"
 
 interface SideMenuToggleItemProps extends HTMLAttributes<HTMLDivElement> {
 	label: string
 	view: string
 	activeRoute: string
 	subMenu: SubMenuItemType[]
-	Icon: MenuItemIconType
+	Icon: MenuIconType
+	subMenuProps?: HTMLAttributes<HTMLDivElement>
 }
 
 function SideMenuToggleItem({
@@ -26,6 +24,7 @@ function SideMenuToggleItem({
 	label,
 	view,
 	Icon,
+	                            subMenuProps,
 	...props
 }: SideMenuToggleItemProps) {
 	const { sideMenuItems, toggleSideMenuItem } = useSideMenuToggleStore(
@@ -45,9 +44,9 @@ function SideMenuToggleItem({
 				}}
 				{...props}
 				className={cn(
-					"flex h-[60px] items-center justify-between rounded-lg px-5 py-4 transition-colors hover:bg-white/10",
+					"flex h-[60px] items-center justify-between rounded-lg px-5 py-4 transition-colors hover:!bg-white/10",
 					// note: 상위 메뉴의 색상이 반영되려면 activeRoute 텍스트가 view를 포함하고 있어야 함
-					activeRoute.includes(view) && "text-[#E2ADFF]",
+					activeRoute.includes(view) ? "text-[#E2ADFF]" : "text-white",
 					props.className,
 				)}>
 				<div className="flex items-center gap-3">
@@ -56,15 +55,17 @@ function SideMenuToggleItem({
 				</div>
 				<ChevronUp
 					className={cn(
-						"h-5 w-5 text-white transition-transform",
+						"h-5 w-5 !text-white transition-transform",
 						isOpen ? "rotate-0" : "rotate-180",
 					)}
 				/>
 			</div>
 			<div
+				{...subMenuProps}
 				className={cn(
 					"transition-max-height flex flex-col gap-2 pl-4 duration-500 ease-in",
 					isOpen ? "max-h-screen" : "max-h-0 overflow-hidden",
+					subMenuProps?.className
 				)}>
 				{subMenu.map((item, index) => (
 					<SideMenuToggleSubItem
@@ -72,9 +73,9 @@ function SideMenuToggleItem({
 						key={index}
 						href={{
 							pathname: routes.account,
-							query: { view: item.view },
+							query: { view: item.query },
 						}}
-						view={item.view}
+						view={item.query}
 						label={item.label}
 						activeRoute={activeRoute}
 					/>

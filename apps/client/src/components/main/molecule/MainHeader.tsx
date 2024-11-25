@@ -18,9 +18,10 @@ import {
 import GradientButton from "@/components/common/atom/GradientButton.tsx"
 import Avatar from "@/components/common/atom/Avatar.tsx"
 import MainLogo from "@/components/common/atom/icon/MainLogo.tsx"
-import NavAnchor from "@/components/common/atom/NavAnchor"
+import NavLink from "@/components/common/atom/NavLink"
 import { Search } from "@repo/ui/lucide"
 import SearchInput from "@/components/common/atom/SearchInput"
+import { mainNavs } from "@/lib/navigation.ts"
 
 export default function MainHeader() {
 	const [open, setOpen] = useState(false)
@@ -60,23 +61,16 @@ export default function MainHeader() {
 				{/* Mobile Search Icon */}
 				<Search className="absolute right-20 h-5 w-5 text-[#969696] md:hidden" />
 				{/* Navigation */}
-				<nav className="mx-4 hidden items-center gap-6 xl:flex">
-					<NavAnchor href="/" color="#969696" activeColor="#A913F9">
-						HOME
-					</NavAnchor>
-					<NavAnchor href="/prompts" color="#969696" activeColor="#A913F9">
-						PROMPTS
-					</NavAnchor>
-					<NavAnchor
-						href="/special-exhibition"
-						color="#969696"
-						activeColor="#A913F9">
-						SPECIAL EXHIBITION
-					</NavAnchor>
-					<NavAnchor href="/best" color="#969696" activeColor="#A913F9">
-						BEST
-					</NavAnchor>
-				</nav>
+				<ul className="mx-4 hidden items-center gap-6 xl:flex">
+					{mainNavs.map((nav, index) => (
+						// eslint-disable-next-line react/no-array-index-key -- index is unique
+						<li key={index}>
+							<NavLink href={nav.href} color="#969696" activeColor="#A913F9">
+								{nav.label}
+							</NavLink>
+						</li>
+					))}
+				</ul>
 
 				{/* Right side buttons */}
 				<div className="hidden items-center gap-8 lg:flex">

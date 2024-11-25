@@ -26,6 +26,7 @@
 		"./rating-read-only": "./src/StarRatingReadOnly.tsx",
 		"./dialog": "./src/Dialog.tsx",
 		"./skeleton": "./src/Skeleton.tsx",
+		"./sheet": "./src/Sheet.tsx",
 		"./drawer": "./src/Drawer.tsx"
 	},
 	"license": "MIT",
@@ -72,4 +73,3 @@
 		"vaul": "^1.1.1"
 	}
 }
-
