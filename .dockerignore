@@ -1,9 +1,3 @@
 **/node_modules
-**/.next
-!build-output/**/.next
-**/out
-**/.git
-**/.env*
-**/.turbo
-npm-debug.log*
-.DS_Store
+.turbo
+.git
