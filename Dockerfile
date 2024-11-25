@@ -44,6 +44,9 @@ WORKDIR /app
 # Install pnpm globally
 RUN npm install -g pnpm@9.12.2
 
+RUN mkdir -p packages/typescript-config
+RUN echo '{}' > packages/typescript-config/package.json
+
 # Set production environment
 ENV NODE_ENV=production
 ENV HUSKY=0
