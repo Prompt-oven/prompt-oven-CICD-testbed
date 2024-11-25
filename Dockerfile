@@ -1,5 +1,5 @@
 # Build stage
-FROM node:20-alpine AS builder
+FROM node:20 AS builder
 WORKDIR /prompt_oven_fe
 
 # Install pnpm globally
@@ -25,7 +25,7 @@ COPY . .
 RUN pnpm turbo build
 
 # Runner stage
-FROM node:20-alpine AS runner
+FROM node:20 AS runner
 WORKDIR /prompt_oven_fe
 
 # Install pnpm globally in runner
