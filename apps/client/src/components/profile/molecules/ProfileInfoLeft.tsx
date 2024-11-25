@@ -16,7 +16,7 @@ interface MemberLeftProps {
 
 export default function ProfileInfoLeft({ memberData }: MemberLeftProps) {
 	return (
-		<div className="flex max-w-[25%] flex-col justify-between gap-1 xl:gap-3">
+		<div className="flex flex-grow flex-col justify-between gap-1 xl:gap-3">
 			<ProfileName memberData={memberData} />
 
 			<div className="mt-4 flex items-center gap-2 md:mt-0">
@@ -24,7 +24,7 @@ export default function ProfileInfoLeft({ memberData }: MemberLeftProps) {
 					variant="ghost"
 					className="font-mulish bg-white/50 p-1 font-semibold text-white hover:bg-white/60 md:p-4">
 					<Star className="mx-2" />
-					<span className="mr-2 hidden lg:block">Follow</span>
+					<span className="mr-2 hidden lg:!block">Follow</span>
 				</Button>
 				<DropdownMenu>
 					<DropdownMenuTrigger asChild>

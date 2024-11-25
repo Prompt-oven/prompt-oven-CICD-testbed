@@ -2,7 +2,7 @@ import Image from "next/image"
 import { Badge } from "@repo/ui/badge"
 import { Button } from "@repo/ui/button"
 import { Card } from "@repo/ui/card"
-import StarRate from "@repo/ui/rating-read-only"
+import StarAnimation from "@repo/ui/star-animation"
 import { ShoppingCart } from "@repo/ui/lucide"
 import { PromptCardDateFormatted, PromptIsNew } from "@/lib/utils"
 import type { PromptsType } from "@/types/prompts/promptsType"
@@ -36,7 +36,7 @@ export default function PromptItem({ productInfo }: PromptItemProps) {
 			</div>
 
 			<div className="relative flex h-[80px] flex-col gap-[6px] bg-[#3d2d50] pl-2 pt-1">
-				<StarRate value={productInfo.productStar} fontSize="text-base" />
+				<StarAnimation rateData={productInfo.productStar} noAnimation={false} />
 
 				<div className="flex flex-col gap-1">
 					<h3 className="font-lato text-xs font-semibold text-white">

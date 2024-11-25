@@ -17,7 +17,7 @@ export function ProfileFilterPrice({
 }) {
 	return (
 		<div className="space-y-4">
-			<div className="flex flex-col gap-2">
+			<div className="flex gap-2 md:flex-col">
 				<Input
 					type="number"
 					name={minName}

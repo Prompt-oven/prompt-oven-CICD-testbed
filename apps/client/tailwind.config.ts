@@ -11,6 +11,9 @@ const config: Config = {
 				sora: ["var(--font-sora)", "sans-serif"],
 				roboto: ["var(--font-roboto)", "sans-serif"],
 			},
+			screens: {
+				xs: "480px", // xs 브레이크포인트 추가
+			},
 		},
 	},
 	presets: [sharedConfig],

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { ProfileFilterSearchInput } from "../atoms/filter/ProfileFilterSearchInput"
 import { ProfileFilterSection } from "../atoms/filter/ProfileFilterSection"
 import { ProfileFilterCategory } from "../atoms/filter/ProfileFilterCategory"
@@ -9,6 +9,7 @@ import { ProfileFilterPrice } from "../atoms/filter/ProfileFilterPrice"
 import ProfileSidebarButtonGroup from "../molecules/ProfileSidebarButtonGroup"
 
 export default function ProfileFilterSidebar() {
+	const [sidebarPosition, setSidebarPosition] = useState(0)
 	const [filters, setFilters] = useState({
 		search: "",
 		topCategoryUuid: "",
@@ -29,15 +30,33 @@ export default function ProfileFilterSidebar() {
 		})
 	}
 
-	return (
-		<div className="rounded-lg bg-opacity-20 bg-gradient-to-r from-[#3F1C24] to-[#262038] p-4 sm:max-w-[200px]">
-			<h2 className="mb-4 font-medium text-white">FILTER BY</h2>
+	useEffect(() => {
+		const handleScroll = () => {
+			const scrollY = window.scrollY
+			setSidebarPosition(scrollY * 0.001)
+		}
 
-			<ProfileFilterSearchInput
-				value={filters.search}
-				name="searchBar"
-				onChange={(value) => setFilters({ ...filters, search: value })}
-			/>
+		window.addEventListener("scroll", handleScroll)
+		return () => {
+			window.removeEventListener("scroll", handleScroll)
+		}
+	}, [])
+
+	return (
+		<div
+			className="hidden h-full rounded-lg bg-opacity-20 bg-gradient-to-r from-[#3F1C24] to-[#262038] p-4 xs:!flex xs:flex-col lg:sticky lg:!block lg:max-w-[200px]"
+			style={{
+				top: Math.max(sidebarPosition, 20),
+			}}>
+			<div className="flex justify-between md:!block">
+				<p className="mb-4 text-base font-semibold text-white">필터</p>
+
+				<ProfileFilterSearchInput
+					value={filters.search}
+					name="searchBar"
+					onChange={(value) => setFilters({ ...filters, search: value })}
+				/>
+			</div>
 
 			<ProfileFilterSection title="Category">
 				<ProfileFilterCategory

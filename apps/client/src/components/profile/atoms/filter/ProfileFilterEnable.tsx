@@ -19,7 +19,8 @@ export function ProfileFilterEnable({
 					<CheckBox
 						id={enable}
 						name={name}
-						checked={values.includes(enable)}
+						defaultChecked
+						// checked={values.includes(enable)}
 						onCheckedChange={(checked) => {
 							if (checked) {
 								onChange?.([...values, enable])
