@@ -23,8 +23,7 @@ RUN npm install -g pnpm@9.12.2
 
 # Copy package files and built artifacts
 COPY --from=builder /prompt_oven_fe/pnpm-workspace.yaml /prompt_oven_fe/pnpm-lock.yaml /prompt_oven_fe/package.json /prompt_oven_fe/turbo.json ./
-COPY --from=builder /prompt_oven_fe/packages/ui/package.json ./packages/ui/
-COPY --from=builder /prompt_oven_fe/packages/ui/dist ./packages/ui/dist
+COPY --from=builder /prompt_oven_fe/packages/ ./packages/
 COPY --from=builder /prompt_oven_fe/apps/client/package.json ./apps/client/
 COPY --from=builder /prompt_oven_fe/apps/admin/package.json ./apps/admin/
 COPY --from=builder /prompt_oven_fe/apps/client/.next ./apps/client/.next
