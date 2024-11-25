@@ -45,6 +45,9 @@ jobs:
       
       - name: Install dependencies
         run: pnpm install
+      
+      - name: Build Application to Test
+        run: pnpm turbo build
   
   deploy:
     runs-on: ubuntu-latest
