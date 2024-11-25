@@ -8,16 +8,18 @@ RUN npm install -g pnpm@9.12.2
 # Copy workspace config files first
 COPY pnpm-workspace.yaml pnpm-lock.yaml package.json turbo.json ./
 
+# Create empty typescript-config package to satisfy dependencies
+RUN mkdir -p packages/typescript-config && echo '{"name": "typescript-config"}' > packages/typescript-config/package.json
+
 # Copy package.json files for workspaces
 COPY apps/client/package.json ./apps/client/
 COPY apps/admin/package.json ./apps/admin/
 COPY packages/ui/package.json ./packages/ui/
 COPY packages/config-tailwind/package.json ./packages/config-tailwind/
-COPY packages/typescript-config/package.json ./packages/typescript-config/
 COPY packages/config-eslint/package.json ./packages/config-eslint/
 COPY packages/config-prettier/package.json ./packages/config-prettier/
 
-# Install all dependencies
+# Install dependencies
 RUN pnpm install --frozen-lockfile --ignore-scripts
 
 # Copy source files
@@ -27,10 +29,9 @@ COPY apps/admin/src ./apps/admin/src
 COPY apps/admin/public ./apps/admin/public
 COPY packages/ui/src ./packages/ui/src
 COPY packages/config-tailwind ./packages/config-tailwind
-COPY packages/typescript-config ./packages/typescript-config
 COPY packages/config-eslint ./packages/config-eslint
 
-# Disable husky
+# Disable husky and telemetry
 ENV HUSKY=0
 ENV NEXT_TELEMETRY_DISABLED=1
 
@@ -44,10 +45,7 @@ WORKDIR /app
 # Install pnpm globally
 RUN npm install -g pnpm@9.12.2
 
-RUN mkdir -p packages/typescript-config
-RUN echo '{}' > packages/typescript-config/package.json
-
-# Set production environment
+# Set production environment and disable hooks
 ENV NODE_ENV=production
 ENV HUSKY=0
 ENV NEXT_TELEMETRY_DISABLED=1
@@ -55,11 +53,13 @@ ENV NEXT_TELEMETRY_DISABLED=1
 # Copy workspace config files
 COPY pnpm-workspace.yaml pnpm-lock.yaml package.json turbo.json ./
 
+# Create minimal typescript-config package
+RUN mkdir -p packages/typescript-config && echo '{"name": "typescript-config"}' > packages/typescript-config/package.json
+
 # Copy built artifacts and package.json files
 COPY --from=builder /app/packages/ui/package.json ./packages/ui/
 COPY --from=builder /app/packages/ui/dist ./packages/ui/dist
 COPY --from=builder /app/packages/config-tailwind/package.json ./packages/config-tailwind/
-COPY --from=builder /app/packages/typescript-config/package.json ./packages/typescript-config/
 COPY --from=builder /app/apps/client/package.json ./apps/client/
 COPY --from=builder /app/apps/admin/package.json ./apps/admin/
 COPY --from=builder /app/apps/client/.next ./apps/client/.next
