@@ -20,7 +20,7 @@ import Avatar from "@/components/common/atom/Avatar.tsx"
 import MainLogo from "@/components/common/atom/icon/MainLogo.tsx"
 import NavLink from "@/components/common/atom/NavLink"
 import { Search } from "@repo/ui/lucide"
-import SearchInput from "@/components/common/atom/SearchInput"
+import SearchInput from "@/components/common/atom/SearchInputWrapper"
 import { mainNavs } from "@/lib/navigation.ts"
 
 export default function MainHeader() {
