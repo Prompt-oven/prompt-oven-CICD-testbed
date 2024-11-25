@@ -8,13 +8,9 @@ RUN npm install -g pnpm@9.12.2
 # Copy workspace configuration files first
 COPY pnpm-workspace.yaml pnpm-lock.yaml package.json turbo.json ./
 
-# Copy all package.json files from workspace packages
+# Copy package.json files from workspace packages
 COPY apps/client/package.json ./apps/client/package.json
 COPY apps/admin/package.json ./apps/admin/package.json
-COPY packages/eslint-config/package.json ./packages/eslint-config/package.json
-
-# Copy the shared package files
-COPY packages/eslint-config ./packages/eslint-config
 
 # Install dependencies
 RUN pnpm install --frozen-lockfile
@@ -36,10 +32,9 @@ RUN npm install -g pnpm@9.12.2
 COPY pnpm-workspace.yaml pnpm-lock.yaml package.json turbo.json ./
 COPY apps/client/package.json ./apps/client/package.json
 COPY apps/admin/package.json ./apps/admin/package.json
-COPY packages/eslint-config/package.json ./packages/eslint-config/package.json
 
 # Install production dependencies only
-RUN pnpm install --frozen-lockfile --prod
+RUN pnpm install --prod --frozen-lockfile
 
 # Copy built assets from builder
 COPY --from=builder /app/apps/client/.next ./apps/client/.next
@@ -48,6 +43,9 @@ COPY --from=builder /app/apps/admin/.next ./apps/admin/.next
 # Copy public directories if they exist
 COPY --from=builder /app/apps/client/public ./apps/client/public
 COPY --from=builder /app/apps/admin/public ./apps/admin/public
+
+# Add sharp for better image optimization
+RUN npm install sharp
 
 # Start both applications
 CMD ["sh", "-c", "pnpm --filter client start & pnpm --filter admin start"]
