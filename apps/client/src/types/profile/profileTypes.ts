@@ -18,7 +18,7 @@ export interface ProfileListCardType {
 	productUUID: string
 	thumbnailUrl: string
 	productName: string
-	categoryName: string
+	llmId: number
 	productStar: number
 	productPrice: number
 	productRegistDate: string

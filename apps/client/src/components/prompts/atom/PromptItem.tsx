@@ -1,18 +1,18 @@
-import Link from "next/link"
 import Image from "next/image"
-import { ShoppingCart } from "@repo/ui/lucide"
-import { Card } from "@repo/ui/card"
+import Link from "next/link"
 import { Badge } from "@repo/ui/badge"
 import { Button } from "@repo/ui/button"
+import { Card } from "@repo/ui/card"
 import StarAnimation from "@repo/ui/star-animation"
-import type { ProfileListCardType } from "@/types/profile/profileTypes"
+import { ShoppingCart } from "@repo/ui/lucide"
 import { PromptCardDateFormatted, PromptIsNew } from "@/lib/utils"
+import type { PromptsType } from "@/types/prompts/promptsType"
 
-interface ProfileCardProps {
-	productInfo: ProfileListCardType
+interface PromptItemProps {
+	productInfo: PromptsType
 }
 
-export default function ProfilePromptItem({ productInfo }: ProfileCardProps) {
+export default function PromptItem({ productInfo }: PromptItemProps) {
 	const formattedDate = PromptCardDateFormatted(productInfo.productRegistDate)
 	const isNew = PromptIsNew(productInfo.productRegistDate)
 
