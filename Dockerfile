@@ -1,42 +1,68 @@
 # Build stage
-FROM node:20 AS builder
-WORKDIR /prompt_oven_fe
+FROM node:20-alpine AS builder
+WORKDIR /app
 
 # Install pnpm globally
 RUN npm install -g pnpm@9.12.2
 
-# Copy source files
-COPY . .
+# Copy workspace config files first
+COPY pnpm-workspace.yaml pnpm-lock.yaml package.json turbo.json ./
 
-# Install all dependencies (including devDependencies)
-RUN pnpm install
+# Copy package.json files for all workspaces
+COPY packages/ui/package.json ./packages/ui/
+COPY packages/tailwind-config/package.json ./packages/tailwind-config/
+COPY packages/typescript-config/package.json ./packages/typescript-config/
+COPY apps/client/package.json ./apps/client/
+COPY apps/admin/package.json ./apps/admin/
+
+# Install all dependencies (excluding lint-related ones)
+RUN pnpm install --frozen-lockfile --ignore-scripts \
+    && pnpm remove -r husky lint-staged @repo/eslint-config @repo/config-prettier \
+    && pnpm install --frozen-lockfile --ignore-scripts
+
+# Copy necessary source files
+COPY packages/ui/src ./packages/ui/src
+COPY packages/ui/tailwind.config.js ./packages/ui/
+COPY packages/tailwind-config ./packages/tailwind-config
+COPY packages/typescript-config ./packages/typescript-config
+COPY apps/client/src ./apps/client/src
+COPY apps/client/public ./apps/client/public
+COPY apps/admin/src ./apps/admin/src
+COPY apps/admin/public ./apps/admin/public
+
+# Disable husky
+ENV HUSKY=0
 
 # Build applications
-RUN pnpm turbo build
+RUN pnpm turbo build --filter=client... --filter=admin...
 
 # Runner stage
-FROM node:20 AS runner
-WORKDIR /prompt_oven_fe
+FROM node:20-alpine AS runner
+WORKDIR /app
 
-# Install pnpm globally in runner
+# Install pnpm globally
 RUN npm install -g pnpm@9.12.2
 
-# Copy package files and built artifacts
-COPY --from=builder /prompt_oven_fe/pnpm-workspace.yaml /prompt_oven_fe/pnpm-lock.yaml /prompt_oven_fe/package.json /prompt_oven_fe/turbo.json ./
-COPY --from=builder /prompt_oven_fe/packages/ ./packages/
-COPY --from=builder /prompt_oven_fe/apps/client/package.json ./apps/client/
-COPY --from=builder /prompt_oven_fe/apps/admin/package.json ./apps/admin/
-COPY --from=builder /prompt_oven_fe/apps/client/.next ./apps/client/.next
-COPY --from=builder /prompt_oven_fe/apps/admin/.next ./apps/admin/.next
-COPY --from=builder /prompt_oven_fe/apps/client/public ./apps/client/public
-COPY --from=builder /prompt_oven_fe/apps/admin/public ./apps/admin/public
-
-# Install production dependencies only
-RUN pnpm install --prod
-
-# Set environment variables
+# Set production environment
 ENV NODE_ENV=production
+ENV HUSKY=0
 ENV NEXT_TELEMETRY_DISABLED=1
+
+# Copy workspace config files
+COPY pnpm-workspace.yaml pnpm-lock.yaml package.json turbo.json ./
+
+# Copy built artifacts and package.json files
+COPY --from=builder /app/packages/ui/package.json ./packages/ui/
+COPY --from=builder /app/packages/ui/dist ./packages/ui/dist
+COPY --from=builder /app/apps/client/package.json ./apps/client/
+COPY --from=builder /app/apps/admin/package.json ./apps/admin/
+COPY --from=builder /app/apps/client/.next ./apps/client/.next
+COPY --from=builder /app/apps/admin/.next ./apps/admin/.next
+COPY --from=builder /app/apps/client/public ./apps/client/public
+COPY --from=builder /app/apps/admin/public ./apps/admin/public
+
+# Install only production dependencies
+RUN pnpm install --prod --frozen-lockfile --ignore-scripts
 
 # Expose ports
 EXPOSE 3000
