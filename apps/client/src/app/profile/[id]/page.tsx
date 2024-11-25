@@ -9,7 +9,7 @@ export default async function Profile() {
 	const listData = await getProfileList()
 
 	return (
-		<main className="bg-[#111111] py-1">
+		<main className="container mx-auto bg-[#111111] py-1">
 			<ProfileTemplate memberData={memberData} listData={listData} />
 		</main>
 	)
