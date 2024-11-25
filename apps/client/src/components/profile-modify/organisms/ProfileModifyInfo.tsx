@@ -3,7 +3,7 @@
 import Link from "next/link"
 import { Button } from "@repo/ui/button"
 import { uploadImage } from "@/action/s3/s3UploadAction"
-import { useProfileModify } from "@/hooks/profile-modify/useProfileModify"
+import { useProfileModify } from "@/hooks/modify/useProfileModify"
 import type { ProfileModifyType } from "@/types/profile/profileModifyTypes"
 import type { ProfileMemberInfoType } from "@/types/profile/profileTypes"
 import ProfileModifyAvatar from "../molecules/ProfileModifyAvatar"
@@ -83,20 +83,20 @@ export default function ProfileModifyInfo({ memberData }: MemberDataProps) {
 	return (
 		<div className="mb-20">
 			<form action={handleForm}>
-				<div className="h-[350px] xl:h-[400px]">
+				<div className="mx-2">
 					<ProfileModifyBanner
 						memberBanner={banner}
 						handleFileChange={handleBannerChange}
 						handleReset={handleReset}
 					/>
-					<div className="relative -top-[6.5rem] z-[5] mx-10 mt-10 flex h-24 items-center justify-between gap-4 md:h-40 xl:-top-[7.5rem] xl:h-44">
+					<div className="relative -top-[3.5rem] z-[5] mx-10 flex flex-col gap-4 md:-top-[5.5rem] md:h-40 md:!flex-row md:items-center md:justify-between xl:h-44">
 						<ProfileModifyAvatar
 							memberAvatar={avatar}
 							handleFileChange={handleAvatarChange}
 							handleReset={handleReset}
 						/>
 
-						<div className="mt-[90px] flex h-[175px] flex-grow justify-between gap-2 rounded-xl bg-gradient-to-r from-[#B514F1] to-[#0BA9FF] p-4 md:mt-0 md:h-[90%] md:items-center md:p-8">
+						<div className="flex flex-grow justify-between gap-2 rounded-xl bg-gradient-to-r from-[#B514F1] to-[#0BA9FF] p-4 md:h-[90%] md:items-center">
 							<ProfileModifyInfoLeft
 								hashTag={hashTag}
 								nickname={nickname}
