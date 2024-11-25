@@ -46,30 +46,41 @@
 }
 /* Profile Scroll-bar END*/
 
+/* 스타 START */
+.star-rating__foreground {
+	position: absolute;
+	top: 0;
+	left: 0;
+	overflow: hidden;
+	white-space: nowrap;
+	width: 0;
+	transition: width 1.5s ease-in-out;
+}
+/* 스타 END */
 
 @layer components {
 	.gradient-button-1 {
-		background: linear-gradient(98.49deg, #A913F9 -11.31%, #9D3D81 76.26%);
+		background: linear-gradient(98.49deg, #a913f9 -11.31%, #9d3d81 76.26%);
 	}
 
 	.gradient-button-2 {
-		background: linear-gradient(98.49deg, #A913F9 -11.31%, #3F5EFB 76.26%);
+		background: linear-gradient(98.49deg, #a913f9 -11.31%, #3f5efb 76.26%);
 	}
 
 	.gradient-carousel {
-		background: linear-gradient(98.49deg, #A913F9 -11.31%, #F913C4 76.26%);
+		background: linear-gradient(98.49deg, #a913f9 -11.31%, #f913c4 76.26%);
 	}
 
 	.gradient-desc-title {
-		background: linear-gradient(98.49deg, #A913F9 -11.31%, #FC466B 76.26%);
+		background: linear-gradient(98.49deg, #a913f9 -11.31%, #fc466b 76.26%);
 	}
 
 	.gradient-profile-banner {
-		background: linear-gradient(116.85deg, #B514F1 0%, #0BA9FF 100%);
+		background: linear-gradient(116.85deg, #b514f1 0%, #0ba9ff 100%);
 	}
 
 	.gradient-filter {
-		background: linear-gradient(116.85deg, #3F1C24 0%, #262038 100%);
+		background: linear-gradient(116.85deg, #3f1c24 0%, #262038 100%);
 	}
 
 	/*.gradient-filter-1 {*/

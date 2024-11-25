@@ -1,6 +1,7 @@
 import type { ProfileListCardType } from "@/types/profile/profileTypes"
 import ProfileFilterSidebar from "./ProfileFilterSidebar"
 import ProfileItemFilter from "./ProfileItemFilter"
+import ProfilePromptList from "./ProfilePromptList"
 
 interface ProfilePromptProps {
 	listData: ProfileListCardType[]
@@ -13,14 +14,14 @@ export default function ProfilePrompt({
 }: ProfilePromptProps) {
 	return (
 		<form action={handleFilter}>
-			<div className="mx-10 mb-16 flex flex-col gap-8 sm:flex-row">
+			<div className="mx-12 mb-16 flex flex-col gap-8 md:!flex-row">
 				<ProfileFilterSidebar />
 				<div className="flex w-full flex-col gap-8">
 					<ProfileItemFilter
 						promptCount={listData.length}
 						handleFilter={handleFilter}
 					/>
-					{/* <ProfilePromptList listData={listData} /> */}
+					<ProfilePromptList listData={listData} />
 				</div>
 			</div>
 		</form>

@@ -4,7 +4,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { useState } from "react"
 import { Avatar, AvatarFallback, AvatarImage } from "@repo/ui/avatar"
-import StarRatingReadOnly from "@repo/ui/rating-read-only"
+import StarAnimation from "@repo/ui/star-animation"
 import type { PromptDetailInfoType } from "@/types/prompt-detail/promptDetailType"
 
 interface PromptDetailHoverMouseProps {
@@ -47,7 +47,10 @@ export default function PromptDetailHoverMouse({
 									</span>
 								</p>
 								<div className="flex items-center gap-4">
-									<StarRatingReadOnly value={productDetail.productStar} />
+									<StarAnimation
+										rateData={productDetail.productStar}
+										noAnimation={false}
+									/>
 									<span className="mt-1 text-xs font-semibold">
 										( {productDetail.productReviewCount} )
 									</span>

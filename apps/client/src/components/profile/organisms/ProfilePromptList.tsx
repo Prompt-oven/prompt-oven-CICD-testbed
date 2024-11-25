@@ -15,7 +15,7 @@ interface ProfileListProps {
 export default function ProfilePromptList({ listData }: ProfileListProps) {
 	return (
 		<div>
-			<ul className="grid grid-cols-2 gap-8 lg:grid-cols-3 2xl:grid-cols-4">
+			<ul className="grid grid-cols-2 gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
 				{listData.length > 0
 					? listData.map((item) => (
 							<ProfilePromptItem key={item.productUUID} productInfo={item} />
@@ -27,27 +27,3 @@ export default function ProfilePromptList({ listData }: ProfileListProps) {
 		</div>
 	)
 }
-
-// import React from "react"
-// import type { ProfileListCardType } from "@/types/profile/profileTypes"
-// import ProfilePromptItem from "../molecules/ProfilePromptItem"
-// import ProfileLoadMore from "../molecules/ProfileLoadMore"
-
-// interface ProfileListProps {
-// 	listData: ProfileListCardType[]
-// }
-
-// export default function ProfilePromptList({ listData }: ProfileListProps) {
-// 	return (
-// 		<>
-// 			<div className="grid grid-cols-2 gap-8 xl:grid-cols-3 2xl:grid-cols-4">
-// 				{listData.length > 0
-// 					? listData.map((item) => (
-// 							<ProfilePromptItem key={item.productUUID} productInfo={item} />
-// 						))
-// 					: null}
-// 			</div>
-// 			<ProfileLoadMore />
-// 		</>
-// 	)
-// }
