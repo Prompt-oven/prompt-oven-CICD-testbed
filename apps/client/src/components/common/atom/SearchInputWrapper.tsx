@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from "react"
 import { Search } from "@repo/ui/lucide"
 import { Button } from "@repo/ui/button"
 import { Input } from "@repo/ui/input"
-import { SearchDialogDrawerWrapper } from "../molecule/SearchDialogDrawerWrapper"
+import { SearchDialogDrawer } from "../molecule/SearchDialogDrawer"
 
 interface SearchInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 	width?: string
@@ -42,12 +42,13 @@ export default function SearchInputWrapper({
 	return (
 		<div className="relative flex w-full items-center justify-end">
 			{/* md 이하: Search 아이콘 */}
-			<Button className="p-2 lg:!hidden" onClick={() => setIsOpen(true)}>
-				<Search className="h-6 w-6 text-[#969696]" />{" "}
-				{/* 수빈 - md 이하로 화면 사이즈가 줄었을 때 search 아이콘이 보이지 않음 */}
+			<Button
+				className="mr-[-2rem] h-[3rem] w-[3rem] rounded-[100%] bg-[#1B1B1B] !p-2 md:!hidden"
+				onClick={() => setIsOpen(true)}>
+				<Search className="!h-6 !w-6 text-[#969696]" />
 			</Button>
 			{/* md 이상: 검색창 */}
-			<div className="flex hidden h-8 w-full items-center lg:!block lg:!flex">
+			<div className="flex hidden h-8 w-full items-center md:!block md:!flex">
 				<Input
 					ref={inputRef}
 					value={query}
@@ -77,8 +78,7 @@ export default function SearchInputWrapper({
 					</Button>
 				</div>
 			</div>
-			<SearchDialogDrawerWrapper setIsOpen={setIsOpen} isOpen={isOpen} />
-			{/* 수빈 - searchdialogdrawerwrapper 의 dialog 와 drawer 가 보이지 않음 */}
+			<SearchDialogDrawer setIsOpen={setIsOpen} isOpen={isOpen} />
 		</div>
 	)
 }

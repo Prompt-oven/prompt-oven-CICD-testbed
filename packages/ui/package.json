@@ -27,7 +27,8 @@
 		"./dialog": "./src/Dialog.tsx",
 		"./skeleton": "./src/Skeleton.tsx",
 		"./sheet": "./src/Sheet.tsx",
-		"./drawer": "./src/Drawer.tsx"
+		"./drawer": "./src/Drawer.tsx",
+		"./tabs": "./src/Tabs.tsx"
 	},
 	"license": "MIT",
 	"scripts": {
@@ -63,6 +64,7 @@
 		"@radix-ui/react-radio-group": "^1.2.1",
 		"@radix-ui/react-select": "^2.1.2",
 		"@radix-ui/react-slot": "^1.1.0",
+		"@radix-ui/react-tabs": "^1.1.1",
 		"@radix-ui/react-toast": "^1.2.2",
 		"class-variance-authority": "^0.7.0",
 		"clsx": "^2.1.1",
@@ -72,3 +74,4 @@
 		"vaul": "^1.1.1"
 	}
 }
+
