@@ -7,6 +7,10 @@ RUN npm install -g pnpm@9.12.2
 # Don't run production as root
 RUN addgroup --system --gid 1001 nodejs && \
     adduser --system --uid 1001 nextjs
+
+# Set proper ownership for the app directory
+RUN chown nextjs:nodejs /app
+
 USER nextjs
 
 # Copy package files
@@ -21,9 +25,12 @@ RUN pnpm install --prod --frozen-lockfile
 COPY --chown=nextjs:nodejs artifact/client-next ./apps/client/.next
 COPY --chown=nextjs:nodejs artifact/admin-next ./apps/admin/.next
 
-# Copy public directories if they exist
-COPY --chown=nextjs:nodejs artifact/client-public ./apps/client/public || true
-COPY --chown=nextjs:nodejs artifact/admin-public ./apps/admin/public || true
+# Create public directories
+RUN mkdir -p ./apps/client/public ./apps/admin/public
+
+# Copy public directories (if they exist in artifact)
+COPY --chown=nextjs:nodejs artifact/client-public/. ./apps/client/public/ 2>/dev/null || true
+COPY --chown=nextjs:nodejs artifact/admin-public/. ./apps/admin/public/ 2>/dev/null || true
 
 # Install sharp for image optimization
 RUN npm install sharp
