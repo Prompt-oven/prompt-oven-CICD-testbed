@@ -2,9 +2,8 @@
 
 import Link from "next/link"
 import { Button } from "@repo/ui/button"
-import { uploadImage } from "@/action/s3/s3UploadAction"
-import { useProfileModify } from "@/hooks/modify/useProfileModify"
-import type { ProfileModifyType } from "@/types/profile/profileModifyTypes"
+import { useModify } from "@/hooks/modify/useModify"
+import type { CommonModifyType } from "@/types/modify/commonModifyTypes"
 import type { ProfileMemberInfoType } from "@/types/profile/profileTypes"
 import ProfileModifyAvatar from "../molecules/ProfileModifyAvatar"
 import ProfileModifyBanner from "../molecules/ProfileModifyBanner"
@@ -28,55 +27,45 @@ export default function ProfileModifyInfo({ memberData }: MemberDataProps) {
 		handleBannerChange,
 		handleAvatarChange,
 		handleInputChange,
+		handleImageUpload,
 		handleReset,
-	} = useProfileModify(memberData)
+	} = useModify(memberData)
 
 	const handleForm = async (formData: FormData) => {
 		const uploadBanner = formData.get("bannerImageUrl") as string | undefined
-		const auplaodAvatar = formData.get("avatarImageUrl") as string | undefined
+		const uploadAvatar = formData.get("avatarImageUrl") as string | undefined
 
-		if (
-			uploadBanner !== undefined &&
-			uploadBanner !== memberData.bannerImageUrl
-		) {
-			if (uploadBanner !== memberData.bannerImageUrl) {
-				const result = await uploadImage(uploadBanner, "profile")
-				if (result.isSuccess) {
-					formData.set("bannerImageUrl", result.responseImageUrl as string)
-				} else {
-					// eslint-disable-next-line no-alert -- Comments to notify you of failed image upload
-					alert("이미지 업로드에 실패하였습니다.")
-					return
-				}
-			}
-		}
+		// 배너 이미지 업로드 처리
+		const isBannerUploaded = await handleImageUpload(
+			formData,
+			uploadBanner,
+			memberData.bannerImageUrl,
+			"bannerImageUrl",
+			"profile",
+		)
+		if (!isBannerUploaded) return
 
-		if (
-			auplaodAvatar !== undefined &&
-			auplaodAvatar !== memberData.avatarImageUrl
-		) {
-			if (auplaodAvatar !== memberData.avatarImageUrl) {
-				const result = await uploadImage(auplaodAvatar, "profile")
-				if (result.isSuccess) {
-					formData.set("avatarImageUrl", result.responseImageUrl as string)
-				} else {
-					// eslint-disable-next-line no-alert -- Comments to notify you of failed image upload
-					alert("이미지 업로드에 실패하였습니다.")
-					return
-				}
-			}
-		}
+		// 아바타 이미지 업로드 처리
+		const isAvatarUploaded = await handleImageUpload(
+			formData,
+			uploadAvatar,
+			memberData.avatarImageUrl,
+			"avatarImageUrl",
+			"profile",
+		)
+		if (!isAvatarUploaded) return
 
-		const payload: ProfileModifyType = {
+		const payload: CommonModifyType = {
 			memberUUID: "test",
 			bannerImageUrl: formData.get("bannerImageUrl") as string | undefined,
 			avatarImageUrl: formData.get("avatarImageUrl") as string | undefined,
 			hashTag: formData.get("hashTag") as string,
 			bio: formData.get("bio") as string,
-			email: formData.get("email") as string,
+			email: formData.get("email") as string | undefined,
 			nickname: formData.get("nickname") as string,
 		}
-		// eslint-disable-next-line no-console -- This is a server-side only log
+
+		// eslint-disable-next-line no-console -- test Console
 		console.log(payload)
 	}
 
