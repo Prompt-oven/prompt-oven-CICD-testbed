@@ -17,8 +17,8 @@ function SideMenu({ menuItems, activeRoute }: AccountSideMenuProps) {
 				"z-5 absolute inset-y-0 left-0 w-64 -translate-x-full transform border-r-[1px] border-[#424242] bg-[#111111] text-white transition-transform duration-200 ease-in-out lg:!relative lg:!translate-x-0",
 				// isMobileMenuOpen ? "translate-x-0" : "-translate-x-full",
 			)}>
-			<div className="flex h-full flex-1 flex-col overflow-y-auto">
-				<div className="flex flex-col gap-2 p-4">
+			<div className="common-scrollbar-y flex h-full flex-1 flex-col">
+				<div className="flex flex-col gap-2 p-4 !pr-2">
 					{menuItems.map((item, index) =>
 						item.subMenu ? (
 							<SideMenuToggleItem
