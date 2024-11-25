@@ -1,5 +1,5 @@
 import React from "react"
-import PromptDetailSadImoticon from "../atoms/PromptDetailSadImoticon"
+import PromptDetailSadImoticon from "../PromptDetailSadImoticon"
 
 export default function PromptDetailNoReview() {
 	return (

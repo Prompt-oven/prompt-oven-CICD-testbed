@@ -1,7 +1,7 @@
 "use client"
 
 import { ChevronLeft, ChevronRight } from "@repo/ui/lucide"
-import PropmtDetailCategoryItem from "../molecules/PropmtDetailCategoryItem"
+import PropmtDetailCategoryItem from "../atoms/PropmtDetailCategoryItem"
 
 interface PropmtDetailCategoryListProps {
 	categories: { title: string; images: string[] }[]

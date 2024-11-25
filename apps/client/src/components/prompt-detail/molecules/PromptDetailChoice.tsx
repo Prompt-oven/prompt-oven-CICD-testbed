@@ -12,7 +12,7 @@ export default function PromptDetailChoice({
 	isCart,
 }: PromptDetailChoiceProps) {
 	return (
-		<div className="mr-2 mt-5 flex justify-between xl:mr-4">
+		<div className="mr-2 flex flex-col justify-between gap-6 xs:!flex-row xs:gap-0 xl:mr-4">
 			<div className="flex gap-6">
 				<Button
 					variant="outline"

@@ -13,7 +13,7 @@ export default async function PromptDetail() {
 	const categories = await getDetailCategory()
 
 	return (
-		<main className="flex min-h-screen flex-col justify-center overflow-auto bg-[#111111] p-20">
+		<main className="container mx-auto bg-[#111111] py-1">
 			<PromptDetailTemplate
 				productDetail={productDetail}
 				productReview={productReview}

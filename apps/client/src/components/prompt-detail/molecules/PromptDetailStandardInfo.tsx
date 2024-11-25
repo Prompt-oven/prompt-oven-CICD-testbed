@@ -17,7 +17,6 @@ export default function PromptDetailStandardInfo({
 	productReviewCount,
 }: PromptDetailStandardInfoProps) {
 	const formattedDate = new Date(productRegistDate).toISOString().split("T")[0]
-
 	const formattedNumber = productPrice.toFixed(2)
 
 	return (
