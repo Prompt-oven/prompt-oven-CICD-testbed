@@ -8,27 +8,22 @@ RUN npm install -g pnpm@9.12.2
 # Copy workspace config files first
 COPY pnpm-workspace.yaml pnpm-lock.yaml package.json turbo.json ./
 
-# Copy package.json files for all workspaces
-COPY packages/ui/package.json ./packages/ui/
-COPY packages/tailwind-config/package.json ./packages/tailwind-config/
-COPY packages/typescript-config/package.json ./packages/typescript-config/
+# Copy package.json files for workspaces
 COPY apps/client/package.json ./apps/client/
 COPY apps/admin/package.json ./apps/admin/
+COPY packages/ui/package.json ./packages/ui/
 
-# Install all dependencies (excluding lint-related ones)
+# Install dependencies (excluding lint-related ones)
 RUN pnpm install --frozen-lockfile --ignore-scripts \
     && pnpm remove -r husky lint-staged @repo/eslint-config @repo/config-prettier \
     && pnpm install --frozen-lockfile --ignore-scripts
 
-# Copy necessary source files
-COPY packages/ui/src ./packages/ui/src
-COPY packages/ui/tailwind.config.js ./packages/ui/
-COPY packages/tailwind-config ./packages/tailwind-config
-COPY packages/typescript-config ./packages/typescript-config
+# Copy source files
 COPY apps/client/src ./apps/client/src
 COPY apps/client/public ./apps/client/public
 COPY apps/admin/src ./apps/admin/src
 COPY apps/admin/public ./apps/admin/public
+COPY packages/ui/src ./packages/ui/src
 
 # Disable husky
 ENV HUSKY=0
