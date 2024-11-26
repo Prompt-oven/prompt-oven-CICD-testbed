@@ -4,6 +4,7 @@ WORKDIR /app
 
 # Install pnpm
 RUN npm install -g pnpm@9.12.2
+RUN pnpm store prune
 
 # Copy package files
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml turbo.json ./
