@@ -11,7 +11,7 @@ COPY apps/client/package.json ./apps/client/package.json
 COPY apps/admin/package.json ./apps/admin/package.json
 
 # Install dependencies
-RUN pnpm install
+RUN pnpm install --prod
 
 # Copy source code
 COPY . .
@@ -32,7 +32,7 @@ COPY apps/client/package.json ./apps/client/package.json
 COPY apps/admin/package.json ./apps/admin/package.json
 
 # Install production dependencies only
-RUN pnpm install --prod
+RUN pnpm install -P
 
 # Copy built assets from builder
 COPY --from=builder /app/apps/client/.next ./apps/client/.next
