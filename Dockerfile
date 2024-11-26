@@ -2,6 +2,10 @@
 FROM node:20-alpine AS builder
 WORKDIR /app
 
+# Disable husky and next telemetry
+ENV HUSKY=0
+ENV NEXT_TELEMETRY_DISABLED=1
+
 # Install pnpm
 RUN npm install -g pnpm@9.12.2
 RUN pnpm store prune
@@ -12,7 +16,7 @@ COPY apps/client/package.json ./apps/client/package.json
 COPY apps/admin/package.json ./apps/admin/package.json
 
 # Install dependencies
-RUN pnpm install --prod
+RUN pnpm install --prod 
 
 # Copy source code
 COPY . .
@@ -23,6 +27,10 @@ RUN pnpm turbo build
 # Stage 2: Production environment
 FROM node:20-alpine AS runner
 WORKDIR /app
+
+# Disable husky and next telemetry
+ENV HUSKY=0
+ENV NEXT_TELEMETRY_DISABLED=1
 
 # Install pnpm
 RUN npm install -g pnpm@9.12.2
